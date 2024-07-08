@@ -6,8 +6,8 @@ public class ProdottoElettronico extends Prodotto {
 
 
 
-   public ProdottoElettronico(String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id, float dimSchermo, TipoElettronico tipoElettronico){
-       super(marca, modello, prezzoAcquisto, prezzoVendita, id);
+   public ProdottoElettronico(String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id, int quantita, float dimSchermo, TipoElettronico tipoElettronico){
+       super(marca, modello, prezzoAcquisto, prezzoVendita, id, quantita);
        this.dimSchermo = dimSchermo;
        this.tipoElettronico = tipoElettronico;
    }
