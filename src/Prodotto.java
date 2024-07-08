@@ -3,29 +3,30 @@ public abstract class Prodotto {
 	protected String marca;
 	protected String modello;
 	protected String descrizione;
-
 	protected double prezzoAcquisto;
 	protected double prezzoVendita;
 	protected int id;
+	protected int quantita;
 	protected int numVendite;
 
-	public Prodotto( String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id ) {
+	public Prodotto( String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id, int quantita ) {
 		this.marca = marca;
 		this.modello = modello;
 		this.prezzoAcquisto = prezzoAcquisto;
 		this.prezzoVendita = prezzoVendita;
 		this.id = id;
+		this.quantita = quantita;
 		numVendite = 0;
 	}
 
-	public Prodotto( String marca, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, int id ) {
+	public Prodotto( String marca, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, int id, int quantita ) {
 		this.marca = marca;
 		this.modello = modello;
 		this.descrizione = descrizione;
-		//this.dimSchermo = dimSchermo;
 		this.prezzoAcquisto = prezzoAcquisto;
 		this.prezzoVendita = prezzoVendita;
 		this.id = id;
+		this.quantita = quantita;
 		numVendite = 0;
 	}
 
