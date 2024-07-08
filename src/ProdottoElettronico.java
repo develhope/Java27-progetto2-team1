@@ -32,4 +32,17 @@ public class ProdottoElettronico extends Prodotto {
     public double calcolaSpesaMedia() {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return " Prodotto: " + '\'' +
+                "Tipo Elettronico: " + tipoElettronico +  '\'' +
+                "Dimensione Schermo: " + dimSchermo +
+                "Marca: " + marca + '\'' +
+                "Modello: " + modello + '\'' +
+                "Descrizione: " + descrizione + '\'' +
+                "Prezzo: " + prezzoVendita +
+                "ID: " + id;
+
+    }
 }
