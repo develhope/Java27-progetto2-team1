@@ -1,12 +1,13 @@
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Magazzino {
 
     //Accetta tipi ProdottoElettronico
-    private ArrayList<ProdottoElettronico> magazzino;
+    private Set<ProdottoElettronico> magazzino;
 
     public Magazzino() {
-        magazzino = new ArrayList<>();
+        magazzino = new HashSet<>();
     }
     //Ritorna il totale degli articoli presenti in magazzino.
     public int totaleProdotti(){
@@ -15,8 +16,8 @@ public class Magazzino {
 
 
     //Lista filtrata per tipo
-    public ArrayList<ProdottoElettronico> filtredBytype(String type){
-        ArrayList<ProdottoElettronico> filteredList = new ArrayList<>();
+    public Set<ProdottoElettronico> filtredBytype(String type){
+        Set<ProdottoElettronico> filteredList = new HashSet<>();
         for (ProdottoElettronico device : magazzino) {
             if (device.getTipoElettronico().toString().equalsIgnoreCase(type)) {
                 filteredList.add(device);
@@ -24,8 +25,8 @@ public class Magazzino {
         }
         return filteredList;
     }
-    public ArrayList<ProdottoElettronico> filtredByModel(String type){
-        ArrayList<ProdottoElettronico> filteredList = new ArrayList<>();
+    public Set<ProdottoElettronico> filtredByModel(String type){
+        Set<ProdottoElettronico> filteredList = new HashSet<>();
         for (ProdottoElettronico device : magazzino) {
             if (device.getModello().equalsIgnoreCase(type)) {
                 filteredList.add(device);
@@ -33,8 +34,8 @@ public class Magazzino {
         }
         return filteredList;
     }
-    public ArrayList<ProdottoElettronico> filtredByProducer(String type){
-        ArrayList<ProdottoElettronico> filteredList = new ArrayList<>();
+    public Set<ProdottoElettronico> filtredByProducer(String type){
+        Set<ProdottoElettronico> filteredList = new HashSet<>();
         for (ProdottoElettronico device : magazzino) {
             if (device.getMarca().equalsIgnoreCase(type)) {
                 filteredList.add(device);
@@ -42,8 +43,8 @@ public class Magazzino {
         }
         return filteredList;
     }
-    public ArrayList<ProdottoElettronico> filtredBySellPrice(float price){
-        ArrayList<ProdottoElettronico> filteredList = new ArrayList<>();
+    public Set<ProdottoElettronico> filtredBySellPrice(float price){
+        Set<ProdottoElettronico> filteredList = new HashSet<>();
         for (ProdottoElettronico device : magazzino) {
             if (device.getPrezzoVendita() == (price)) {
                 filteredList.add(device);
@@ -52,8 +53,8 @@ public class Magazzino {
         return filteredList;
     }
     // Filtrato per prezzo magazzino
-    public ArrayList<ProdottoElettronico> filtredByWhareHousePurchasePrice(float price){
-        ArrayList<ProdottoElettronico> filteredList = new ArrayList<>();
+    public Set<ProdottoElettronico> filtredByWhareHousePurchasePrice(float price){
+        Set<ProdottoElettronico> filteredList = new HashSet<>();
         for (ProdottoElettronico device : magazzino) {
             if (device.getPrezzoAcquisto() == (price)) {
                 filteredList.add(device);
@@ -61,8 +62,8 @@ public class Magazzino {
         }
         return filteredList;
     }
-    public ArrayList<ProdottoElettronico> filtredByRangePrice(float price, float secondPrice){
-        ArrayList<ProdottoElettronico> filteredList = new ArrayList<>();
+    public Set<ProdottoElettronico> filtredByRangePrice(float price, float secondPrice){
+        Set<ProdottoElettronico> filteredList = new HashSet<>();
         for (ProdottoElettronico device : magazzino) {
             if (device.getPrezzoVendita() >= price && device.getPrezzoVendita() <= secondPrice) {
                 filteredList.add(device);
