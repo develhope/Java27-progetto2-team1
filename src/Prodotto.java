@@ -55,6 +55,14 @@ public abstract class Prodotto {
 		return id;
 	}
 
+	public int getQuantita() {
+		return quantita;
+	}
+
+	public void setQuantita( int quantita ) {
+		this.quantita = quantita;
+	}
+
 	public void setNumVendite( int numVendite ) {
 		this.numVendite = numVendite;
 	}
