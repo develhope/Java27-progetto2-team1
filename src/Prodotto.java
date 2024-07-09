@@ -22,7 +22,6 @@ public abstract class Prodotto {
 		this.marca = marca;
 		this.modello = modello;
 		this.descrizione = descrizione;
-		//this.dimSchermo = dimSchermo;
 		this.prezzoAcquisto = prezzoAcquisto;
 		this.prezzoVendita = prezzoVendita;
 		this.id = id;
