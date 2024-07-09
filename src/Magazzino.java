@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Magazzino {
 
@@ -69,7 +70,36 @@ public class Magazzino {
             }
         }
         return filteredList;
+    }
+    public void addProductToMagazzino(ProdottoElettronico dispositivo){
+        magazzino.add(dispositivo);
+    }
 
+    public void removeProductFromMagazzino(int id){
+        Iterator<ProdottoElettronico> iterator = magazzino.iterator();
+        while (iterator.hasNext()) {
+            ProdottoElettronico device = iterator.next();
+            if (device.getId() == id) {
+                iterator.remove();
+            }
+        }
+    }
 
+    public ArrayList<ProdottoElettronico> filteredById(int id) {
+        ArrayList<ProdottoElettronico> filteredList = new ArrayList<>();
+        for (ProdottoElettronico device : magazzino) {
+            if (device.getId() == id) {
+                filteredList.add(device);
+            }
+        }
+        return filteredList;
+    }
+
+    public ArrayList<ProdottoElettronico> getMagazzino() {
+        return magazzino;
+    }
+
+    public void setMagazzino(ArrayList<ProdottoElettronico> magazzino) {
+        this.magazzino = magazzino;
     }
 }
