@@ -30,6 +30,26 @@ public abstract class Prodotto {
 		numVendite = 0;
 	}
 
+	public Prodotto( String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id ) {
+		this.marca = marca;
+		this.modello = modello;
+		this.prezzoAcquisto = prezzoAcquisto;
+		this.prezzoVendita = prezzoVendita;
+		this.id = id;
+		numVendite = 0;
+	}
+
+	public Prodotto( String marca, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, int id ) {
+		this.marca = marca;
+		this.modello = modello;
+		this.descrizione = descrizione;
+		this.prezzoAcquisto = prezzoAcquisto;
+		this.prezzoVendita = prezzoVendita;
+		this.id = id;
+		numVendite = 0;
+	}
+
+
 	public String getMarca() {
 		return marca;
 	}
