@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -6,14 +7,13 @@ import java.util.stream.Collectors;
 public class Carrello {
 
 	HashSet<ProdottoElettronico> carrello;
-	HashSet<ProdottoElettronico> magazzino;
 
 	public Carrello(){
 		carrello = new HashSet <>();
 	}
 
 	public void aggiungiProdotto (ProdottoElettronico prodotto){
-		Set <ProdottoElettronico> prodottoDaAggiungere = magazzino.stream()
+		Set <ProdottoElettronico> prodottoDaAggiungere = magazzino.getMagazzino().stream()
 				.filter(p -> p.equals(prodotto) && p.getQuantita() > 0)
 				.collect(Collectors.toSet());
 		if(!prodottoDaAggiungere.isEmpty()){
@@ -33,7 +33,7 @@ public class Carrello {
 
 	public Set<ProdottoElettronico> ricercaPerModello (String modello){
 		return carrello.stream()
-				.filter(p -> p.getModello() == modello)
+				.filter(p -> Objects.equals(p.getModello(), modello))
 				.collect(Collectors.toSet());
 	}
 
@@ -66,7 +66,7 @@ public class Carrello {
 	}
 
 	public void aggiuntaTramiteId(int id){
-		for(ProdottoElettronico element : magazzino) {
+		for(ProdottoElettronico element : magazzino.getMagazzino()) {
 			if(element.getId() == id && element.getQuantita() > 0){
 				carrello.add(element);
 				System.out.println("Aggiunto l'elemento " + element + " al carrello");
@@ -92,7 +92,7 @@ public class Carrello {
 	public double calcoloTot() throws CarrelloVuotoException {
 		double prezzoTot = 0.0;
 
-		if ( carrello.isEmpty()) throw new CarrelloVuotoException();
+		if ( carrello.isEmpty()) throw new CarrelloVuotoException("Non ci sono articoli nel carrello");
 
 		for(ProdottoElettronico dispositivo : carrello){
 			prezzoTot += dispositivo.getPrezzoVendita();
@@ -107,7 +107,7 @@ public class Carrello {
 
 
 	public void concludiAcquisto() throws CarrelloVuotoException {
-		if(carrello.isEmpty()) throw new CarrelloVuotoException();
+		if(carrello.isEmpty()) throw new CarrelloVuotoException("Non ci sono articoli nel carrello");
 		System.out.println("Si è sicuro di voler concludere l'acquisto?");
 		stampaCarrello();
 		System.out.println(calcoloTot());
