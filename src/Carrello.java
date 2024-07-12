@@ -123,4 +123,7 @@ public class Carrello {
 		}else System.err.println("Comando non riconosciuto");
 	}
 
+	public Set < ProdottoElettronico > getCarrello() {
+		return carrello;
+	}
 }
