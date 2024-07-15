@@ -48,7 +48,7 @@ public class Magazzino {
     }
     public Set<ProdottoElettronico> filtredByRangePrice(float price, float secondPrice){
         return magazzino.stream()
-                .filter(p->p.getPrezzoVendita() > price && p.getPrezzoVendita() < secondPrice)
+                .filter(d->d.getPrezzoVendita() > price && d.getPrezzoVendita() < secondPrice)
                 .collect(Collectors.toSet());
     }
     public void addProductToMagazzino(ProdottoElettronico dispositivo){
