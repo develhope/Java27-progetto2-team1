@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class Magazzino {
@@ -20,89 +21,62 @@ public class Magazzino {
 
     //Lista filtrata per tipo
     public Set<ProdottoElettronico> filtredBytype(String type){
-        Set<ProdottoElettronico> filteredList = new HashSet<>();
-        for (ProdottoElettronico device : magazzino) {
-            if (device.getTipoElettronico().toString().equalsIgnoreCase(type)) {
-                filteredList.add(device);
-            }
-        }
-        return filteredList;
+       return magazzino.stream()
+               .filter(d->d.getTipoElettronico().toString().equalsIgnoreCase(type))
+               .collect(Collectors.toSet());
     }
     public Set<ProdottoElettronico> filtredByModel(String type){
-        Set<ProdottoElettronico> filteredList = new HashSet<>();
-        for (ProdottoElettronico device : magazzino) {
-            if (device.getModello().equalsIgnoreCase(type)) {
-                filteredList.add(device);
-            }
-        }
-        return filteredList;
+        return magazzino.stream()
+                .filter(d->d.getModello().equalsIgnoreCase(type))
+                .collect(Collectors.toSet());
     }
     public Set<ProdottoElettronico> filtredByProducer(String type){
-        Set<ProdottoElettronico> filteredList = new HashSet<>();
-        for (ProdottoElettronico device : magazzino) {
-            if (device.getMarca().equalsIgnoreCase(type)) {
-                filteredList.add(device);
-            }
-        }
-        return filteredList;
+       return magazzino.stream()
+               .filter(d->d.getMarca().equalsIgnoreCase(type))
+               .collect(Collectors.toSet());
     }
     public Set<ProdottoElettronico> filtredBySellPrice(float price){
-        Set<ProdottoElettronico> filteredList = new HashSet<>();
-        for (ProdottoElettronico device : magazzino) {
-            if (device.getPrezzoVendita() == (price)) {
-                filteredList.add(device);
-            }
-        }
-        return filteredList;
+        return magazzino.stream()
+                .filter(d->d.getPrezzoVendita() == price)
+                .collect(Collectors.toSet());
     }
     // Filtrato per prezzo magazzino
     public Set<ProdottoElettronico> filtredByWhareHousePurchasePrice(float price){
-        Set<ProdottoElettronico> filteredList = new HashSet<>();
-        for (ProdottoElettronico device : magazzino) {
-            if (device.getPrezzoAcquisto() == (price)) {
-                filteredList.add(device);
-            }
-        }
-        return filteredList;
+        return magazzino.stream()
+                .filter(d-> d.getPrezzoAcquisto() == price)
+                .collect(Collectors.toSet());
     }
     public Set<ProdottoElettronico> filtredByRangePrice(float price, float secondPrice){
-        Set<ProdottoElettronico> filteredList = new HashSet<>();
-        for (ProdottoElettronico device : magazzino) {
-            if (device.getPrezzoVendita() >= price && device.getPrezzoVendita() <= secondPrice) {
-                filteredList.add(device);
-            }
-        }
-        return filteredList;
+        return magazzino.stream()
+                .filter(d->d.getPrezzoVendita() > price && d.getPrezzoVendita() < secondPrice)
+                .collect(Collectors.toSet());
     }
     public void addProductToMagazzino(ProdottoElettronico dispositivo){
-        magazzino.add(dispositivo);
-    }
-
-    public void removeProductFromMagazzino(int id){
-        Iterator<ProdottoElettronico> iterator = magazzino.iterator();
-        while (iterator.hasNext()) {
-            ProdottoElettronico device = iterator.next();
-            if (device.getId() == id) {
-                iterator.remove();
-            }
+        boolean found = magazzino.stream().anyMatch(d->d.getId() == dispositivo.getId());
+        if(found){
+            dispositivo.setQuantita(dispositivo.getQuantita() + 1);
+        } else{
+            magazzino.add(dispositivo);
         }
     }
 
-    public ArrayList<ProdottoElettronico> filteredById(int id) {
-        ArrayList<ProdottoElettronico> filteredList = new ArrayList<>();
-        for (ProdottoElettronico device : magazzino) {
-            if (device.getId() == id) {
-                filteredList.add(device);
-            }
-        }
-        return filteredList;
+    public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException{
+       boolean isPresent = magazzino.removeIf(d->d.getId() == id);
+       if (!isPresent){
+           throw new ProdottoNonTrovatoException("Impossibile procedere: prodotto non trovato");
+       }
     }
 
-    public ArrayList<ProdottoElettronico> getMagazzino() {
+    public Set<ProdottoElettronico> filteredById(int id) {
+         return magazzino.stream().filter(d-> d.getId() == id).collect(Collectors.toSet());
+    }
+
+    public Set<ProdottoElettronico> getMagazzino() {
         return magazzino;
     }
 
-    public void setMagazzino(ArrayList<ProdottoElettronico> magazzino) {
+    public void setMagazzino(Set<ProdottoElettronico> magazzino) {
         this.magazzino = magazzino;
     }
+
 }
