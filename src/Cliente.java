@@ -66,8 +66,8 @@ public class Cliente extends Utente {
         carrelloCliente.concludiAcquisto();
     }
 
-
-
-
+    public Carrello getCarrelloCliente() {
+        return carrelloCliente;
+    }
 }
 
