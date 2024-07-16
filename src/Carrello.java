@@ -12,17 +12,9 @@ public class Carrello {
 		carrello = new HashSet <>();
 	}
 
-	public void aggiungiProdotto (ProdottoElettronico prodotto){
-		Set <ProdottoElettronico> prodottoDaAggiungere = magazzino.getMagazzino().stream()
-				.filter(p -> p.equals(prodotto) && p.getQuantita() > 0)
-				.collect(Collectors.toSet());
-		if(!prodottoDaAggiungere.isEmpty()){
-			carrello.addAll(prodottoDaAggiungere);
-			System.out.println("Aggiunto il prodotto " + prodotto + " al carrello");
-			prodotto.setQuantita(prodotto.getQuantita() - 1) ;
-		}else{
-			System.err.println("Prodotto non presente in magazzino");
-		}
+	public int aggiungiProdotto (ProdottoElettronico prodotto){
+		carrello.add(prodotto);
+		return carrello.size();
 	}
 
 	public Set <ProdottoElettronico> ricercaPerMarca ( String marca){
@@ -64,29 +56,13 @@ public class Carrello {
 	public void stampaCarrello (){
 		System.out.println("Articoli nel carrello: " + carrello);
 	}
-
-	public void aggiuntaTramiteId(int id){
-		for(ProdottoElettronico element : magazzino.getMagazzino()) {
-			if(element.getId() == id && element.getQuantita() > 0){
-				carrello.add(element);
-				System.out.println("Aggiunto l'elemento " + element + " al carrello");
-				element.setQuantita(element.getQuantita()-1);
-			}else{
-				System.err.println("Impossibile aggiungere il prodotto :(");
-			}
-		}
-	}
-
-	public void rimozioneTramiteId(int id){
-		for(ProdottoElettronico element : carrello){
-			if(element.getId() == id){
-				carrello.remove(element);
-				element.setQuantita(element.getQuantita()+1);
-				System.out.println("Rimosso il dispositivo " + element);
-			}else{
-				System.err.println("Il prodotto non è presente nel carrello");
-			}
-		}
+	public boolean rimozioneTramiteId(int id) throws ProdottoNonTrovatoException{
+		 boolean removed = carrello.removeIf( p->p.getId() == id);
+		 if(removed){
+			 return removed;
+		 } else {
+			 throw new ProdottoNonTrovatoException("Impossibile rimuovere: il prodotto non è presente nel carrello");
+		 }
 	}
 
 	public double calcoloTot() throws CarrelloVuotoException {
