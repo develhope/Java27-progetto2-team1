@@ -7,7 +7,7 @@ public abstract class Utente {
     protected String password;
 
 
-    public Utente(String nome, String cognome, int age, String email, int idUtente, String password) {
+    public Utente(String nome, String cognome) {
         this.nome = nome;
         this.cognome = cognome;
         this.age = age;
