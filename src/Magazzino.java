@@ -1,8 +1,7 @@
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 
 
 public class Magazzino {
@@ -67,8 +66,8 @@ public class Magazzino {
        }
     }
 
-    public Set<ProdottoElettronico> filteredById(int id) {
-         return magazzino.stream().filter(d-> d.getId() == id).collect(Collectors.toSet());
+    public ProdottoElettronico filteredById(int id) throws ProdottoNonTrovatoException {
+         return magazzino.stream().filter(d-> d.getId() == id).findFirst().orElseThrow(()-> new ProdottoNonTrovatoException("Nessuna corrispondenza nel magazzino"));
     }
 
     public Set<ProdottoElettronico> getMagazzino() {
@@ -76,7 +75,32 @@ public class Magazzino {
     }
 
     public void setMagazzino(Set<ProdottoElettronico> magazzino) {
+
         this.magazzino = magazzino;
+    }
+
+    public void decrementaQuantita(int id, int amount) throws ProdottoNonTrovatoException {
+
+        ProdottoElettronico prodotto = filteredById(id);
+
+        int nuovaQuantita = prodotto.getQuantitaMagazzino() - amount;
+        if (nuovaQuantita < 0) {
+            throw new IllegalArgumentException("Quantità non può essere negativa");
+        }
+
+        prodotto.setQuantitaMagazzino(nuovaQuantita);
+    }
+
+    public void incrementaQuantita(int id, int amount) throws ProdottoNonTrovatoException {
+
+        ProdottoElettronico prodotto = filteredById(id);
+
+        int nuovaQuantita = prodotto.getQuantitaMagazzino() + amount;
+        if (nuovaQuantita < 0) {
+            throw new IllegalArgumentException("Quantità non può essere negativa");
+        }
+
+        prodotto.setQuantitaMagazzino(nuovaQuantita);
     }
 
 }
