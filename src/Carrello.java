@@ -6,14 +6,14 @@ import java.util.stream.Collectors;
 
 public class Carrello {
 
-	HashSet<ProdottoElettronico> carrello;
+	HashSet<ProdottoElettronicoUtente> carrello;
 
 	public Carrello(){
 		carrello = new HashSet <>();
 	}
 
-	public void aggiungiProdotto (ProdottoElettronico prodotto){
-		Set <ProdottoElettronico> prodottoDaAggiungere = magazzino.getMagazzino().stream()
+	public void aggiungiProdotto (ProdottoElettronicoUtente prodotto){
+		Set <ProdottoElettronicoUtente> prodottoDaAggiungere = magazzino.getMagazzino().stream()
 				.filter(p -> p.equals(prodotto) && p.getQuantita() > 0)
 				.collect(Collectors.toSet());
 		if(!prodottoDaAggiungere.isEmpty()){
@@ -25,37 +25,37 @@ public class Carrello {
 		}
 	}
 
-	public Set <ProdottoElettronico> ricercaPerMarca ( String marca){
+	public Set <ProdottoElettronicoUtente> ricercaPerMarca ( String marca){
 		return carrello.stream()
 				.filter(p -> p.getMarca().equals( marca))
 				.collect(Collectors.toSet());
 	}
 
-	public Set<ProdottoElettronico> ricercaPerModello (String modello){
+	public Set<ProdottoElettronicoUtente> ricercaPerModello (String modello){
 		return carrello.stream()
 				.filter(p -> Objects.equals(p.getModello(), modello))
 				.collect(Collectors.toSet());
 	}
 
-	public Set<ProdottoElettronico> ricercaPerPrezzoVendita (double prezzo){
+	public Set<ProdottoElettronicoUtente> ricercaPerPrezzoVendita (double prezzo){
 		return carrello.stream()
 				.filter(p -> p.getPrezzoVendita() == prezzo)
 				.collect(Collectors.toSet());
 	}
 
-	public Set<ProdottoElettronico> ricercaPerPrezzoAcquisto (double prezzo){
+	public Set<ProdottoElettronicoUtente> ricercaPerPrezzoAcquisto (double prezzo){
 		return carrello.stream()
 				.filter(p -> p.getPrezzoAcquisto() == prezzo)
 				.collect(Collectors.toSet());
 	}
 
-	public Set<ProdottoElettronico> ricercaPerRange (double prezzoMin, double prezzoMax){
+	public Set<ProdottoElettronicoUtente> ricercaPerRange (double prezzoMin, double prezzoMax){
 		return carrello.stream()
 				.filter(p -> p.getPrezzoAcquisto() > prezzoMin && p.getPrezzoAcquisto() < prezzoMax )
 				.collect(Collectors.toSet());
 	}
 
-	public Set<ProdottoElettronico> ricercaPerTipo (String tipo){
+	public Set<ProdottoElettronicoUtente> ricercaPerTipo (String tipo){
 		return carrello.stream()
 				.filter(p -> p.getTipoElettronico().name().equals(tipo))
 				.collect(Collectors.toSet());
@@ -66,7 +66,7 @@ public class Carrello {
 	}
 
 	public void aggiuntaTramiteId(int id){
-		for(ProdottoElettronico element : magazzino.getMagazzino()) {
+		for(ProdottoElettronicoUtente element : magazzino.getMagazzino()) {
 			if(element.getId() == id && element.getQuantita() > 0){
 				carrello.add(element);
 				System.out.println("Aggiunto l'elemento " + element + " al carrello");
@@ -78,7 +78,7 @@ public class Carrello {
 	}
 
 	public void rimozioneTramiteId(int id){
-		for(ProdottoElettronico element : carrello){
+		for(ProdottoElettronicoUtente element : carrello){
 			if(element.getId() == id){
 				carrello.remove(element);
 				element.setQuantita(element.getQuantita()+1);
@@ -94,7 +94,7 @@ public class Carrello {
 
 		if ( carrello.isEmpty()) throw new CarrelloVuotoException("Non ci sono articoli nel carrello");
 
-		for(ProdottoElettronico dispositivo : carrello){
+		for(ProdottoElettronicoUtente dispositivo : carrello){
 			prezzoTot += dispositivo.getPrezzoVendita();
 		}
 		return prezzoTot;
@@ -123,7 +123,7 @@ public class Carrello {
 		}else System.err.println("Comando non riconosciuto");
 	}
 
-	public Set < ProdottoElettronico > getCarrello() {
+	public Set < ProdottoElettronicoUtente > getCarrello() {
 		return carrello;
 	}
 }

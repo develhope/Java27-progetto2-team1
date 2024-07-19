@@ -18,27 +18,27 @@ public class Cliente extends Utente {
         }
     }
 
-    public void aggiungiProdottoAlCarrello(ProdottoElettronico prodotto){
+    public void aggiungiProdottoAlCarrello(ProdottoElettronicoUtente prodotto){
         carrelloCliente.aggiungiProdotto(prodotto);
     }
 
-    public Set<ProdottoElettronico> ricercaProdottoPerMarca(String marca) {
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerMarca(String marca) {
         return carrelloCliente.ricercaPerMarca(marca);
     }
 
-    public Set<ProdottoElettronico> ricercaProdottoPerModello(String modello) {
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerModello(String modello) {
         return carrelloCliente.ricercaPerModello(modello);
     }
 
-    public Set<ProdottoElettronico> ricercaProdottoPerPrezzoDiVendita(double prezzo){
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerPrezzoDiVendita(double prezzo){
         return carrelloCliente.ricercaPerPrezzoVendita(prezzo);
     }
 
-    public Set<ProdottoElettronico> ricercaProdottoPerRange(double prezzoMin, double prezzoMax){
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerRange(double prezzoMin, double prezzoMax){
         return carrelloCliente.ricercaPerRange(prezzoMin, prezzoMax);
     }
 
-    public Set<ProdottoElettronico> ricercaProdottoPerTIpo(String tipo){
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerTIpo(String tipo){
         return carrelloCliente.ricercaPerTipo(tipo);
     }
 
