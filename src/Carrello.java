@@ -12,6 +12,7 @@ public class Carrello {
 		carrello = new HashSet <>();
 	}
 
+
 	public void aggiungiProdotto (ProdottoElettronicoUtente prodotto){
 		Set <ProdottoElettronicoUtente> prodottoDaAggiungere = magazzino.getMagazzino().stream()
 				.filter(p -> p.equals(prodotto) && p.getQuantita() > 0)
@@ -23,6 +24,7 @@ public class Carrello {
 		}else{
 			System.err.println("Prodotto non presente in magazzino");
 		}
+
 	}
 
 	public Set <ProdottoElettronicoUtente> ricercaPerMarca ( String marca){
@@ -65,6 +67,7 @@ public class Carrello {
 		System.out.println("Articoli nel carrello: " + carrello);
 	}
 
+
 	public void aggiuntaTramiteId(int id){
 		for(ProdottoElettronicoUtente element : magazzino.getMagazzino()) {
 			if(element.getId() == id && element.getQuantita() > 0){
@@ -77,16 +80,13 @@ public class Carrello {
 		}
 	}
 
-	public void rimozioneTramiteId(int id){
-		for(ProdottoElettronicoUtente element : carrello){
-			if(element.getId() == id){
-				carrello.remove(element);
-				element.setQuantita(element.getQuantita()+1);
-				System.out.println("Rimosso il dispositivo " + element);
-			}else{
-				System.err.println("Il prodotto non è presente nel carrello");
-			}
-		}
+	public boolean rimozioneTramiteId(int id) throws ProdottoNonTrovatoException{
+		 boolean removed = carrello.removeIf( p->p.getId() == id);
+		 if(removed){
+			 return removed;
+		 } else {
+			 throw new ProdottoNonTrovatoException("Impossibile rimuovere: il prodotto non è presente nel carrello");
+		 }
 	}
 
 	public double calcoloTot() throws CarrelloVuotoException {

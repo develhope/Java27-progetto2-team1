@@ -46,12 +46,10 @@ public class Cliente extends Utente {
         carrelloCliente.stampaCarrello();
     }
 
-    public void aggiuntaProdottoTramiteId(int id){
-        carrelloCliente.aggiuntaTramiteId(id);
-    }
 
-    public void rimuoviProdottoTramiteId(int id) {
-        carrelloCliente.rimozioneTramiteId(id);
+
+    public boolean rimuoviProdottoTramiteId(int id) throws ProdottoNonTrovatoException {
+         return carrelloCliente.rimozioneTramiteId(id);
     }
 
     public double calcoloTotaleCarrello() throws CarrelloVuotoException {
