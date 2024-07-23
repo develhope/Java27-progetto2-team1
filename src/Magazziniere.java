@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.Set;
 
 public class Magazziniere extends Utente {
 
@@ -17,34 +17,34 @@ public class Magazziniere extends Utente {
         magazzino.addProductToMagazzino(prodotto);
     }
 
-    public void removeProductFromMagazzino(int id) {
+    public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException {
         magazzino.removeProductFromMagazzino(id);
     }
 
-    public List<ProdottoElettronico> filtredByWhareHousePurchasePrice(float prezzo) {
+    public Set<ProdottoElettronico> filtredByWhareHousePurchasePrice(float prezzo) {
         return magazzino.filtredByWhareHousePurchasePrice(prezzo);
     }
 
-    public List<ProdottoElettronico>filtredBytype(String tipo){
+    public Set<ProdottoElettronico>filtredBytype(String tipo){
         return magazzino.filtredBytype(tipo);
     }
 
-    public List<ProdottoElettronico>filtredByModel(String modello){
+    public Set<ProdottoElettronico>filtredByModel(String modello){
         return magazzino.filtredByModel(modello);
     }
-    public List<ProdottoElettronico>filtredByProducer(String marca){
+    public Set<ProdottoElettronico>filtredByProducer(String marca){
         return magazzino.filtredByProducer(marca);
     }
 
-    public List<ProdottoElettronico>filtredBySellPrice(float prezzo){
+    public Set<ProdottoElettronico>filtredBySellPrice(float prezzo){
         return magazzino.filtredBySellPrice(prezzo);
     }
 
-    public List<ProdottoElettronico>filtredByRangePrice(float prezzo1, float prezzo2){
+    public Set<ProdottoElettronico>filtredByRangePrice(float prezzo1, float prezzo2){
         return magazzino.filtredByRangePrice(prezzo1,prezzo2);
     }
 
-    public List<ProdottoElettronico>filteredById(int iD){
+    public ProdottoElettronico filteredById(int iD) throws ProdottoNonTrovatoException {
         return magazzino.filteredById(iD);
     }
 }
