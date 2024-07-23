@@ -45,4 +45,7 @@ public class ProdottoElettronico extends Prodotto {
                 "ID: " + id;
 
     }
+    public ProdottoElettronicoUtente toProdottoUtente(){
+        return new ProdottoElettronicoUtente(marca, modello, descrizione, prezzoVendita, id, tipoElettronico, dimSchermo);
+    }
 }
