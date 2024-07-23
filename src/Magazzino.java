@@ -53,7 +53,7 @@ public class Magazzino {
     public void addProductToMagazzino(ProdottoElettronico dispositivo){
         boolean found = magazzino.stream().anyMatch(d->d.getId() == dispositivo.getId());
         if(found){
-            dispositivo.setQuantita(dispositivo.getQuantita() + 1);
+            dispositivo.setQuantitaMagazzino(dispositivo.getQuantitaMagazzino() + 1);
         } else{
             magazzino.add(dispositivo);
         }
