@@ -16,6 +16,7 @@ public abstract class Prodotto {
 		this.prezzoVendita = prezzoVendita;
 		this.id = id;
 		this.quantitaMagazzino = quantitaMagazzino;
+
 		numVendite = 0;
 	}
 
@@ -81,6 +82,7 @@ public abstract class Prodotto {
 
 	public void setQuantitaMagazzino( int quantitaMagazzino ) {
 		this.quantitaMagazzino = quantitaMagazzino;
+
 	}
 
 	public void setNumVendite( int numVendite ) {
