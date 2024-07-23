@@ -9,24 +9,25 @@ public abstract class Prodotto {
 	protected int quantitaMagazzino;
 	protected int numVendite;
 
-	public Prodotto( String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id, int quantita ) {
+	public Prodotto( String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id, int quantitaMagazzino ) {
 		this.marca = marca;
 		this.modello = modello;
 		this.prezzoAcquisto = prezzoAcquisto;
 		this.prezzoVendita = prezzoVendita;
 		this.id = id;
-		this.quantitaMagazzino = quantita;
+		this.quantitaMagazzino = quantitaMagazzino;
+
 		numVendite = 0;
 	}
 
-	public Prodotto( String marca, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, int id, int quantita ) {
+	public Prodotto( String marca, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, int id, int quantitaMagazzino ) {
 		this.marca = marca;
 		this.modello = modello;
 		this.descrizione = descrizione;
 		this.prezzoAcquisto = prezzoAcquisto;
 		this.prezzoVendita = prezzoVendita;
 		this.id = id;
-		this.quantitaMagazzino = quantita;
+		this.quantitaMagazzino = quantitaMagazzino;
 		numVendite = 0;
 	}
 
@@ -75,12 +76,13 @@ public abstract class Prodotto {
 		return id;
 	}
 
-	public int getQuantita() {
+	public int getQuantitaMagazzino() {
 		return quantitaMagazzino;
 	}
 
-	public void setQuantita( int quantita ) {
-		this.quantitaMagazzino = quantita;
+	public void setQuantitaMagazzino( int quantitaMagazzino ) {
+		this.quantitaMagazzino = quantitaMagazzino;
+
 	}
 
 	public void setNumVendite( int numVendite ) {
