@@ -1,7 +1,4 @@
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Carrello {
@@ -13,80 +10,79 @@ public class Carrello {
 	}
 
 
-	public void aggiungiProdotto (ProdottoElettronicoUtente prodotto){
-		Set <ProdottoElettronicoUtente> prodottoDaAggiungere = magazzino.getMagazzino().stream()
-				.filter(p -> p.equals(prodotto) && p.getQuantita() > 0)
+	public void aggiungiProdotto ( ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException {
+		Optional < ProdottoElettronicoUtente > toAdd = carrello.stream()
+				.filter(p -> p.getId() == prodotto.getId())
+				.findFirst();
+		if (toAdd.isPresent()) incrementaQuantita(prodotto.getId(), quantita);
+		else carrello.add(prodotto);
+	}
+
+	public ProdottoElettronicoUtente ricercaPerId ( int id) throws ProdottoNonTrovatoException{
+		return carrello.stream()
+				.filter(p -> p.getId() == id)
+				.findFirst().orElseThrow(() -> new ProdottoNonTrovatoException("Nessuna corrispondenza"));
+	}
+
+	public Set < ProdottoElettronicoUtente > ricercaPerMarca ( String marca) throws ProdottoNonTrovatoException{
+		Set< ProdottoElettronicoUtente > tmp = carrello.stream()
+				.filter(p -> p.getMarca().equalsIgnoreCase( marca))
 				.collect(Collectors.toSet());
-		if(!prodottoDaAggiungere.isEmpty()){
-			carrello.addAll(prodottoDaAggiungere);
-			System.out.println("Aggiunto il prodotto " + prodotto + " al carrello");
-			prodotto.setQuantita(prodotto.getQuantita() - 1) ;
-		}else{
-			System.err.println("Prodotto non presente in magazzino");
+		if(tmp.isEmpty()){
+			throw new ProdottoNonTrovatoException("Nessuna corrispondenza per Marca");
 		}
-
+		return tmp;
 	}
 
-	public Set <ProdottoElettronicoUtente> ricercaPerMarca ( String marca){
-		return carrello.stream()
-				.filter(p -> p.getMarca().equals( marca))
-				.collect(Collectors.toSet());
+	public Set< ProdottoElettronicoUtente > ricercaPerModello ( String modello) throws ProdottoNonTrovatoException{
+		Set< ProdottoElettronicoUtente > tmp = carrello.stream()
+				.filter(p -> p.getModello().equalsIgnoreCase(modello)).collect(Collectors.toSet());
+		if(tmp.isEmpty()){
+			throw new ProdottoNonTrovatoException("Nessuna corrispondenza per Modello");
+		}
+		return tmp;
 	}
 
-	public Set<ProdottoElettronicoUtente> ricercaPerModello (String modello){
-		return carrello.stream()
-				.filter(p -> Objects.equals(p.getModello(), modello))
-				.collect(Collectors.toSet());
-	}
-
-	public Set<ProdottoElettronicoUtente> ricercaPerPrezzoVendita (double prezzo){
-		return carrello.stream()
+	public Set< ProdottoElettronicoUtente > ricercaPerPrezzoVendita ( double prezzo ) throws ProdottoNonTrovatoException {
+		Set<ProdottoElettronicoUtente> res = carrello.stream()
 				.filter(p -> p.getPrezzoVendita() == prezzo)
 				.collect(Collectors.toSet());
+
+		if(res.isEmpty()) throw new ProdottoNonTrovatoException("Nessuna corrispondenza");
+		return res;
 	}
 
-	public Set<ProdottoElettronicoUtente> ricercaPerPrezzoAcquisto (double prezzo){
-		return carrello.stream()
-				.filter(p -> p.getPrezzoAcquisto() == prezzo)
+	public Set< ProdottoElettronicoUtente > ricercaPerRange ( double prezzoMin, double prezzoMax) throws ProdottoNonTrovatoException{
+		Set< ProdottoElettronicoUtente > tmp = carrello.stream()
+				.filter(p -> p.getPrezzoVendita() > prezzoMin && p.getPrezzoVendita() < prezzoMax )
 				.collect(Collectors.toSet());
+		if(tmp.isEmpty()){
+			throw new ProdottoNonTrovatoException("Nessuna corrispondenza trovata per range di prezzo");
+		}
+		return tmp;
 	}
 
-	public Set<ProdottoElettronicoUtente> ricercaPerRange (double prezzoMin, double prezzoMax){
-		return carrello.stream()
-				.filter(p -> p.getPrezzoAcquisto() > prezzoMin && p.getPrezzoAcquisto() < prezzoMax )
-				.collect(Collectors.toSet());
-	}
-
-	public Set<ProdottoElettronicoUtente> ricercaPerTipo (String tipo){
-		return carrello.stream()
+	public Set< ProdottoElettronicoUtente > ricercaPerTipo ( String tipo) throws ProdottoNonTrovatoException {
+		Set <ProdottoElettronicoUtente> res = carrello.stream()
 				.filter(p -> p.getTipoElettronico().name().equals(tipo))
 				.collect(Collectors.toSet());
+
+		if(res.isEmpty()) throw new ProdottoNonTrovatoException("Nessuna corrispondenza");
+		return res;
 	}
 
 	public void stampaCarrello (){
-		System.out.println("Articoli nel carrello: " + carrello);
-	}
-
-
-	public void aggiuntaTramiteId(int id){
-		for(ProdottoElettronicoUtente element : magazzino.getMagazzino()) {
-			if(element.getId() == id && element.getQuantita() > 0){
-				carrello.add(element);
-				System.out.println("Aggiunto l'elemento " + element + " al carrello");
-				element.setQuantita(element.getQuantita()-1);
-			}else{
-				System.err.println("Impossibile aggiungere il prodotto :(");
-			}
+		if(carrello.isEmpty()){
+			System.out.println("Non ci sono articoli nel carrello");
+		}else {
+			System.out.println("Articoli nel carrello: " + carrello);
 		}
 	}
 
-	public boolean rimozioneTramiteId(int id) throws ProdottoNonTrovatoException{
-		 boolean removed = carrello.removeIf( p->p.getId() == id);
-		 if(removed){
-			 return removed;
-		 } else {
-			 throw new ProdottoNonTrovatoException("Impossibile rimuovere: il prodotto non è presente nel carrello");
-		 }
+	public void rimozioneTramiteId(int id, int quantita) throws ProdottoNonTrovatoException {
+		ProdottoElettronicoUtente prdToRemove = ricercaPerId(id);
+		decrementaQuantita(id,quantita);
+		if(ricercaPerId(id).getQuantitaCarrello() <= 0) carrello.remove(prdToRemove);
 	}
 
 	public double calcoloTot() throws CarrelloVuotoException {
@@ -94,19 +90,18 @@ public class Carrello {
 
 		if ( carrello.isEmpty()) throw new CarrelloVuotoException("Non ci sono articoli nel carrello");
 
-		for(ProdottoElettronicoUtente dispositivo : carrello){
-			prezzoTot += dispositivo.getPrezzoVendita();
+		for( ProdottoElettronicoUtente dispositivo : carrello){
+			prezzoTot += dispositivo.getPrezzoVendita() * dispositivo.getQuantitaCarrello();
 		}
 		return prezzoTot;
 	}
-
 
 	public void svuotaCarrello(){
 		carrello.clear();
 	}
 
 
-	public void concludiAcquisto() throws CarrelloVuotoException {
+	public void concludiAcquisto(  ) throws CarrelloVuotoException {
 		if(carrello.isEmpty()) throw new CarrelloVuotoException("Non ci sono articoli nel carrello");
 		System.out.println("Si è sicuro di voler concludere l'acquisto?");
 		stampaCarrello();
@@ -125,5 +120,19 @@ public class Carrello {
 
 	public Set < ProdottoElettronicoUtente > getCarrello() {
 		return carrello;
+	}
+
+	public void incrementaQuantita(int id, int amount) throws ProdottoNonTrovatoException {
+
+		ProdottoElettronicoUtente prodotto = ricercaPerId(id);
+		int nuovaQuantita = prodotto.getQuantitaCarrello() + amount;
+		prodotto.setQuantitaCarrello(nuovaQuantita);
+	}
+
+	public void decrementaQuantita (int id, int amount) throws ProdottoNonTrovatoException{
+		ProdottoElettronicoUtente prodotto = ricercaPerId(id);
+		int quantita = prodotto.getQuantitaCarrello() - amount;
+
+		prodotto.setQuantitaCarrello(quantita);
 	}
 }
