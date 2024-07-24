@@ -18,27 +18,27 @@ public class Cliente extends Utente {
         }
     }
 
-    public void aggiungiProdottoAlCarrello(ProdottoElettronicoUtente prodotto){
-        carrelloCliente.aggiungiProdotto(prodotto);
+    public void aggiungiProdottoAlCarrello(ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException {
+        carrelloCliente.aggiungiProdotto(prodotto, quantita);
     }
 
-    public Set<ProdottoElettronicoUtente> ricercaProdottoPerMarca(String marca) {
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerMarca(String marca) throws ProdottoNonTrovatoException {
         return carrelloCliente.ricercaPerMarca(marca);
     }
 
-    public Set<ProdottoElettronicoUtente> ricercaProdottoPerModello(String modello) {
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerModello(String modello) throws ProdottoNonTrovatoException {
         return carrelloCliente.ricercaPerModello(modello);
     }
 
-    public Set<ProdottoElettronicoUtente> ricercaProdottoPerPrezzoDiVendita(double prezzo){
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerPrezzoDiVendita(double prezzo) throws ProdottoNonTrovatoException {
         return carrelloCliente.ricercaPerPrezzoVendita(prezzo);
     }
 
-    public Set<ProdottoElettronicoUtente> ricercaProdottoPerRange(double prezzoMin, double prezzoMax){
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerRange(double prezzoMin, double prezzoMax) throws ProdottoNonTrovatoException {
         return carrelloCliente.ricercaPerRange(prezzoMin, prezzoMax);
     }
 
-    public Set<ProdottoElettronicoUtente> ricercaProdottoPerTIpo(String tipo){
+    public Set<ProdottoElettronicoUtente> ricercaProdottoPerTIpo(String tipo) throws ProdottoNonTrovatoException {
         return carrelloCliente.ricercaPerTipo(tipo);
     }
 
@@ -46,10 +46,8 @@ public class Cliente extends Utente {
         carrelloCliente.stampaCarrello();
     }
 
-
-
-    public boolean rimuoviProdottoTramiteId(int id) throws ProdottoNonTrovatoException {
-         return carrelloCliente.rimozioneTramiteId(id);
+    public void rimuoviProdottoTramiteId(int id, int quantita) throws ProdottoNonTrovatoException {
+	    carrelloCliente.rimozioneTramiteId(id, quantita);
     }
 
     public double calcoloTotaleCarrello() throws CarrelloVuotoException {
