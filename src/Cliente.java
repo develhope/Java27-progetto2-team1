@@ -1,21 +1,23 @@
+import com.google.gson.Gson;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class Cliente extends Utente {
 
-    private Carrello carrelloCliente;
+    private final Carrello carrelloCliente = new Carrello();
 
-    public Cliente(String nome, String cognome, int age, String email, int idUtente, String password) {
-        super(nome, cognome, age, email, idUtente, password);
-        this.carrelloCliente = new Carrello();
+    public Cliente(){};
 
+    public Cliente(String nome, String cognome, int age, String email, String password) {
+        super(nome, cognome, age, email, password);
     }
 
     public boolean login(String emailCliente, String passwordCliente){
-        if(emailCliente.equals(getEmail()) && passwordCliente.equals(getPassword())) {
-            return true;
-        } else {
-            return false;
-        }
+	    return emailCliente.equals(getEmail()) && passwordCliente.equals(getPassword());
     }
 
     public void aggiungiProdottoAlCarrello(ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException {
@@ -64,6 +66,23 @@ public class Cliente extends Utente {
 
     public Carrello getCarrelloCliente() {
         return carrelloCliente;
+    }
+
+    public static void aggiungiClienteAlFile(Cliente cliente) throws IOException {
+        List < Utente> utenti = Utente.leggiUtentiDaFile();
+
+        if (utenti == null) {
+            utenti = new ArrayList <>();
+        }
+
+        utenti.add(cliente);
+
+        // Scrivi la lista aggiornata nel file
+        FileWriter writer = new FileWriter("src/Users/Users.json"); {
+            Gson gson = new Gson();
+            gson.toJson(utenti, writer);
+            System.out.println("Nuovo utente aggiunto con successo!");
+        }
     }
 }
 

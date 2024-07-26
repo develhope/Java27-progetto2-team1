@@ -4,14 +4,10 @@ public class Magazziniere extends Utente {
 
     private Magazzino magazzino;
 
-    public Magazzino getMagazzino() {
-        return magazzino;
-    }
+    public Magazziniere(){}
 
-    public Magazziniere(Magazzino magazzino, String idUtente, String password) {
-        super(idUtente, password);
-        this.magazzino = magazzino;
-
+    public Magazziniere(String nome, String cognome, int age, String email, String password) {
+        super(nome, cognome, age, email, password);
     }
     public void addProductToMagazzino(ProdottoElettronico prodotto) {
         magazzino.addProductToMagazzino(prodotto);
@@ -46,6 +42,10 @@ public class Magazziniere extends Utente {
 
     public ProdottoElettronico filteredById(int iD) throws ProdottoNonTrovatoException {
         return magazzino.filteredById(iD);
+    }
+
+    public Magazzino getMagazzino() {
+        return magazzino;
     }
 }
 
