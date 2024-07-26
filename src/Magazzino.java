@@ -102,4 +102,12 @@ public class Magazzino {
     public void setMagazzino(ArrayList<ProdottoElettronico> magazzino) {
         this.magazzino = magazzino;
     }
+
+    // Stampa tutti i dispositivi in magazzino
+    public void printAllDevices() {
+        System.out.println("Dispositivi in magazzino:");
+        for (Prodotto prodotto: magazzino) {
+            System.out.println(prodotto);
+        }
+    }
 }

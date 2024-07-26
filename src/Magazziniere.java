@@ -43,7 +43,6 @@ public class Magazziniere extends Utente {
     public List<ProdottoElettronico>filtredByRangePrice(float prezzo1, float prezzo2){
         return magazzino.filtredByRangePrice(prezzo1,prezzo2);
     }
-
     public List<ProdottoElettronico>filteredById(int iD){
         return magazzino.filteredById(iD);
     }
