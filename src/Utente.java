@@ -82,10 +82,5 @@ public class Utente {
         return role;
     }
 
-    public static List <Utente> leggiUtentiDaFile() throws FileNotFoundException {
-       FileReader lettore = new FileReader("src/Users.json");
-            Gson gson = new Gson();
-            Type tipoListaUtenti = new TypeToken <List <Utente>>() {}.getType();
-            return gson.fromJson(lettore, tipoListaUtenti);
-    }
+
 }

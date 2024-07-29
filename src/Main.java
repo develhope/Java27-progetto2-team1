@@ -10,14 +10,15 @@ public class Main {
 	private static Utente utenteLoggato = null;
 	private static Cliente clienteLoggato = null;
 	private static Magazziniere magazziniereLoggato = null;
+	private static final Magazzino magazzino = new Magazzino();//Inizializza il magazzino
 
 	public static void main( String[] args ) {
 
 		ProdottoElettronico prd1 = new ProdottoElettronico("Samsung", "Galaxys24", 700.0, 1300, 0, 10, 6, TipoElettronico.SMARTPHONE);
 
-		Magazzino magazzino1 = new Magazzino();//Inizializza il magazzino
 
-		magazzino1.addProductToMagazzino(prd1);//aggiunge il prodotto al magazzino
+
+		magazzino.addProductToMagazzino(prd1);//aggiunge il prodotto al magazzino
 		//boolean loggedIn = false;
 		Scanner sc = new Scanner(System.in);//Inizializza lo Scanner
 
@@ -154,6 +155,23 @@ public class Main {
 		}
 		//sc.close();
 	}
+
+	public static void menuRicercaMagazziniere( Scanner sc, Magazziniere magazziniere ) {
+		System.out.println("\n--- Menu Ricerca Magazziniere---");
+		System.out.println();
+		System.out.println("1. Ricerca per marca");
+		System.out.println("2. Ricerca per modello");
+		System.out.println("3. Ricerca per prezzo di vendita");
+		System.out.println("4. Ricerca per prezzo di acquisto");
+		System.out.println("5. Ricerca per range di prezzo");
+		System.out.println("6. Ricerca per tipo");
+		System.out.println("7. Ricerca tramite id");
+		System.out.println("0. Torna indietro");
+		System.out.println();
+		sceltaRicercaMagazziniere(sc, magazziniere);
+	}
+
+
 
 	private static void aggiuntaMagazzino( Magazziniere magazziniere, Magazzino magazzino ) {
 		Scanner sc = new Scanner(System.in);
@@ -480,7 +498,7 @@ public class Main {
 		Cliente tmp = new Cliente(nome, cognome, age, email, password);
 
 		try {
-			Cliente.aggiungiClienteAlFile(tmp);
+			UserReader.aggiungiClienteAlFile(tmp);
 		} catch ( IOException e ) {
 			System.err.println("Impossibile accedere al file");
 		}
@@ -499,7 +517,7 @@ public class Main {
 	public static void sceltaAccesso( Scanner sc ) {
 		List <Utente> utenti = new ArrayList <>();
 		try {
-			utenti = Utente.leggiUtentiDaFile();
+			utenti = UserReader.leggiUtentiDaFile();
 		}catch ( FileNotFoundException e ){
 			System.err.println(e.getMessage());
 		}

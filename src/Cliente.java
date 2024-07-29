@@ -1,9 +1,3 @@
-import com.google.gson.Gson;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class Cliente extends Utente {
@@ -68,21 +62,6 @@ public class Cliente extends Utente {
         return carrelloCliente;
     }
 
-    public static void aggiungiClienteAlFile(Cliente cliente) throws IOException {
-        List < Utente> utenti = Utente.leggiUtentiDaFile();
 
-        if (utenti == null) {
-            utenti = new ArrayList <>();
-        }
-
-        utenti.add(cliente);
-
-        // Scrivi la lista aggiornata nel file
-        FileWriter writer = new FileWriter("src/Users/Users.json"); {
-            Gson gson = new Gson();
-            gson.toJson(utenti, writer);
-            System.out.println("Nuovo utente aggiunto con successo!");
-        }
-    }
 }
 
