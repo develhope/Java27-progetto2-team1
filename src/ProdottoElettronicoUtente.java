@@ -30,6 +30,10 @@ public class ProdottoElettronicoUtente{
         this.dimSchermo = dimSchermo;
     }
 
+    public ProdottoElettronicoUtente() {
+
+    }
+
     public TipoElettronico getTipoElettronico() {
         return tipoElettronico;
     }
