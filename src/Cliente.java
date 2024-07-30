@@ -2,20 +2,16 @@ import java.util.Set;
 
 public class Cliente extends Utente {
 
-    private Carrello carrelloCliente;
+    private final Carrello carrelloCliente = new Carrello();
 
-    public Cliente(String nome, String cognome, int age, String email, int idUtente, String password) {
-        super(nome, cognome, age, email, idUtente, password);
-        this.carrelloCliente = new Carrello();
+    public Cliente(){};
 
+    public Cliente(String nome, String cognome, int age, String email, String password) {
+        super(nome, cognome, age, email, password);
     }
 
     public boolean login(String emailCliente, String passwordCliente){
-        if(emailCliente.equals(getEmail()) && passwordCliente.equals(getPassword())) {
-            return true;
-        } else {
-            return false;
-        }
+	    return emailCliente.equals(getEmail()) && passwordCliente.equals(getPassword());
     }
 
     public void aggiungiProdottoAlCarrello(ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException {
@@ -65,5 +61,7 @@ public class Cliente extends Utente {
     public Carrello getCarrelloCliente() {
         return carrelloCliente;
     }
+
+
 }
 

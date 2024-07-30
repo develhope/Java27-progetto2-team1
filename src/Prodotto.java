@@ -80,15 +80,15 @@ public abstract class Prodotto {
 		return quantitaMagazzino;
 	}
 
-	public void setQuantitaMagazzino( int quantitaMagazzino ) {
-		this.quantitaMagazzino = quantitaMagazzino;
-
-	}
 
 	public void setNumVendite( int numVendite ) {
 		this.numVendite = numVendite;
 	}
 
 	public abstract double calcolaSpesaMedia();
+
+	public void setQuantitaMagazzino( int quantitaMagazzino ) {
+		this.quantitaMagazzino = quantitaMagazzino;
+	}
 
 }

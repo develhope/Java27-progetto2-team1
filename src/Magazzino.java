@@ -2,8 +2,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
-
 public class Magazzino {
 
     //Accetta tipi ProdottoElettronico
@@ -12,6 +10,7 @@ public class Magazzino {
     public Magazzino() {
         magazzino = new HashSet<>();
     }
+
     //Ritorna il totale degli articoli presenti in magazzino.
     public int totaleProdotti(){
         return magazzino.size();
@@ -102,5 +101,4 @@ public class Magazzino {
 
         prodotto.setQuantitaMagazzino(nuovaQuantita);
     }
-
 }

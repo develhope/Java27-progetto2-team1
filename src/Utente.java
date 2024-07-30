@@ -1,20 +1,29 @@
-public abstract class Utente {
-    protected String nome;
-    protected String cognome;
-    protected int age;
-    protected String email;
-    protected int idUtente;
-    protected String password;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.List;
 
-    public Utente(String nome, String cognome) {
+public class Utente {
+    private String nome;
+    private String cognome;
+    private int age;
+    private String email;
+    private int idUtente;
+    private String password;
+    private Roles role;
+
+    public Utente(String nome, String cognome, int age, String email, String password) {
         this.nome = nome;
         this.cognome = cognome;
         this.age = age;
         this.email = email;
-        this.idUtente = idUtente;
         this.password = password;
     }
+
+    public Utente(){}
 
 
     public String getNome() {
@@ -65,6 +74,13 @@ public abstract class Utente {
         this.password = password;
     }
 
+    public boolean login(String email, String password) {
+        return email.equals(getEmail()) && password.equals(getPassword());
+    }
+
+    public Roles getRole() {
+        return role;
+    }
 
 
 }
