@@ -1,10 +1,11 @@
-import javax.imageio.IIOException;
-import java.io.IOException;
 package Users;
 
+import javax.imageio.IIOException;
+import java.io.IOException;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronico;
 import Management.Magazzino;
+import Users.Utente;
 
 import java.util.Set;
 
