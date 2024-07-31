@@ -1,3 +1,7 @@
+package Utility;
+
+import Users.Cliente;
+import Users.Utente;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -11,14 +15,14 @@ import java.util.List;
 
 public class UserReader {
 
-	public static List <Utente> leggiUtentiDaFile() throws FileNotFoundException {
+	public static List < Utente > leggiUtentiDaFile() throws FileNotFoundException {
 		FileReader lettore = new FileReader("src/Users.json");
 		Gson gson = new Gson();
-		Type tipoListaUtenti = new TypeToken <List <Utente>>() {}.getType();
+		Type tipoListaUtenti = new TypeToken <List < Utente >>() {}.getType();
 		return gson.fromJson(lettore, tipoListaUtenti);
 	}
 
-	public static void aggiungiClienteAlFile(Cliente cliente) throws IOException {
+	public static void aggiungiClienteAlFile( Cliente cliente) throws IOException {
 		List < Utente > utenti = UserReader.leggiUtentiDaFile();
 
 		if (utenti == null) {

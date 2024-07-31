@@ -1,3 +1,18 @@
+import Enums.Roles;
+import Enums.TipoElettronico;
+import Exceptions.CarrelloVuotoException;
+import Exceptions.LoginFailedException;
+import Exceptions.ProdottoNonTrovatoException;
+import Management.Magazzino;
+import Products.ProdottoElettronico;
+import Products.ProdottoElettronicoUtente;
+import Users.Cliente;
+import Users.Magazziniere;
+import Users.Utente;
+import Utility.ProductMapper;
+import Utility.UserMapper;
+import Utility.UserReader;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +57,7 @@ public class Main {
 	}
 
 		private static void mostraMenuCliente() {
-			System.out.println("\n--- Menu Cliente ---");
+			System.out.println("\n--- Menu Users.Cliente ---");
 			System.out.println();
 			System.out.println("1. Aggiungi prodotto al carrello");
 			System.out.println("2. Rimuovi prodotto dal carrello");
@@ -113,7 +128,7 @@ public class Main {
 		}
 
 	private static void mostraMenuMagazziniere() {
-		System.out.println("\n--- Menu Magazziniere ---");
+		System.out.println("\n--- Menu Users.Magazziniere ---");
 		System.out.println();
 		System.out.println("1. Aggiungi prodotto al magazzino");
 		System.out.println("2. Rimuovi prodotto dal magazzino");
@@ -157,7 +172,7 @@ public class Main {
 	}
 
 	public static void menuRicercaMagazziniere( Scanner sc, Magazziniere magazziniere ) {
-		System.out.println("\n--- Menu Ricerca Magazziniere---");
+		System.out.println("\n--- Menu Ricerca Users.Magazziniere---");
 		System.out.println();
 		System.out.println("1. Ricerca per marca");
 		System.out.println("2. Ricerca per modello");
@@ -541,7 +556,7 @@ public class Main {
 		System.out.println("Inserisci e-mail:");
 		String userRead = sc.nextLine();
 		if ( utenti.stream().noneMatch(c -> c.getEmail().equalsIgnoreCase(userRead)) )
-			throw new LoginFailedException("Utente non registrato");//Se il cliente non è registrato, lancia un'eccezione
+			throw new LoginFailedException("Users.Utente non registrato");//Se il cliente non è registrato, lancia un'eccezione
 
 		System.out.println("Inserisci la password");
 		String passRead = sc.nextLine();

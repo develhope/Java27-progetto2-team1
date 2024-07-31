@@ -1,3 +1,9 @@
+package Users;
+
+import Exceptions.ProdottoNonTrovatoException;
+import Products.ProdottoElettronico;
+import Management.Magazzino;
+
 import java.util.Set;
 
 public class Magazziniere extends Utente {
