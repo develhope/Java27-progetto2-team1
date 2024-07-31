@@ -4,7 +4,6 @@ import Users.Cliente;
 import Users.Utente;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
