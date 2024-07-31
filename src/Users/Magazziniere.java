@@ -23,7 +23,7 @@ public class Magazziniere extends Utente {
         magazzino.removeProductFromMagazzino(id);
     }
 
-    public Set<ProdottoElettronico> filtredByWhareHousePurchasePrice(float prezzo) {
+    public Set<ProdottoElettronico> filtredByWhareHousePurchasePrice(double prezzo) {
         return magazzino.filtredByWhareHousePurchasePrice(prezzo);
     }
 
@@ -38,11 +38,11 @@ public class Magazziniere extends Utente {
         return magazzino.filtredByProducer(marca);
     }
 
-    public Set<ProdottoElettronico>filtredBySellPrice(float prezzo){
+    public Set<ProdottoElettronico>filtredBySellPrice(double prezzo){
         return magazzino.filtredBySellPrice(prezzo);
     }
 
-    public Set< ProdottoElettronico >filtredByRangePrice( float prezzo1, float prezzo2){
+    public Set<ProdottoElettronico>filtredByRangePrice(double prezzo1, double prezzo2){
         return magazzino.filtredByRangePrice(prezzo1,prezzo2);
     }
 
