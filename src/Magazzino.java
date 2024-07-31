@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,19 +50,25 @@ public class Magazzino {
                 .filter(d->d.getPrezzoVendita() > price && d.getPrezzoVendita() < secondPrice)
                 .collect(Collectors.toSet());
     }
-    public void addProductToMagazzino(ProdottoElettronico dispositivo){
+    public void addProductToMagazzino(ProdottoElettronico dispositivo) throws IOException {
         boolean found = magazzino.stream().anyMatch(d->d.getId() == dispositivo.getId());
         if(found){
             dispositivo.setQuantitaMagazzino(dispositivo.getQuantitaMagazzino() + 1);
+            MagazzinoReader.aggiornaMagazzino(magazzino);
         } else{
-            magazzino.add(dispositivo);
+            MagazzinoReader.aggiungiProdottoAlMagazzino(dispositivo);
+            MagazzinoReader.leggiMagazzinoDaFile();
         }
     }
 
-    public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException{
+    public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException, IOException{
        boolean isPresent = magazzino.removeIf(d->d.getId() == id);
        if (!isPresent){
            throw new ProdottoNonTrovatoException("Impossibile procedere: prodotto non trovato");
+       } else {
+           ProdottoElettronico tmp = filteredById(id);
+           MagazzinoReader.rimuoviProdottoMagazzino(tmp);
+           magazzino = MagazzinoReader.leggiMagazzinoDaFile();
        }
     }
 
@@ -78,27 +85,30 @@ public class Magazzino {
         this.magazzino = magazzino;
     }
 
-    public void decrementaQuantita(int id, int amount) throws ProdottoNonTrovatoException {
-
+    public void decrementaQuantita(int id, int amount) throws ProdottoNonTrovatoException, IOException {
         ProdottoElettronico prodotto = filteredById(id);
-
         int nuovaQuantita = prodotto.getQuantitaMagazzino() - amount;
         if (nuovaQuantita < 0) {
             throw new IllegalArgumentException("Quantità non può essere negativa");
+        } else if (nuovaQuantita == 0) {
+            MagazzinoReader.rimuoviProdottoMagazzino(prodotto);
+            magazzino = MagazzinoReader.leggiMagazzinoDaFile(); //aggiorna set con modifica fatta al file
+        } else{
+            prodotto.setQuantitaMagazzino(nuovaQuantita);
+            MagazzinoReader.aggiornaMagazzino(magazzino); // sovrascrive file con lista passata come parametro
         }
-
-        prodotto.setQuantitaMagazzino(nuovaQuantita);
     }
 
-    public void incrementaQuantita(int id, int amount) throws ProdottoNonTrovatoException {
+    public void incrementaQuantita(int id, int amount) throws ProdottoNonTrovatoException, IOException {
 
         ProdottoElettronico prodotto = filteredById(id);
-
         int nuovaQuantita = prodotto.getQuantitaMagazzino() + amount;
         if (nuovaQuantita < 0) {
             throw new IllegalArgumentException("Quantità non può essere negativa");
+        } else{
+            prodotto.setQuantitaMagazzino(nuovaQuantita);
+            MagazzinoReader.aggiornaMagazzino(magazzino);
         }
 
-        prodotto.setQuantitaMagazzino(nuovaQuantita);
     }
 }
