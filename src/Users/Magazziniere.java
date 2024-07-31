@@ -1,3 +1,9 @@
+package Users;
+
+import Exceptions.ProdottoNonTrovatoException;
+import Products.ProdottoElettronico;
+import Management.Magazzino;
+
 import java.util.Set;
 
 public class Magazziniere extends Utente {
@@ -36,7 +42,7 @@ public class Magazziniere extends Utente {
         return magazzino.filtredBySellPrice(prezzo);
     }
 
-    public Set<ProdottoElettronico>filtredByRangePrice(float prezzo1, float prezzo2){
+    public Set< ProdottoElettronico >filtredByRangePrice( float prezzo1, float prezzo2){
         return magazzino.filtredByRangePrice(prezzo1,prezzo2);
     }
 

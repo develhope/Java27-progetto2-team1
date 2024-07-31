@@ -1,3 +1,7 @@
+package Products;
+
+import Enums.TipoElettronico;
+
 public class ProdottoElettronicoUtente{
 
     private String marca;
@@ -53,7 +57,7 @@ public class ProdottoElettronicoUtente{
 
     @Override
     public String toString() {
-        return " Products.Prodotto: " + '\'' +
+        return " Products.Products.Prodotto: " + '\'' +
                 " Tipo Elettronico: " + tipoElettronico +  '\'' +
                 " Dimensione Schermo: " + dimSchermo +
                 " Marca: " + marca + '\'' +

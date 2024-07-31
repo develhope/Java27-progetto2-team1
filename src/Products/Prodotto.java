@@ -1,3 +1,5 @@
+package Products;
+
 public abstract class Prodotto {
 
 	protected String marca;

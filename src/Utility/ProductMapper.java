@@ -1,3 +1,8 @@
+package Utility;
+
+import Products.ProdottoElettronico;
+import Products.ProdottoElettronicoUtente;
+
 public class ProductMapper {
 
 	public static ProdottoElettronicoUtente toProdottoUtente( ProdottoElettronico prd){
