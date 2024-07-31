@@ -101,7 +101,7 @@ public class Main {
 
 				case 7 -> {//ConcludiAcquisto
 					try {
-						clienteLoggato.concludiAcquistoProdotti(sc);
+						clienteLoggato.concludiAcquistoProdotti();
 					} catch ( CarrelloVuotoException e ) {
 						System.err.println(e.getMessage());
 					}
