@@ -1,9 +1,15 @@
+package Management;
+
+import Exceptions.CarrelloVuotoException;
+import Exceptions.ProdottoNonTrovatoException;
+import Products.ProdottoElettronicoUtente;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Carrello {
 
-	HashSet<ProdottoElettronicoUtente> carrello;
+	HashSet< ProdottoElettronicoUtente > carrello;
 
 	public Carrello(){
 		carrello = new HashSet <>();

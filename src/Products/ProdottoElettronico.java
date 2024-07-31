@@ -1,3 +1,7 @@
+package Products;
+
+import Enums.TipoElettronico;
+
 public class ProdottoElettronico extends Prodotto {
     private TipoElettronico tipoElettronico;
     private float dimSchermo;
@@ -35,7 +39,7 @@ public class ProdottoElettronico extends Prodotto {
 
     @Override
     public String toString() {
-        return " Prodotto: " + '\'' +
+        return " Products.Prodotto: " + '\'' +
                 "Tipo Elettronico: " + tipoElettronico +  '\'' +
                 "Dimensione Schermo: " + dimSchermo +
                 "Marca: " + marca + '\'' +

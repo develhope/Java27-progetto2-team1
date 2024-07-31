@@ -1,10 +1,6 @@
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+package Users;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.lang.reflect.Type;
-import java.util.List;
+import Enums.Roles;
 
 public class Utente {
     private String nome;

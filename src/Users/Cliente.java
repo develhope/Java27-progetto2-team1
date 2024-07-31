@@ -1,3 +1,10 @@
+package Users;
+
+import Exceptions.CarrelloVuotoException;
+import Exceptions.ProdottoNonTrovatoException;
+import Management.Carrello;
+import Products.ProdottoElettronicoUtente;
+
 import java.util.Set;
 
 public class Cliente extends Utente {
@@ -14,7 +21,7 @@ public class Cliente extends Utente {
 	    return emailCliente.equals(getEmail()) && passwordCliente.equals(getPassword());
     }
 
-    public void aggiungiProdottoAlCarrello(ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException {
+    public void aggiungiProdottoAlCarrello( ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException {
         carrelloCliente.aggiungiProdotto(prodotto, quantita);
     }
 

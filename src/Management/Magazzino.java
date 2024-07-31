@@ -1,10 +1,15 @@
+package Management;
+
+import Exceptions.ProdottoNonTrovatoException;
+import Products.ProdottoElettronico;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Magazzino {
 
-    //Accetta tipi ProdottoElettronico
+    //Accetta tipi Products.ProdottoElettronico
     private Set<ProdottoElettronico> magazzino;
 
     public Magazzino() {
@@ -58,14 +63,14 @@ public class Magazzino {
         }
     }
 
-    public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException{
+    public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException {
        boolean isPresent = magazzino.removeIf(d->d.getId() == id);
        if (!isPresent){
            throw new ProdottoNonTrovatoException("Impossibile procedere: prodotto non trovato");
        }
     }
 
-    public ProdottoElettronico filteredById(int id) throws ProdottoNonTrovatoException {
+    public ProdottoElettronico filteredById( int id) throws ProdottoNonTrovatoException {
          return magazzino.stream().filter(d-> d.getId() == id).findFirst().orElseThrow(()-> new ProdottoNonTrovatoException("Nessuna corrispondenza nel magazzino"));
     }
 
