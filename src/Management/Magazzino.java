@@ -38,18 +38,18 @@ public class Magazzino {
                .filter(d->d.getMarca().equalsIgnoreCase(type))
                .collect(Collectors.toSet());
     }
-    public Set<ProdottoElettronico> filtredBySellPrice(float price){
+    public Set<ProdottoElettronico> filtredBySellPrice(double price){
         return magazzino.stream()
                 .filter(d->d.getPrezzoVendita() == price)
                 .collect(Collectors.toSet());
     }
     // Filtrato per prezzo magazzino
-    public Set<ProdottoElettronico> filtredByWhareHousePurchasePrice(float price){
+    public Set<ProdottoElettronico> filtredByWhareHousePurchasePrice(double price){
         return magazzino.stream()
                 .filter(d-> d.getPrezzoAcquisto() == price)
                 .collect(Collectors.toSet());
     }
-    public Set<ProdottoElettronico> filtredByRangePrice(float price, float secondPrice){
+    public Set<ProdottoElettronico> filtredByRangePrice(double price, double secondPrice){
         return magazzino.stream()
                 .filter(d->d.getPrezzoVendita() > price && d.getPrezzoVendita() < secondPrice)
                 .collect(Collectors.toSet());
