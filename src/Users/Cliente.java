@@ -25,6 +25,10 @@ public class Cliente extends Utente {
         carrelloCliente.aggiungiProdotto(prodotto, quantita);
     }
 
+    public ProdottoElettronicoUtente ricercaTramiteId(int id) throws ProdottoNonTrovatoException{
+        return carrelloCliente.ricercaPerId(id);
+    }
+
     public Set<ProdottoElettronicoUtente> ricercaProdottoPerMarca(String marca) throws ProdottoNonTrovatoException {
         return carrelloCliente.ricercaPerMarca(marca);
     }
