@@ -4,8 +4,6 @@ import Exceptions.CarrelloVuotoException;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronicoUtente;
 import Utility.CarrelloReader;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
