@@ -1,3 +1,6 @@
+package Utility;
+
+import Products.ProdottoElettronico;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -10,7 +13,7 @@ import java.util.Set;
 
 public class MagazzinoReader {
 
-    public static Set<ProdottoElettronico> leggiMagazzinoDaFile() throws FileNotFoundException {
+    public static Set<ProdottoElettronico> leggiMagazzinoDaFile() throws IOException {
         FileReader lettore = new FileReader("src/Magazzino.json");
         Gson gson = new Gson();
         Type tipoListaMagazzino = new TypeToken <Set<ProdottoElettronico>>() {}.getType();
@@ -27,6 +30,8 @@ public class MagazzinoReader {
         FileWriter fileWriter = new FileWriter("src/Magazzino.json");
         Gson gson = new Gson();
         gson.toJson(listaProdotti, fileWriter);
+        fileWriter.flush();
+        fileWriter.close();
     }
 
     public static void rimuoviProdottoMagazzino(ProdottoElettronico prodottoElettronico) throws IOException {
