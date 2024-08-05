@@ -3,7 +3,10 @@ package Management;
 import Exceptions.CarrelloVuotoException;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronicoUtente;
+import Utility.CarrelloReader;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,12 +19,19 @@ public class Carrello {
 	}
 
 
-	public void aggiungiProdotto ( ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException {
+	public void aggiungiProdotto ( ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException, IOException {
 		Optional < ProdottoElettronicoUtente > toAdd = carrello.stream()
 				.filter(p -> p.getId() == prodotto.getId())
 				.findFirst();
-		if (toAdd.isPresent()) incrementaQuantita(prodotto.getId(), quantita);
-		else carrello.add(prodotto);
+		if (toAdd.isPresent()){
+			incrementaQuantita(prodotto.getId(), quantita);
+			CarrelloReader.aggiornaCarrello(carrello);
+		}
+		else {
+			CarrelloReader.aggiungiProdottoAlCarrello(prodotto);
+			carrello = CarrelloReader.leggiCarrelloDaFile();
+		}
+
 	}
 
 	public ProdottoElettronicoUtente ricercaPerId ( int id) throws ProdottoNonTrovatoException{
@@ -85,10 +95,14 @@ public class Carrello {
 		}
 	}
 
-	public void rimozioneTramiteId(int id, int quantita) throws ProdottoNonTrovatoException {
+	public void rimozioneTramiteId(int id, int quantita) throws ProdottoNonTrovatoException, IOException {
 		ProdottoElettronicoUtente prdToRemove = ricercaPerId(id);
 		decrementaQuantita(id,quantita);
-		if(ricercaPerId(id).getQuantitaCarrello() <= 0) carrello.remove(prdToRemove);
+		CarrelloReader.aggiornaCarrello(carrello);
+		if(ricercaPerId(id).getQuantitaCarrello() <= 0){
+			CarrelloReader.rimuoviProdottoCarrello(prdToRemove);
+			carrello = CarrelloReader.leggiCarrelloDaFile();
+		}
 	}
 
 	public double calcoloTot() throws CarrelloVuotoException {
@@ -102,12 +116,13 @@ public class Carrello {
 		return prezzoTot;
 	}
 
-	public void svuotaCarrello(){
+	public void svuotaCarrello() throws IOException {
 		carrello.clear();
+		CarrelloReader.aggiornaCarrello(carrello);
 	}
 
 
-	public void concludiAcquisto(  ) throws CarrelloVuotoException {
+	public void concludiAcquisto(  ) throws CarrelloVuotoException, IOException {
 		if(carrello.isEmpty()) throw new CarrelloVuotoException("Non ci sono articoli nel carrello");
 		System.out.println("Si è sicuro di voler concludere l'acquisto?");
 		stampaCarrello();
@@ -128,17 +143,17 @@ public class Carrello {
 		return carrello;
 	}
 
-	public void incrementaQuantita(int id, int amount) throws ProdottoNonTrovatoException {
-
+	public void incrementaQuantita(int id, int amount) throws ProdottoNonTrovatoException, IOException {
 		ProdottoElettronicoUtente prodotto = ricercaPerId(id);
 		int nuovaQuantita = prodotto.getQuantitaCarrello() + amount;
 		prodotto.setQuantitaCarrello(nuovaQuantita);
+		CarrelloReader.aggiornaCarrello(carrello);
 	}
 
-	public void decrementaQuantita (int id, int amount) throws ProdottoNonTrovatoException{
+	public void decrementaQuantita (int id, int amount) throws ProdottoNonTrovatoException, IOException {
 		ProdottoElettronicoUtente prodotto = ricercaPerId(id);
 		int quantita = prodotto.getQuantitaCarrello() - amount;
-
 		prodotto.setQuantitaCarrello(quantita);
+		CarrelloReader.aggiornaCarrello(carrello);
 	}
 }
