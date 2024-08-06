@@ -9,12 +9,12 @@ public class ProdottoElettronico extends Prodotto {
     //Calcolo spesa media
 
 
+    private ProdottoElettronico(ProdottoElettronicoBuilder peBuilder) {
+        super(peBuilder);
+        this.tipoElettronico = peBuilder.tipoElettronico;
+        this.dimSchermo = peBuilder.dimSchermo;
+    }
 
-   public ProdottoElettronico(String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id, int quantita, float dimSchermo, TipoElettronico tipoElettronico){
-       super(marca, modello, prezzoAcquisto, prezzoVendita, id, quantita);
-       this.dimSchermo = dimSchermo;
-       this.tipoElettronico = tipoElettronico;
-   }
 
     public TipoElettronico getTipoElettronico() {
         return tipoElettronico;
@@ -50,4 +50,25 @@ public class ProdottoElettronico extends Prodotto {
 
     }
 
+    public static class ProdottoElettronicoBuilder extends ProdottoBuilder {
+
+        private TipoElettronico tipoElettronico;
+        private float dimSchermo;
+
+        public ProdottoElettronicoBuilder setTipoElettronico(TipoElettronico tipoElettronico) {
+            this.tipoElettronico = tipoElettronico;
+            return this;
+        }
+
+        public ProdottoElettronicoBuilder setDimSchermo(float dimSchermo) {
+            this.dimSchermo = dimSchermo;
+            return this;
+        }
+
+        @Override
+        public Prodotto build() {
+            // eventuali controlli su campi
+            return new ProdottoElettronico(this);
+        }
+    }
 }

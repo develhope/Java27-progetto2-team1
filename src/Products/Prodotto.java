@@ -11,47 +11,17 @@ public abstract class Prodotto {
 	protected int quantitaMagazzino;
 	protected int numVendite;
 
-	public Prodotto( String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id, int quantitaMagazzino ) {
-		this.marca = marca;
-		this.modello = modello;
-		this.prezzoAcquisto = prezzoAcquisto;
-		this.prezzoVendita = prezzoVendita;
-		this.id = id;
-		this.quantitaMagazzino = quantitaMagazzino;
 
-		numVendite = 0;
+	protected Prodotto(ProdottoBuilder builder) {
+		this.marca = builder.marca;
+		this.modello = builder.modello;
+		this.descrizione = builder.descrizione;
+		this.prezzoAcquisto = builder.prezzoAcquisto;
+		this.prezzoVendita = builder.prezzoVendita;
+		this.id = builder.id;
+		this.quantitaMagazzino = builder.quantitaMagazzino;
+		this.numVendite = builder.numVendite;
 	}
-
-	public Prodotto( String marca, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, int id, int quantitaMagazzino ) {
-		this.marca = marca;
-		this.modello = modello;
-		this.descrizione = descrizione;
-		this.prezzoAcquisto = prezzoAcquisto;
-		this.prezzoVendita = prezzoVendita;
-		this.id = id;
-		this.quantitaMagazzino = quantitaMagazzino;
-		numVendite = 0;
-	}
-
-	public Prodotto( String marca, String modello, double prezzoAcquisto, double prezzoVendita, int id ) {
-		this.marca = marca;
-		this.modello = modello;
-		this.prezzoAcquisto = prezzoAcquisto;
-		this.prezzoVendita = prezzoVendita;
-		this.id = id;
-		numVendite = 0;
-	}
-
-	public Prodotto( String marca, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, int id ) {
-		this.marca = marca;
-		this.modello = modello;
-		this.descrizione = descrizione;
-		this.prezzoAcquisto = prezzoAcquisto;
-		this.prezzoVendita = prezzoVendita;
-		this.id = id;
-		numVendite = 0;
-	}
-
 
 	public String getMarca() {
 		return marca;
