@@ -1,8 +1,11 @@
 package Users;
 
+import javax.imageio.IIOException;
+import java.io.IOException;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronico;
 import Management.Magazzino;
+import Users.Utente;
 
 import java.util.Set;
 
@@ -15,11 +18,11 @@ public class Magazziniere extends Utente {
     public Magazziniere(String nome, String cognome, int age, String email, String password) {
         super(nome, cognome, age, email, password);
     }
-    public void addProductToMagazzino(ProdottoElettronico prodotto) {
+    public void addProductToMagazzino(ProdottoElettronico prodotto) throws IOException {
         magazzino.addProductToMagazzino(prodotto);
     }
 
-    public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException {
+    public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException, IOException {
         magazzino.removeProductFromMagazzino(id);
     }
 
