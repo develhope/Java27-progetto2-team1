@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class Magazziniere extends Utente {
 
-    private Magazzino magazzino;
+    private Magazzino magazzino = new Magazzino();
 
     public Magazziniere(){}
 

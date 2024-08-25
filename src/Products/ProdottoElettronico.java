@@ -32,6 +32,7 @@ public class ProdottoElettronico extends Prodotto {
         this.dimSchermo = dimSchermo;
     }
 
+
     @Override
     public double calcolaSpesaMedia() {
         return 0;
@@ -50,10 +51,17 @@ public class ProdottoElettronico extends Prodotto {
 
     }
 
-    public static class ProdottoElettronicoBuilder extends ProdottoBuilder {
+    public static class ProdottoElettronicoBuilder extends AbstractBuilder<ProdottoElettronicoBuilder> {
 
         private TipoElettronico tipoElettronico;
         private float dimSchermo;
+
+        public ProdottoElettronicoBuilder(String marca, String modello, double prezzoAcquisto, int id, String tipoElettronico, float dimSchermo) {
+            super(marca, modello, prezzoAcquisto, id);
+            this.tipoElettronico = TipoElettronico.valueOf(tipoElettronico.toUpperCase());
+            this.dimSchermo = dimSchermo;
+        }
+
 
         public ProdottoElettronicoBuilder setTipoElettronico(TipoElettronico tipoElettronico) {
             this.tipoElettronico = tipoElettronico;
@@ -65,8 +73,14 @@ public class ProdottoElettronico extends Prodotto {
             return this;
         }
 
+
         @Override
-        public Prodotto build() {
+        protected ProdottoElettronicoBuilder self() {
+            return this;
+        }
+
+        @Override
+        public ProdottoElettronico build() {
             // eventuali controlli su campi
             return new ProdottoElettronico(this);
         }

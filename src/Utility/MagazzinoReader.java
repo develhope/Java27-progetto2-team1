@@ -1,5 +1,6 @@
 package Utility;
 
+import Management.Magazzino;
 import Products.ProdottoElettronico;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Set;
 
 public class MagazzinoReader {
@@ -22,6 +24,9 @@ public class MagazzinoReader {
 
     public static void aggiungiProdottoAlMagazzino(ProdottoElettronico prodottoElettronico) throws IOException{
         Set<ProdottoElettronico> magazzino = leggiMagazzinoDaFile();
+        if(magazzino == null){
+           magazzino = new HashSet<>();
+        }
         magazzino.add(prodottoElettronico);
         aggiornaMagazzino(magazzino);
     }

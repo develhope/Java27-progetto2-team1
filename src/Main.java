@@ -1,5 +1,4 @@
 import Enums.Roles;
-import Enums.TipoElettronico;
 import Exceptions.CarrelloVuotoException;
 import Exceptions.LoginFailedException;
 import Exceptions.ProdottoNonTrovatoException;
@@ -12,7 +11,6 @@ import Users.Utente;
 import Utility.ProductMapper;
 import Utility.UserMapper;
 import Utility.UserReader;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,11 +27,14 @@ public class Main {
 
 	public static void main( String[] args ) {
 
-		ProdottoElettronico prd1 = new ProdottoElettronico("Samsung", "Galaxys24", 700.0, 1300, 0, 10, 6, TipoElettronico.SMARTPHONE);
+		ProdottoElettronico prd1 = new ProdottoElettronico.ProdottoElettronicoBuilder("Samsung", "Galaxys24", 700.0, 0, "Smartphone", 6).setQuantitaMagazzino(3).setPrezzoVendita(1300.00).build();
 
-
-
-		magazzino.addProductToMagazzino(prd1);//aggiunge il prodotto al magazzino
+		try{
+			magazzino.addProductToMagazzino(prd1);//aggiunge il prodotto al magazzino
+		} catch (IOException ie){
+			System.err.println(ie.getMessage());
+		}
+		
 		//boolean loggedIn = false;
 		Scanner sc = new Scanner(System.in);//Inizializza lo Scanner
 
@@ -112,15 +113,20 @@ public class Main {
 
 				case 5 -> menuRicercaCliente(sc, clienteLoggato);//Ricerche
 
-				case 6 -> clienteLoggato.svuotaCarrelloProdotti();
+				case 6 -> {try{
+					clienteLoggato.svuotaCarrelloProdotti();
+						} catch (IOException e){
+					System.err.println(e.getMessage());
+				}
+				}
 
 				case 7 -> {//ConcludiAcquisto
 					try {
 						clienteLoggato.concludiAcquistoProdotti();
-					} catch ( CarrelloVuotoException e ) {
+					} catch (CarrelloVuotoException | IOException e ) {
 						System.err.println(e.getMessage());
 					}
-				}
+                }
 
 				default -> System.err.println("Comando non riconosciuto");
 			}
@@ -157,7 +163,7 @@ public class Main {
 				try {
 					System.out.println("Inserisci l'id del prodotto da rimuovere: ");
 					magazziniereLoggato.removeProductFromMagazzino(sc.nextInt());
-				} catch ( ProdottoNonTrovatoException e ) {
+				} catch (ProdottoNonTrovatoException | IOException e ) {
 					System.err.println(e.getMessage());
 				}
 			}
@@ -212,15 +218,20 @@ public class Main {
 		System.out.println("Inserisci la quantità: ");
 		int quantita = sc.nextInt();
 		sc.nextLine();
-		ProdottoElettronico toAdd = new ProdottoElettronico.ProductBuilder(marca, modello, prezzoAcquisto, prezzoVendita, id, tipo, dimSchermo).setQuantitaMagazzino(quantita).build();
+		ProdottoElettronico toAdd = new ProdottoElettronico.ProdottoElettronicoBuilder(marca, modello, prezzoAcquisto, id, tipo, dimSchermo).setQuantitaMagazzino(quantita).build();
 		System.out.println("Vuoi inserire una descrizione? S/N");
 		if ( sc.nextLine().equalsIgnoreCase("si") ) {
 			System.out.println("Inserisci la decrizione: ");
 			String descrizione = sc.nextLine();
 			toAdd.setDescrizione(descrizione);
+					//setDescrizione(descrizione);
+		}
+		try {
+			magazziniere.addProductToMagazzino(toAdd);
+		} catch (IOException e){
+			System.err.println(e.getMessage());
 		}
 
-		magazziniere.addProductToMagazzino(toAdd);
 	}
 
 	public static void menuRicercaCliente(Scanner sc, Cliente cliente){
@@ -386,12 +397,19 @@ public class Main {
 			throw new ProdottoNonTrovatoException("Non ci sono sufficienti quantità in magazzino"); //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
 
 		ProdottoElettronicoUtente prodottoTmp = ProductMapper.toProdottoUtente(toAdd); //tasforma l'oggetto da prodotto a prodotto utente
-
+		try{
 		cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita);
+		}catch (IOException e){
+			System.err.println(e.getMessage());
+		}
+
 		prodottoTmp.setQuantitaCarrello(quantita);
 		System.out.println("Prodotto aggiunto con successo");
-
-		magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
+		try {
+			magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
+		} catch (IOException e){
+			System.err.println(e.getMessage());
+		}
 
 	}
 
@@ -409,8 +427,13 @@ public class Main {
 		int quantita = sc.nextInt();
 		sc.nextLine();
 
-		cliente.rimuoviProdottoTramiteId(id, quantita);
-		magazzino.incrementaQuantita(id, quantita);
+		try{
+			cliente.rimuoviProdottoTramiteId(id, quantita);
+			magazzino.incrementaQuantita(id, quantita);
+		} catch (IOException e){
+			System.err.println(e.getMessage());
+		}
+
 
 		System.out.println("Prodotto rimosso con successo");
 

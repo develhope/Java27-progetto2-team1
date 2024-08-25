@@ -15,7 +15,7 @@ import java.util.List;
 public class UserReader {
 
 	public static List < Utente > leggiUtentiDaFile() throws FileNotFoundException {
-		FileReader lettore = new FileReader("src/Users.json");
+		FileReader lettore = new FileReader("src/Users/Users.json");
 		Gson gson = new Gson();
 		Type tipoListaUtenti = new TypeToken <List < Utente >>() {}.getType();
 		return gson.fromJson(lettore, tipoListaUtenti);
@@ -35,6 +35,8 @@ public class UserReader {
 			Gson gson = new Gson();
 			gson.toJson(utenti, writer);
 			System.out.println("Nuovo utente aggiunto con successo!");
+			writer.flush();
+			writer.close();
 		}
 	}
 }
