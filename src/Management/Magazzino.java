@@ -115,4 +115,14 @@ public class Magazzino {
         }
 
     }
+
+    @Override
+    public String toString() {
+        if(magazzino == null | magazzino.isEmpty()){
+            return "Magazzino vuoto";
+        }
+        return "Magazzino{" +
+                "magazzino=" + magazzino +
+                '}';
+    }
 }
