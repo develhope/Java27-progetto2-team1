@@ -10,10 +10,16 @@ import java.util.stream.Collectors;
 public class Magazzino {
 
     //Accetta tipi Products.ProdottoElettronico
+
     private Set<ProdottoElettronico> magazzino;
 
     public Magazzino() {
-        magazzino = new HashSet<>();
+        try{
+            this.magazzino = MagazzinoReader.leggiMagazzinoDaFile();
+        } catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+
     }
 
     //Ritorna il totale degli articoli presenti in magazzino.
@@ -61,12 +67,13 @@ public class Magazzino {
             MagazzinoReader.aggiornaMagazzino(magazzino);
         } else{
             MagazzinoReader.aggiungiProdottoAlMagazzino(dispositivo);
-            MagazzinoReader.leggiMagazzinoDaFile();
+            magazzino = MagazzinoReader.leggiMagazzinoDaFile();
         }
     }
 
     public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException, IOException{
-       boolean isPresent = magazzino.removeIf(d->d.getId() == id);
+       boolean isPresent = magazzino.stream().anyMatch(d->d.getId() == id);
+
        if (!isPresent){
            throw new ProdottoNonTrovatoException("Impossibile procedere: prodotto non trovato");
        } else {

@@ -20,6 +20,9 @@ public class CarrelloReader {
 
     public static void aggiungiProdottoAlCarrello(ProdottoElettronicoUtente prodottoElettronico) throws IOException {
         HashSet<ProdottoElettronicoUtente> carrello = leggiCarrelloDaFile();
+        if(carrello == null){
+            carrello = new HashSet<>();
+        }
         carrello.add(prodottoElettronico);
         aggiornaCarrello(carrello);
     }

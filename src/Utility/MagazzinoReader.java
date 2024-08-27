@@ -40,8 +40,8 @@ public class MagazzinoReader {
     }
 
     public static void rimuoviProdottoMagazzino(ProdottoElettronico prodottoElettronico) throws IOException {
-        Set<ProdottoElettronico> magazzino = leggiMagazzinoDaFile();
-        magazzino.remove(prodottoElettronico);
-        aggiornaMagazzino(magazzino);
+        Set<ProdottoElettronico> listaRimozione = leggiMagazzinoDaFile();
+        listaRimozione.remove(prodottoElettronico);
+        aggiornaMagazzino(listaRimozione);
     }
 }

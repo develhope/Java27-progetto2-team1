@@ -140,7 +140,7 @@ public class Main {
 		switch ( selezione ) {
 
 			case 0 -> {
-				clienteLoggato = null;
+				utenteLoggato = null;
 				magazziniereLoggato = null;
 			}
 
@@ -204,7 +204,7 @@ public class Main {
 		System.out.println("Inserisci la quantità: ");
 		int quantita = sc.nextInt();
 		sc.nextLine();
-		ProdottoElettronico toAdd = new ProdottoElettronico.ProdottoElettronicoBuilder(marca, modello, prezzoAcquisto, id, tipo, dimSchermo).setQuantitaMagazzino(quantita).build();
+		ProdottoElettronico toAdd = new ProdottoElettronico.ProdottoElettronicoBuilder(marca, modello, prezzoAcquisto, id, tipo, dimSchermo).setPrezzoVendita(prezzoVendita).setQuantitaMagazzino(quantita).build();
 		System.out.println("Vuoi inserire una descrizione? S/N");
 		if ( sc.nextLine().equalsIgnoreCase("si") ) {
 			System.out.println("Inserisci la decrizione: ");
@@ -494,6 +494,7 @@ public class Main {
 
 	public static Set < ProdottoElettronico > ricercaTipoMagazzino( Magazziniere magazziniere, Scanner sc ) throws ProdottoNonTrovatoException {
 		System.out.println("Inserisci il tipo di dispositivo da cercare");
+		sc.nextLine();
 		String tipo = sc.nextLine();
 		return magazziniere.filtredBytype(tipo);
 	}
@@ -575,5 +576,4 @@ public class Main {
 				.orElseThrow(() -> new LoginFailedException("UserName o Password errati"));
 		//Richiama il metodo login e controlla se i dati inseriti sono corretti, in caso non lo siano lancia eccezione
 	}
-
 }

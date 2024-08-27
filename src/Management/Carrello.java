@@ -26,6 +26,7 @@ public class Carrello {
 			CarrelloReader.aggiornaCarrello(carrello);
 		}
 		else {
+			prodotto.setQuantitaCarrello(quantita);
 			CarrelloReader.aggiungiProdottoAlCarrello(prodotto);
 			carrello = CarrelloReader.leggiCarrelloDaFile();
 		}
