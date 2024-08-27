@@ -1,10 +1,12 @@
 package Users;
 
+import Enums.Roles;
 import Exceptions.CarrelloVuotoException;
 import Exceptions.ProdottoNonTrovatoException;
 import Management.Carrello;
 import Products.ProdottoElettronicoUtente;
 
+import java.io.IOException;
 import java.util.Set;
 
 public class Cliente extends Utente {
@@ -15,13 +17,14 @@ public class Cliente extends Utente {
 
     public Cliente(String nome, String cognome, int age, String email, String password) {
         super(nome, cognome, age, email, password);
+        role = Roles.CLIENTE;
     }
 
     public boolean login(String emailCliente, String passwordCliente){
 	    return emailCliente.equals(getEmail()) && passwordCliente.equals(getPassword());
     }
 
-    public void aggiungiProdottoAlCarrello( ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException {
+    public void aggiungiProdottoAlCarrello( ProdottoElettronicoUtente prodotto, int quantita) throws ProdottoNonTrovatoException, IOException {
         carrelloCliente.aggiungiProdotto(prodotto, quantita);
     }
 
@@ -53,7 +56,7 @@ public class Cliente extends Utente {
         carrelloCliente.stampaCarrello();
     }
 
-    public void rimuoviProdottoTramiteId(int id, int quantita) throws ProdottoNonTrovatoException {
+    public void rimuoviProdottoTramiteId(int id, int quantita) throws ProdottoNonTrovatoException, IOException {
 	    carrelloCliente.rimozioneTramiteId(id, quantita);
     }
 
@@ -61,11 +64,11 @@ public class Cliente extends Utente {
         return carrelloCliente.calcoloTot();
     }
 
-    public void svuotaCarrelloProdotti(){
+    public void svuotaCarrelloProdotti() throws IOException {
         carrelloCliente.svuotaCarrello();
     }
 
-    public void concludiAcquistoProdotti() throws CarrelloVuotoException {
+    public void concludiAcquistoProdotti() throws CarrelloVuotoException, IOException {
         carrelloCliente.concludiAcquisto();
     }
 

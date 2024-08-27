@@ -9,7 +9,7 @@ public class Utente {
     private String email;
     private int idUtente;
     private String password;
-    private Roles role;
+    protected Roles role;
 
     public Utente(String nome, String cognome, int age, String email, String password) {
         this.nome = nome;

@@ -1,8 +1,7 @@
 package Management;
-
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronico;
-
+import Utility.MagazzinoReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
