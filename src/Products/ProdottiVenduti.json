@@ -1,0 +1,16 @@
+[
+  {
+    "tipoProdotto": "NOTEBOOK",
+    "quantitaVenduta": 0,
+    "spesaTotale": 0
+  },
+  {"tipoProdotto": "SMARTPHONE",
+    "quantitaVenduta": 0,
+    "spesaTotale": 0
+  },
+  {"tipoProdotto": "TABLET",
+    "quantitaVenduta": 0,
+    "spesaTotale": 0
+
+  }
+]
