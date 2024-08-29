@@ -57,14 +57,14 @@ public class ProdottoElettronico extends Prodotto {
 
     @Override
     public String toString() {
-        return " Products.Prodotto: " + '\'' +
-                "Tipo Elettronico: " + tipoElettronico +  '\'' +
+        return " Prodotto: " + ", " +
+                "Tipo Elettronico: " + tipoElettronico +  ", " +
                 "Dimensione Schermo: " + dimSchermo +
-                "Marca: " + marca + '\'' +
-                "Modello: " + modello + '\'' +
-                "Descrizione: " + descrizione + '\'' +
+                "Marca: " + marca + ", " +
+                "Modello: " + modello + ' ' +
+                "Descrizione: " + descrizione + ", " +
                 "Prezzo: " + prezzoVendita +
-                "ID: " + id;
+                "ID: " + id + "\n";
 
     }
 

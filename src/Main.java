@@ -5,9 +5,11 @@ import Exceptions.ProdottoNonTrovatoException;
 import Management.Magazzino;
 import Products.ProdottoElettronico;
 import Products.ProdottoElettronicoUtente;
+import Products.ProdottoVenduto;
 import Users.Cliente;
 import Users.Magazziniere;
 import Users.Utente;
+import Utility.ProdottoVendutoReader;
 import Utility.ProductMapper;
 import Utility.UserMapper;
 import Utility.UserReader;
@@ -24,6 +26,8 @@ public class Main {
 	private static Cliente clienteLoggato = null;
 	private static Magazziniere magazziniereLoggato = null;
 	private static final Magazzino magazzino = new Magazzino();//Inizializza il magazzino
+	private static final ProdottoVenduto prodottoVenduto = new ProdottoVenduto();
+
 
 	public static void main( String[] args ) {
 		while ( true ) {
@@ -63,6 +67,7 @@ public class Main {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Inserisci la selezione");
 			int selezione = sc.nextInt();
+			sc.nextLine();
 
 			switch ( selezione ) {
 
@@ -127,6 +132,7 @@ public class Main {
 		System.out.println("2. Rimuovi prodotto dal magazzino");
 		System.out.println("3. Visualizza prodotti nel magazzino");
 		System.out.println("4. Ricerca");
+		System.out.println("5. Spesa Media dei prodotti venduti");
 		System.out.println("0. LogOut");
 		System.out.println();
 		sceltaMagazziniere();
@@ -159,7 +165,15 @@ public class Main {
 
 			case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
 
-			default -> System.err.println("Comando non riconosciuto");
+            case 5 -> {
+                try{
+					System.out.println(prodottoVenduto.calcoloSpesaMedia());
+                } catch (FileNotFoundException e){
+                    System.err.println(e.getMessage());
+                }
+            }
+
+            default -> System.err.println("Comando non riconosciuto");
 		}
 	}
 

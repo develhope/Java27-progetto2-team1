@@ -1,16 +1,10 @@
 package Utility;
-
-import Management.Carrello;
 import Products.ProdottoElettronicoUtente;
 import Products.ProdottoVenduto;
-import Users.Cliente;
-import Users.Utente;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -22,7 +16,7 @@ public class ProdottoVendutoReader {
     public static List<ProdottoVenduto> leggiProdottiVenduti() throws FileNotFoundException {
         FileReader lettore = new FileReader("src/Products/ProdottiVenduti.json");
         Gson gson = new Gson();
-        Type tipoListaProdotto = new TypeToken<HashSet<ProdottoVenduto>>() {
+        Type tipoListaProdotto = new TypeToken<List<ProdottoVenduto>>() {
         }.getType();
         return gson.fromJson(lettore, tipoListaProdotto);
     }

@@ -1,15 +1,14 @@
 package Management;
-
 import Exceptions.CarrelloVuotoException;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronicoUtente;
 import Products.ProdottoVenduto;
 import Utility.CarrelloReader;
 import Utility.ProdottoVendutoReader;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 public class Carrello {
 
@@ -132,7 +131,7 @@ public class Carrello {
 		System.out.println("Inserire si per continuare o no per annullare");
 		Scanner sc = new Scanner(System.in);
 		String conferma = sc.nextLine();
-		sc.close();
+
 		if(conferma.equalsIgnoreCase("si")){
 			System.out.println("Acquisto effettuato, torna a trovarci!");
 			List<ProdottoVenduto> prodottiVenduti = ProdottoVendutoReader.aggiornaListaProdottoVenduto(carrello);

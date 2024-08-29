@@ -128,8 +128,6 @@ public class Magazzino {
         if(magazzino == null | magazzino.isEmpty()){
             return "Magazzino vuoto";
         }
-        return "Magazzino{" +
-                "magazzino=" + magazzino +
-                '}';
+        return "Magazzino: " + magazzino;
     }
 }
