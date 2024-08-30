@@ -6,8 +6,6 @@ public class ProdottoElettronico extends Prodotto {
     private TipoElettronico tipoElettronico;
     private float dimSchermo;
 
-    //Calcolo spesa media
-
 
     private ProdottoElettronico(ProdottoElettronicoBuilder peBuilder) {
         super(peBuilder);
