@@ -110,6 +110,9 @@ public class Carrello {
 
 	public void rimozioneTramiteId(int id, int quantita){
 		ProdottoElettronicoUtente prdToRemove = ricercaPerId(id);
+		if(prdToRemove == null){
+			return;
+		}
 			decrementaQuantita(id,quantita);
 		CarrelloReader.aggiornaCarrello(carrello);
 		if(prdToRemove.getQuantitaCarrello() <= 0){
