@@ -9,6 +9,7 @@ import Products.ProdottoVenduto;
 import Users.Cliente;
 import Users.Magazziniere;
 import Users.Utente;
+import Utility.ProdottoVendutoReader;
 import Utility.ProductMapper;
 import Utility.UserMapper;
 import Utility.UserReader;
@@ -25,7 +26,6 @@ public class Main {
 	private static Cliente clienteLoggato = null;
 	private static Magazziniere magazziniereLoggato = null;
 	private static final Magazzino magazzino = new Magazzino();//Inizializza il magazzino
-	private static final ProdottoVenduto prodottoVenduto = new ProdottoVenduto();
 
 
 	public static void main( String[] args ) {
@@ -166,7 +166,7 @@ public class Main {
 
             case 5 -> {
                 try{
-					System.out.println(prodottoVenduto.calcoloSpesaMedia());
+					System.out.println(ProdottoVenduto.getSpesaMedia());
                 } catch (FileNotFoundException e){
                     System.err.println(e.getMessage());
                 }

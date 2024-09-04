@@ -9,9 +9,9 @@ public class ProdottoVenduto {
     private TipoElettronico tipoProdotto;
     private int quantitaVenduta;
     private double spesaTotale;
-    private static String stampa1 = "La media dei Smartphone venduti è:";
-    private static String stampa2 = "La media dei Tablet venduti è:";
-    private static String stampa3 = "La media dei Notebook venduti è:";
+    private final static String smartphoneLine = "La media dei Smartphone venduti è:";
+    private final static String tabletLine = "La media dei Tablet venduti è:";
+    private final static String notebookLine = "La media dei Notebook venduti è:";
 
     public ProdottoVenduto(TipoElettronico tipoProdotto, double spesaTotale, int quantitaVenduta) {
         this.tipoProdotto = tipoProdotto;
@@ -45,47 +45,20 @@ public class ProdottoVenduto {
         this.spesaTotale = spesaTotale;
     }
 
-    private double calcoloSpesaMediaSmartphone() throws FileNotFoundException {
-        double [] spesaMediaSmartphone = {0.00};
-        int [] quantitaS = {0};
-
-        ProdottoVendutoReader.leggiProdottiVenduti().stream()
-                .filter(p -> p.getTipoProdotto().toString().equals("SMARTPHONE"))
-                .forEach(p -> {
-                    spesaMediaSmartphone[0] += p.getSpesaTotale();
-                    quantitaS[0] += p.getQuantitaVenduta();
-                });
-       return quantitaS[0] > 0 ? spesaMediaSmartphone[0] / quantitaS[0] : 0.00;
-    }
-
-    private double calcoloSpesaMediaTablet() throws FileNotFoundException {
-        double [] spesaMediaTablet = {0.00};
-        int [] quantitaT = {0};
-        ProdottoVendutoReader.leggiProdottiVenduti().stream()
-                .filter(p -> p.getTipoProdotto().toString().equals("TABLET"))
-                .forEach(p -> {
-                    spesaMediaTablet[0] += p.getSpesaTotale();
-                    quantitaT[0] += p.getQuantitaVenduta();
-                });
-        return quantitaT[0] > 0 ? spesaMediaTablet[0] / quantitaT[0] : 0.00;
-    }
-
-    private double calcoloSpesaMediaNotebook() throws FileNotFoundException {
-        double [] spesaMediaNotebook = {0.00};
-        int [] quantitaN = {0};
+    private static double calcoloSpesaMedia(String tipo) throws FileNotFoundException {
+        double [] spesaMedia = {0.00};
+        int [] quantita = {0};
         List<ProdottoVenduto> prodottiVenduti = ProdottoVendutoReader.leggiProdottiVenduti();
-        prodottiVenduti.stream()
-                .filter(p -> p.getTipoProdotto().toString().equals("NOTEBOOK"))
-                .forEach(p -> {
-                    spesaMediaNotebook[0] += p.getSpesaTotale();
-                    quantitaN[0] += p.getQuantitaVenduta();
-                });
-        return quantitaN[0] > 0 ? spesaMediaNotebook[0] / quantitaN[0] : 0.00;
+        prodottiVenduti.stream().filter(p -> p.getTipoProdotto().toString().equals(tipo.toUpperCase())).forEach(p-> {
+            spesaMedia[0] += p.getSpesaTotale();
+            quantita[0] += p.getQuantitaVenduta();
+        });
+        return quantita[0] > 0 ? spesaMedia[0] / quantita[0] : 0.00;
     }
 
-    public String calcoloSpesaMedia() throws FileNotFoundException {
-        return stampa1 + " " + calcoloSpesaMediaSmartphone() + " " + stampa2 + " "
-                + calcoloSpesaMediaTablet() + " " + stampa3 + " " + calcoloSpesaMediaNotebook();
+    public static String getSpesaMedia() throws FileNotFoundException {
+        return smartphoneLine + " " + calcoloSpesaMedia("SMARTPHONE") + " " + tabletLine + " "
+                + calcoloSpesaMedia("TABLET") + " " + notebookLine + " " + calcoloSpesaMedia("NOTEBOOK");
     }
 
 
