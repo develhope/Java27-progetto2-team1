@@ -9,7 +9,6 @@ import Products.ProdottoVenduto;
 import Users.Cliente;
 import Users.Magazziniere;
 import Users.Utente;
-import Utility.ProdottoVendutoReader;
 import Utility.ProductMapper;
 import Utility.UserMapper;
 import Utility.UserReader;
