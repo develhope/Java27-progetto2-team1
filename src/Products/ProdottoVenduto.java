@@ -19,8 +19,6 @@ public class ProdottoVenduto {
         this.quantitaVenduta = quantitaVenduta;
     }
 
-    public ProdottoVenduto(){};
-
     public TipoElettronico getTipoProdotto() {
         return tipoProdotto;
     }
