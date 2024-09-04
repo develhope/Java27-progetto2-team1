@@ -82,6 +82,19 @@ public abstract class Prodotto {
 		this.quantitaMagazzino = quantitaMagazzino;
 	}
 
+	@Override
+	public String toString() {
+		return "Prodotto {" + "\n" +
+				"  Marca:               '" + marca + '\'' + "\n" +
+				"  Modello:             '" + modello + '\'' + "\n" +
+				"  Descrizione:         '" + descrizione + '\'' + "\n" +
+				"  Prezzo d'Acquisto:   €" + prezzoAcquisto + "\n" +
+				"  Prezzo di Vendita:   €" + prezzoVendita + "\n" +
+				"  ID:                  " + id + "\n" +
+				"  Quantità in Magazzino: " + quantitaMagazzino + "\n" +
+				'}';
+	}
+
 	public static abstract class AbstractBuilder<T extends AbstractBuilder<T> >{
 		protected String marca;
 		protected String modello;
