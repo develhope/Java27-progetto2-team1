@@ -1,5 +1,5 @@
 import Enums.Roles;
-import Exceptions.CarrelloVuotoException;
+import Exceptions.ExceptionHandler;
 import Exceptions.LoginFailedException;
 import Exceptions.ProdottoNonTrovatoException;
 import Management.Magazzino;
@@ -11,9 +11,6 @@ import Users.Utente;
 import Utility.ProductMapper;
 import Utility.UserMapper;
 import Utility.UserReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -304,7 +301,7 @@ public class Main {
     }
 
 //rimuove il prodotto dal carrello e lo riaggiunge al magazzino
-	public static void rimozioneIDCarrello( Scanner sc, Cliente cliente, Magazzino magazzino ) throws ProdottoNonTrovatoException {
+	public static void rimozioneIDCarrello( Scanner sc, Cliente cliente, Magazzino magazzino ){
 
 		System.out.println("Inserisci l'id del prodotto da rimuovere");
 
@@ -316,94 +313,89 @@ public class Main {
 		int quantita = sc.nextInt();
 		sc.nextLine();
 
-		try{
-			cliente.rimuoviProdottoTramiteId(id, quantita);
-			magazzino.incrementaQuantita(id, quantita);
-		} catch (IOException e){
-			System.err.println(e.getMessage());
-		}
-
+		cliente.rimuoviProdottoTramiteId(id, quantita);
+		magazzino.incrementaQuantita(id, quantita);
 
 		System.out.println("Prodotto rimosso con successo");
 
 	}
 
-	public static Set < ProdottoElettronicoUtente > ricercaMarcaCarrello( Cliente cliente, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronicoUtente > ricercaMarcaCarrello( Cliente cliente, Scanner sc ) {
 		System.out.println("Inserisci la marca");
 		String marca = sc.nextLine();
 		return cliente.ricercaProdottoPerMarca(marca);
 	}
 
-	public static Set < ProdottoElettronicoUtente > ricercaModelloCarrello( Cliente cliente, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronicoUtente > ricercaModelloCarrello( Cliente cliente, Scanner sc ) {
 		System.out.println("Inserisci il modello");
 		String modello = sc.nextLine();
 		return cliente.ricercaProdottoPerModello(modello);
 	}
 
-	public static Set < ProdottoElettronicoUtente > ricercaPrezzoCarrello( Cliente cliente, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronicoUtente > ricercaPrezzoCarrello( Cliente cliente, Scanner sc ) {
 		System.out.println("Inserisci il prezzo:");
 		double prezzo = sc.nextDouble();
 		return cliente.ricercaProdottoPerPrezzoDiVendita(prezzo);
 	}
 
-	public static Set < ProdottoElettronicoUtente > ricercaRangePrezzoCarrello( Cliente cliente, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronicoUtente > ricercaRangePrezzoCarrello( Cliente cliente, Scanner sc ) {
 		System.out.println("Inserisci il prezzo minore e poi il prezzo maggiore");
 		double prezzoMin = sc.nextDouble();
 		double prezzoMag = sc.nextDouble();
 		return cliente.ricercaProdottoPerRange(prezzoMin, prezzoMag);
 	}
 
-	public static Set < ProdottoElettronicoUtente > ricercaTipoCarrello( Cliente cliente, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronicoUtente > ricercaTipoCarrello( Cliente cliente, Scanner sc ) {
 		System.out.println("Inserisci il tipo di dispositivo da cercare");
 		String tipo = sc.nextLine();
 		return cliente.ricercaProdottoPerTIpo(tipo);
 	}
 
-	public static ProdottoElettronicoUtente ricercaIdCarrello( Cliente cliente, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static ProdottoElettronicoUtente ricercaIdCarrello( Cliente cliente, Scanner sc ) {
 		System.out.println("Inserisci l'id da ricercare: ");
 		int id = sc.nextInt();
 		return cliente.ricercaTramiteId(id);
 	}
 
-	public static Set < ProdottoElettronico > ricercaMarcaMagazzino( Magazziniere magazziniere, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronico > ricercaMarcaMagazzino( Magazziniere magazziniere, Scanner sc ) {
 		System.out.println("Inserisci la marca");
 		String marca = sc.nextLine();
 		return magazziniere.filtredByProducer(marca);
 	}
 
-	public static Set < ProdottoElettronico > ricercaModelloMagazzino( Magazziniere magazziniere, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronico > ricercaModelloMagazzino( Magazziniere magazziniere, Scanner sc ) {
 		System.out.println("Inserisci il modello");
 		String modello = sc.nextLine();
 		return magazziniere.filtredByModel(modello);
 	}
 
-	public static Set < ProdottoElettronico > ricercaPrezzoVenditaMagazzino( Magazziniere magazziniere, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronico > ricercaPrezzoVenditaMagazzino( Magazziniere magazziniere, Scanner sc ) {
 		System.out.println("Inserisci il prezzo:");
 		double prezzo = sc.nextDouble();
 		return magazziniere.filtredBySellPrice(prezzo);
 	}
 
-	public static Set < ProdottoElettronico > ricercaPrezzoAcquistoMagazzino( Magazziniere magazziniere, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronico > ricercaPrezzoAcquistoMagazzino( Magazziniere magazziniere, Scanner sc ) {
 		System.out.println("Inserisci il prezzo:");
 		double prezzo = sc.nextDouble();
 		return magazziniere.filtredByWhareHousePurchasePrice(prezzo);
 	}
 
-	public static Set < ProdottoElettronico > ricercaRangePrezzoMagazzino( Magazziniere magazziniere, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronico > ricercaRangePrezzoMagazzino( Magazziniere magazziniere, Scanner sc ) {
 		System.out.println("Inserisci il prezzo minore e poi il prezzo maggiore");
 		double prezzoMin = sc.nextDouble();
 		double prezzoMag = sc.nextDouble();
 		return magazziniere.filtredByRangePrice(prezzoMin, prezzoMag);
 	}
 
-	public static Set < ProdottoElettronico > ricercaTipoMagazzino( Magazziniere magazziniere, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static Set < ProdottoElettronico > ricercaTipoMagazzino( Magazziniere magazziniere, Scanner sc ) {
 		System.out.println("Inserisci il tipo di dispositivo da cercare");
 		sc.nextLine();
 		String tipo = sc.nextLine();
 		return magazziniere.filtredBytype(tipo);
 	}
 
-	public static ProdottoElettronico ricercaIdMagazzino( Magazziniere magazziniere, Scanner sc ) throws ProdottoNonTrovatoException {
+	public static ProdottoElettronico ricercaIdMagazzino( Magazziniere magazziniere, Scanner sc ) {
 		System.out.println("Inserisci l'id da ricercare: ");
 		int id = sc.nextInt();
 		return magazziniere.filteredById(id);
@@ -425,11 +417,7 @@ public class Main {
 
 		Cliente tmp = new Cliente(nome, cognome, age, email, password);
 
-		try {
-			UserReader.aggiungiClienteAlFile(tmp);
-		} catch ( IOException e ) {
-			System.err.println("Impossibile accedere al file");
-		}
+		UserReader.aggiungiClienteAlFile(tmp);
 	}
 
 	public static void menuAccesso() {
@@ -443,12 +431,8 @@ public class Main {
 	}
 
 	public static void sceltaAccesso( Scanner sc ) {
-		List <Utente> utenti = new ArrayList <>();
-		try {
-			utenti = UserReader.leggiUtentiDaFile();
-		}catch ( FileNotFoundException e ){
-			System.err.println(e.getMessage());
-		}
+		List <Utente> utenti;
+		utenti = UserReader.leggiUtentiDaFile();
 		int scelta = sc.nextInt();
 
 		switch ( scelta ) {
