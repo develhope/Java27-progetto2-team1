@@ -92,7 +92,6 @@ public abstract class Prodotto {
 				"  Prezzo di Vendita:   €" + prezzoVendita + "\n" +
 				"  ID:                  " + id + "\n" +
 				"  Quantità in Magazzino: " + quantitaMagazzino + "\n" +
-				//"  Numero di Vendite:   " + numVendite + "\n" +
 				'}';
 	}
 
