@@ -2,7 +2,6 @@ package Exceptions;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ExceptionHandler {
     public static <T> T handlexception(ExceptionHandlerFunction<T> function) {
@@ -35,6 +34,5 @@ public class ExceptionHandler {
             return null;
         }
     }
-
 }
 

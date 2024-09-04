@@ -288,7 +288,8 @@ public class Main {
             if (quantitaProdotto == 0 || quantita > quantitaProdotto)
                 throw new ProdottoNonTrovatoException("Non ci sono sufficienti quantità in magazzino");
             return null;
-        }); //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
+        });
+        //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
         ProdottoElettronicoUtente prodottoTmp = ProductMapper.toProdottoUtente(toAdd); //tasforma l'oggetto da prodotto a prodotto utente
         cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita);
         prodottoTmp.setQuantitaCarrello(quantita);
@@ -296,7 +297,6 @@ public class Main {
         magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
     }
 
-    //rimuove il prodotto dal carrello e lo riaggiunge al magazzino
 //rimuove il prodotto dal carrello e lo riaggiunge al magazzino
     public static void rimozioneIDCarrello(Scanner sc, Cliente cliente, Magazzino magazzino) {
         System.out.println("Inserisci l'id del prodotto da rimuovere");
