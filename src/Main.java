@@ -26,19 +26,6 @@ public class Main {
 	private static final Magazzino magazzino = new Magazzino();//Inizializza il magazzino
 
 	public static void main( String[] args ) {
-
-		ProdottoElettronico prd1 = new ProdottoElettronico.ProdottoElettronicoBuilder("Samsung", "Galaxys24", 700.0, 0, "Smartphone", 6).setQuantitaMagazzino(3).setPrezzoVendita(1300.00).build();
-
-		try{
-			magazzino.addProductToMagazzino(prd1);//aggiunge il prodotto al magazzino
-		} catch (IOException ie){
-			System.err.println(ie.getMessage());
-		}
-		
-		//boolean loggedIn = false;
-		Scanner sc = new Scanner(System.in);//Inizializza lo Scanner
-
-
 		while ( true ) {
 
 			while ( Main.utenteLoggato == null ) {
@@ -58,7 +45,7 @@ public class Main {
 	}
 
 		private static void mostraMenuCliente() {
-			System.out.println("\n--- Menu Users.Cliente ---");
+			System.out.println("\n--- Menu Cliente ---");
 			System.out.println();
 			System.out.println("1. Aggiungi prodotto al carrello");
 			System.out.println("2. Rimuovi prodotto dal carrello");
@@ -113,7 +100,8 @@ public class Main {
 
 				case 5 -> menuRicercaCliente(sc, clienteLoggato);//Ricerche
 
-				case 6 -> {try{
+				case 6 -> {//SvuotaCarrello
+					try{
 					clienteLoggato.svuotaCarrelloProdotti();
 						} catch (IOException e){
 					System.err.println(e.getMessage());
@@ -130,11 +118,10 @@ public class Main {
 
 				default -> System.err.println("Comando non riconosciuto");
 			}
-			//sc.close();
 		}
 
 	private static void mostraMenuMagazziniere() {
-		System.out.println("\n--- Menu Users.Magazziniere ---");
+		System.out.println("\n--- Menu Magazziniere ---");
 		System.out.println();
 		System.out.println("1. Aggiungi prodotto al magazzino");
 		System.out.println("2. Rimuovi prodotto dal magazzino");
@@ -153,11 +140,11 @@ public class Main {
 		switch ( selezione ) {
 
 			case 0 -> {
-				clienteLoggato = null;
+				utenteLoggato = null;
 				magazziniereLoggato = null;
 			}
 
-			case 1 -> aggiuntaMagazzino(magazziniereLoggato, magazzino);
+			case 1 -> aggiuntaMagazzino(magazziniereLoggato);
 
 			case 2 -> {//Rimozione tramite id
 				try {
@@ -174,11 +161,10 @@ public class Main {
 
 			default -> System.err.println("Comando non riconosciuto");
 		}
-		//sc.close();
 	}
 
 	public static void menuRicercaMagazziniere( Scanner sc, Magazziniere magazziniere ) {
-		System.out.println("\n--- Menu Ricerca Users.Magazziniere---");
+		System.out.println("\n--- Menu Ricerca Magazziniere---");
 		System.out.println();
 		System.out.println("1. Ricerca per marca");
 		System.out.println("2. Ricerca per modello");
@@ -194,7 +180,7 @@ public class Main {
 
 
 
-	private static void aggiuntaMagazzino( Magazziniere magazziniere, Magazzino magazzino ) {
+	private static void aggiuntaMagazzino( Magazziniere magazziniere) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Inserisci la marca: ");
 		String marca = sc.nextLine();
@@ -218,13 +204,12 @@ public class Main {
 		System.out.println("Inserisci la quantità: ");
 		int quantita = sc.nextInt();
 		sc.nextLine();
-		ProdottoElettronico toAdd = new ProdottoElettronico.ProdottoElettronicoBuilder(marca, modello, prezzoAcquisto, id, tipo, dimSchermo).setQuantitaMagazzino(quantita).build();
+		ProdottoElettronico toAdd = new ProdottoElettronico.ProdottoElettronicoBuilder(marca, modello, prezzoAcquisto, id, tipo, dimSchermo).setPrezzoVendita(prezzoVendita).setQuantitaMagazzino(quantita).build();
 		System.out.println("Vuoi inserire una descrizione? S/N");
 		if ( sc.nextLine().equalsIgnoreCase("si") ) {
 			System.out.println("Inserisci la decrizione: ");
 			String descrizione = sc.nextLine();
 			toAdd.setDescrizione(descrizione);
-					//setDescrizione(descrizione);
 		}
 		try {
 			magazziniere.addProductToMagazzino(toAdd);
@@ -322,7 +307,7 @@ public class Main {
 
 		switch ( ricercaSel ) {
 			case 1 -> {
-				try {
+				try {//Ricerca per marca
 					Set < ProdottoElettronico > found = ricercaMarcaMagazzino(magazziniere, sc);
 					System.out.println("Prodotti trovati: " + found);
 				} catch ( ProdottoNonTrovatoException e ) {
@@ -396,7 +381,7 @@ public class Main {
 		if ( quantitaProdotto == 0 || quantita > quantitaProdotto )
 			throw new ProdottoNonTrovatoException("Non ci sono sufficienti quantità in magazzino"); //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
 
-		ProdottoElettronicoUtente prodottoTmp = ProductMapper.toProdottoUtente(toAdd); //tasforma l'oggetto da prodotto a prodotto utente
+		ProdottoElettronicoUtente prodottoTmp = ProductMapper.toProdottoUtente(toAdd); //trasforma l'oggetto da prodotto a prodotto utente
 		try{
 		cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita);
 		}catch (IOException e){
@@ -509,6 +494,7 @@ public class Main {
 
 	public static Set < ProdottoElettronico > ricercaTipoMagazzino( Magazziniere magazziniere, Scanner sc ) throws ProdottoNonTrovatoException {
 		System.out.println("Inserisci il tipo di dispositivo da cercare");
+		sc.nextLine();
 		String tipo = sc.nextLine();
 		return magazziniere.filtredBytype(tipo);
 	}
@@ -579,7 +565,7 @@ public class Main {
 		System.out.println("Inserisci e-mail:");
 		String userRead = sc.nextLine();
 		if ( utenti.stream().noneMatch(c -> c.getEmail().equalsIgnoreCase(userRead)) )
-			throw new LoginFailedException("Users.Utente non registrato");//Se il cliente non è registrato, lancia un'eccezione
+			throw new LoginFailedException("Utente non registrato");//Se il cliente non è registrato, lancia un'eccezione
 
 		System.out.println("Inserisci la password");
 		String passRead = sc.nextLine();
@@ -590,5 +576,4 @@ public class Main {
 				.orElseThrow(() -> new LoginFailedException("UserName o Password errati"));
 		//Richiama il metodo login e controlla se i dati inseriti sono corretti, in caso non lo siano lancia eccezione
 	}
-
 }
