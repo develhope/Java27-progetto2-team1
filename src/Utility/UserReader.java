@@ -34,12 +34,12 @@ public class UserReader {
 
 			utenti.add(cliente);
 			FileWriter writer = new FileWriter("src/Users/Users.json");
-				Gson gson = new Gson();
-				gson.toJson(utenti, writer);
-				System.out.println("Nuovo utente aggiunto con successo!");
-				writer.flush();
-				writer.close();
-				return null;
+			Gson gson = new Gson();
+			gson.toJson(utenti, writer);
+			System.out.println("Nuovo utente aggiunto con successo!");
+			writer.flush();
+			writer.close();
+			return null;
 		});
 	}
 }

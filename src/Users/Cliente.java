@@ -17,7 +17,7 @@ public class Cliente extends Utente {
     }
 
     public void aggiungiProdottoAlCarrello( ProdottoElettronicoUtente prodotto, int quantita){
-      carrelloCliente.aggiungiProdotto(prodotto, quantita);
+        carrelloCliente.aggiungiProdotto(prodotto, quantita);
     }
 
     public ProdottoElettronicoUtente ricercaTramiteId(int id){
@@ -49,7 +49,7 @@ public class Cliente extends Utente {
     }
 
     public void rimuoviProdottoTramiteId(int id, int quantita){
-	    carrelloCliente.rimozioneTramiteId(id, quantita);
+        carrelloCliente.rimozioneTramiteId(id, quantita);
     }
 
     public double calcoloTotaleCarrello(){

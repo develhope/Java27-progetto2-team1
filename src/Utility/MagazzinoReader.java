@@ -25,7 +25,7 @@ public class MagazzinoReader {
     public static void aggiungiProdottoAlMagazzino(ProdottoElettronico prodottoElettronico){
         Set<ProdottoElettronico> magazzino = leggiMagazzinoDaFile();
         if(magazzino == null){
-           magazzino = new HashSet<>();
+            magazzino = new HashSet<>();
         }
         magazzino.add(prodottoElettronico);
         aggiornaMagazzino(magazzino);
@@ -42,6 +42,7 @@ public class MagazzinoReader {
         });
 
     }
+
     public static void rimuoviProdottoMagazzino(ProdottoElettronico prodottoElettronico){
         Set<ProdottoElettronico> magazzino = leggiMagazzinoDaFile();
         magazzino.remove(prodottoElettronico);

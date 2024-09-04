@@ -11,16 +11,10 @@ import java.util.stream.Collectors;
 public class Magazzino {
 
     //Accetta tipi Products.ProdottoElettronico
-
     private Set<ProdottoElettronico> magazzino;
 
     public Magazzino() {
-        try{
-            this.magazzino = MagazzinoReader.leggiMagazzinoDaFile();
-        } catch (IOException e){
-            System.err.println(e.getMessage());
-        }
-
+        magazzino = new HashSet<>();
     }
 
     //Ritorna il totale degli articoli presenti in magazzino.
@@ -31,9 +25,9 @@ public class Magazzino {
 
     //Lista filtrata per tipo
     public Set<ProdottoElettronico> filtredBytype(String type){
-       return magazzino.stream()
-               .filter(d->d.getTipoElettronico().toString().equalsIgnoreCase(type))
-               .collect(Collectors.toSet());
+        return magazzino.stream()
+                .filter(d->d.getTipoElettronico().toString().equalsIgnoreCase(type))
+                .collect(Collectors.toSet());
     }
     public Set<ProdottoElettronico> filtredByModel(String type){
         return magazzino.stream()
@@ -41,9 +35,9 @@ public class Magazzino {
                 .collect(Collectors.toSet());
     }
     public Set<ProdottoElettronico> filtredByProducer(String type){
-       return magazzino.stream()
-               .filter(d->d.getMarca().equalsIgnoreCase(type))
-               .collect(Collectors.toSet());
+        return magazzino.stream()
+                .filter(d->d.getMarca().equalsIgnoreCase(type))
+                .collect(Collectors.toSet());
     }
     public Set<ProdottoElettronico> filtredBySellPrice(double price){
         return magazzino.stream()
@@ -68,7 +62,7 @@ public class Magazzino {
             MagazzinoReader.aggiornaMagazzino(magazzino);
         } else{
             MagazzinoReader.aggiungiProdottoAlMagazzino(dispositivo);
-            magazzino = MagazzinoReader.leggiMagazzinoDaFile();
+            MagazzinoReader.leggiMagazzinoDaFile();
         }
     }
 
@@ -86,9 +80,9 @@ public class Magazzino {
     }
 
     public ProdottoElettronico filteredById( int id){
-         return ExceptionHandler.handlexception(()-> magazzino.stream()
-                  .filter(d-> d.getId() == id)
-                  .findFirst().orElseThrow(()-> new ProdottoNonTrovatoException("Nessuna corrispondenza nel magazzino")));
+        return ExceptionHandler.handlexception(()-> magazzino.stream()
+                .filter(d-> d.getId() == id)
+                .findFirst().orElseThrow(()-> new ProdottoNonTrovatoException("Nessuna corrispondenza nel magazzino")));
     }
 
     public Set<ProdottoElettronico> getMagazzino() {
@@ -135,4 +129,6 @@ public class Magazzino {
         }
         return "Magazzino: " + magazzino;
     }
+
+
 }

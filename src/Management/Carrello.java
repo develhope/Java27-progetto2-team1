@@ -29,7 +29,6 @@ public class Carrello {
 			CarrelloReader.aggiornaCarrello(carrello);
 		}
 		else {
-			prodotto.setQuantitaCarrello(quantita);
 			CarrelloReader.aggiungiProdottoAlCarrello(prodotto);
 			carrello = CarrelloReader.leggiCarrelloDaFile();
 		}
@@ -38,9 +37,9 @@ public class Carrello {
 
 	public ProdottoElettronicoUtente ricercaPerId ( int id){
 		return  ExceptionHandler.handlexception(()->
-			carrello.stream()
-					.filter(p -> p.getId() == id)
-					.findFirst().orElseThrow(() -> new ProdottoNonTrovatoException("Nessuna corrispondenza"))
+				carrello.stream()
+						.filter(p -> p.getId() == id)
+						.findFirst().orElseThrow(() -> new ProdottoNonTrovatoException("Nessuna corrispondenza"))
 		);
 	}
 
@@ -98,7 +97,7 @@ public class Carrello {
 				.filter(p -> p.getTipoElettronico().name().equals(tipo))
 				.collect(Collectors.toSet());
 
-		 ExceptionHandler.handlexception(()-> {
+		ExceptionHandler.handlexception(()-> {
 			if(res.isEmpty()) throw new ProdottoNonTrovatoException("Nessuna corrispondenza");
 			return res;
 		});
@@ -118,7 +117,7 @@ public class Carrello {
 		if(prdToRemove == null){
 			return;
 		}
-			decrementaQuantita(id,quantita);
+		decrementaQuantita(id,quantita);
 		CarrelloReader.aggiornaCarrello(carrello);
 		if(prdToRemove.getQuantitaCarrello() <= 0){
 			CarrelloReader.rimuoviProdottoCarrello(prdToRemove);
@@ -147,24 +146,26 @@ public class Carrello {
 		CarrelloReader.aggiornaCarrello(carrello);
 	}
 
-
-	public void concludiAcquisto(  ) throws CarrelloVuotoException, IOException {
-		if(carrello.isEmpty()) throw new CarrelloVuotoException("Non ci sono articoli nel carrello");
-		System.out.println("Si è sicuro di voler concludere l'acquisto?");
-		stampaCarrello();
-		System.out.println(calcoloTot());
-		System.out.println("Inserire si per continuare o no per annullare");
-		Scanner sc = new Scanner(System.in);
-		String conferma = sc.nextLine();
-
-		if(conferma.equalsIgnoreCase("si")){
-			System.out.println("Acquisto effettuato, torna a trovarci!");
-			List<ProdottoVenduto> prodottiVenduti = ProdottoVendutoReader.aggiornaListaProdottoVenduto(carrello);
-			ProdottoVendutoReader.aggiungiProdottoVendutoAlFile(prodottiVenduti);
-			svuotaCarrello();
-		}else if(conferma.equalsIgnoreCase("no")){
-			System.out.println("Acquisto annullato");
-		}else System.err.println("Comando non riconosciuto");
+	public void concludiAcquisto(){
+		ExceptionHandler.handlexception(()-> {
+			if(carrello.isEmpty()){
+				throw new CarrelloVuotoException("Non ci sono articoli nel carrello");
+			}
+			System.out.println("Si è sicuro di voler concludere l'acquisto?");
+			stampaCarrello();
+			System.out.println(ExceptionHandler.handlexception(()-> calcoloTot()));
+			System.out.println("Inserire si per continuare o no per annullare");
+			Scanner sc = new Scanner(System.in);
+			String conferma = sc.nextLine();
+			sc.close();
+			if(conferma.equalsIgnoreCase("si")){
+				System.out.println("Acquisto effettuato, torna a trovarci!");
+				svuotaCarrello();
+			}else if(conferma.equalsIgnoreCase("no")){
+				System.out.println("Acquisto annullato");
+			}else System.err.println("Comando non riconosciuto");
+			return null;
+		});
 	}
 
 	public Set < ProdottoElettronicoUtente > getCarrello() {

@@ -8,6 +8,8 @@ public class ProdottoElettronico extends Prodotto {
     private TipoElettronico tipoElettronico;
     private float dimSchermo;
 
+    //Calcolo spesa media
+
 
     @Override
     public final boolean equals(Object o) {
@@ -29,7 +31,6 @@ public class ProdottoElettronico extends Prodotto {
         this.tipoElettronico = peBuilder.tipoElettronico;
         this.dimSchermo = peBuilder.dimSchermo;
     }
-
 
     public TipoElettronico getTipoElettronico() {
         return tipoElettronico;
