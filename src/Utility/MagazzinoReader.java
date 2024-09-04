@@ -42,7 +42,6 @@ public class MagazzinoReader {
         });
 
     }
-
     public static void rimuoviProdottoMagazzino(ProdottoElettronico prodottoElettronico){
         Set<ProdottoElettronico> magazzino = leggiMagazzinoDaFile();
         magazzino.remove(prodottoElettronico);

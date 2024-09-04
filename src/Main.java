@@ -470,5 +470,4 @@ public class Main {
                 .orElseThrow(() -> new LoginFailedException("UserName o Password errati")));
         //Richiama il metodo login e controlla se i dati inseriti sono corretti, in caso non lo siano lancia eccezione
     }
-
 }

@@ -2,10 +2,27 @@ package Products;
 
 import Enums.TipoElettronico;
 
+import java.util.Objects;
+
 public class ProdottoElettronico extends Prodotto {
     private TipoElettronico tipoElettronico;
     private float dimSchermo;
 
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProdottoElettronico that)) return false;
+
+        return Float.compare(getDimSchermo(), that.getDimSchermo()) == 0 && getTipoElettronico() == that.getTipoElettronico();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(getTipoElettronico());
+        result = 31 * result + Float.hashCode(getDimSchermo());
+        return result;
+    }
 
     private ProdottoElettronico(ProdottoElettronicoBuilder peBuilder) {
         super(peBuilder);
