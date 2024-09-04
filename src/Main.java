@@ -28,21 +28,22 @@ public class Main {
 	public static void main( String[] args ) {
 		while ( true ) {
 
-			while ( Main.utenteLoggato == null ) {
-				menuAccesso();
-			}
+            while (Main.utenteLoggato == null) {
+                menuAccesso();
+            }
 
-			if ( Main.utenteLoggato.getRole().equals(Roles.CLIENTE) )
-				clienteLoggato = UserMapper.toUtente(utenteLoggato);
-			if ( Main.utenteLoggato.getRole().equals(Roles.MAGAZZINIERE) )
-				magazziniereLoggato = UserMapper.toMagazziniere(Main.utenteLoggato);
+            if (Main.utenteLoggato.getRole().equals(Roles.CLIENTE))
+                clienteLoggato = UserMapper.toUtente(utenteLoggato);
+            if (Main.utenteLoggato.getRole().equals(Roles.MAGAZZINIERE))
+                magazziniereLoggato = UserMapper.toMagazziniere(Main.utenteLoggato);
 
-			while ( Main.utenteLoggato != null ) {
-				if ( clienteLoggato != null ) mostraMenuCliente();
-				if ( magazziniereLoggato != null ) mostraMenuMagazziniere();
-			}
-		}
-	}
+            while (Main.utenteLoggato != null) {
+                if (clienteLoggato != null) mostraMenuCliente();
+                if (magazziniereLoggato != null) mostraMenuMagazziniere();
+            }
+        }
+    }
+
 
 		private static void mostraMenuCliente() {
 			System.out.println("\n--- Menu Cliente ---");
@@ -59,66 +60,40 @@ public class Main {
 			sceltaCliente();
 		}
 
-		private static void sceltaCliente() {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Inserisci la selezione");
-			int selezione = sc.nextInt();
 
-			switch ( selezione ) {
+    private static void sceltaCliente() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Inserisci la selezione");
+        int selezione = sc.nextInt();
 
-				case 0 -> {
-					clienteLoggato = null;
-					utenteLoggato = null;
-				}
+        switch (selezione) {
 
-				case 1 -> {//Aggiunta tramite id
+            case 0 -> {
+                clienteLoggato = null;
+                utenteLoggato = null;
+            }
 
-					try {
-						aggiuntaIDCarrello(sc, clienteLoggato, magazzino);
-					} catch ( ProdottoNonTrovatoException e ) {
-						System.err.println(e.getMessage());
-					}
-				}
+            case 1 -> //Aggiunta tramite id
+                    aggiuntaIDCarrello(sc, clienteLoggato, magazzino);
 
-				case 2 -> {//Rimozione tramite id
-					try {
-						rimozioneIDCarrello(sc, clienteLoggato, magazzino);
-					} catch ( ProdottoNonTrovatoException e ) {
-						System.err.println(e.getMessage());
-					}
-				}
+            case 2 -> //Rimozione tramite id
+                    rimozioneIDCarrello(sc, clienteLoggato, magazzino);
 
-				case 3 -> clienteLoggato.stampaCarrelloProdotti(); //VisualizzaCarrello
+            case 3 -> clienteLoggato.stampaCarrelloProdotti(); //VisualizzaCarrello
 
-				case 4 -> {//CalcoloTotale
-					try {
-						System.out.println(clienteLoggato.calcoloTotaleCarrello());
-					} catch ( CarrelloVuotoException e ) {
-						System.err.println(e.getMessage());
-					}
-				}
+            case 4 -> //CalcoloTotale
+                    System.out.println(clienteLoggato.calcoloTotaleCarrello());
 
-				case 5 -> menuRicercaCliente(sc, clienteLoggato);//Ricerche
+            case 5 -> menuRicercaCliente(sc, clienteLoggato);//Ricerche
 
-				case 6 -> {//SvuotaCarrello
-					try{
-					clienteLoggato.svuotaCarrelloProdotti();
-						} catch (IOException e){
-					System.err.println(e.getMessage());
-				}
-				}
+            case 6 -> clienteLoggato.svuotaCarrelloProdotti();
 
-				case 7 -> {//ConcludiAcquisto
-					try {
-						clienteLoggato.concludiAcquistoProdotti();
-					} catch (CarrelloVuotoException | IOException e ) {
-						System.err.println(e.getMessage());
-					}
-                }
+            case 7 -> //ConcludiAcquisto
+                    clienteLoggato.concludiAcquistoProdotti();
 
-				default -> System.err.println("Comando non riconosciuto");
-			}
-		}
+            default -> System.err.println("Comando non riconosciuto");
+        }
+    }
 
 	private static void mostraMenuMagazziniere() {
 		System.out.println("\n--- Menu Magazziniere ---");
@@ -132,12 +107,14 @@ public class Main {
 		sceltaMagazziniere();
 	}
 
-	private static void sceltaMagazziniere() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Inserisci la selezione");
-		int selezione = sc.nextInt();
 
-		switch ( selezione ) {
+    private static void sceltaMagazziniere() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Inserisci la selezione");
+        int selezione = sc.nextInt();
+
+        switch (selezione) {
+
 
 			case 0 -> {
 				utenteLoggato = null;
@@ -146,22 +123,19 @@ public class Main {
 
 			case 1 -> aggiuntaMagazzino(magazziniereLoggato);
 
-			case 2 -> {//Rimozione tramite id
-				try {
-					System.out.println("Inserisci l'id del prodotto da rimuovere: ");
-					magazziniereLoggato.removeProductFromMagazzino(sc.nextInt());
-				} catch (ProdottoNonTrovatoException | IOException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
 
-			case 3 -> System.out.println(magazziniereLoggato.getMagazzino()); //VisualizzaCarrello
+            case 2 -> {//Rimozione tramite id
+                System.out.println("Inserisci l'id del prodotto da rimuovere: ");
+                magazziniereLoggato.removeProductFromMagazzino(sc.nextInt());
+            }
 
-			case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
+            case 3 -> System.out.println(magazziniereLoggato.getMagazzino()); //VisualizzaCarrello
 
-			default -> System.err.println("Comando non riconosciuto");
-		}
-	}
+            case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
+
+            default -> System.err.println("Comando non riconosciuto");
+        }
+    }
 
 	public static void menuRicercaMagazziniere( Scanner sc, Magazziniere magazziniere ) {
 		System.out.println("\n--- Menu Ricerca Magazziniere---");
@@ -178,227 +152,157 @@ public class Main {
 		sceltaRicercaMagazziniere(sc, magazziniere);
 	}
 
+    private static void aggiuntaMagazzino(Magazziniere magazziniere) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Inserisci la marca: ");
+        String marca = sc.nextLine();
+        System.out.println("Inserisci il modello: ");
+        String modello = sc.nextLine();
+        System.out.println("Inserisci il prezzo di acquisto: ");
+        double prezzoAcquisto = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Inserisci la percentuale di ricarico da applicare: ");
+        int ricarico = sc.nextInt();
+        sc.nextLine();
+        double prezzoVendita = prezzoAcquisto + (prezzoAcquisto * ricarico) / 100;
+        System.out.println("Inserisci l'id: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Inserisci il tipo di dispositivo (Smartphone, notebook o tablet): ");
+        String tipo = sc.nextLine();
+        System.out.println("Inserisci la dimensione dello schermo: ");
+        float dimSchermo = sc.nextFloat();
+        sc.nextLine();
+        System.out.println("Inserisci la quantità: ");
+        int quantita = sc.nextInt();
+        sc.nextLine();
+        ProdottoElettronico toAdd = new ProdottoElettronico.ProdottoElettronicoBuilder(marca, modello, prezzoAcquisto, id, tipo, dimSchermo)
+                .setQuantitaMagazzino(quantita).setPrezzoVendita(prezzoVendita).build();
+        System.out.println("Vuoi inserire una descrizione? S/N");
+        if (sc.nextLine().equalsIgnoreCase("si")) {
+            System.out.println("Inserisci la decrizione: ");
+            String descrizione = sc.nextLine();
+            toAdd.setDescrizione(descrizione);
+        }
+        magazziniere.addProductToMagazzino(toAdd);
+    }
 
+    public static void menuRicercaCliente(Scanner sc, Cliente cliente) {
 
-	private static void aggiuntaMagazzino( Magazziniere magazziniere) {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Inserisci la marca: ");
-		String marca = sc.nextLine();
-		System.out.println("Inserisci il modello: ");
-		String modello = sc.nextLine();
-		System.out.println("Inserisci il prezzo di acquisto: ");
-		double prezzoAcquisto = sc.nextDouble();
-		sc.nextLine();
-		System.out.println("Inserisci la percentuale di ricarico da applicare: ");
-		int ricarico = sc.nextInt();
-		sc.nextLine();
-		double prezzoVendita = prezzoAcquisto + ( prezzoAcquisto * ricarico ) / 100;
-		System.out.println("Inserisci l'id: ");
-		int id = sc.nextInt();
-		sc.nextLine();
-		System.out.println("Inserisci il tipo di dispositivo (Smartphone, notebook o tablet): ");
-		String tipo = sc.nextLine();
-		System.out.println("Inserisci la dimensione dello schermo: ");
-		float dimSchermo = sc.nextFloat();
-		sc.nextLine();
-		System.out.println("Inserisci la quantità: ");
-		int quantita = sc.nextInt();
-		sc.nextLine();
-		ProdottoElettronico toAdd = new ProdottoElettronico.ProdottoElettronicoBuilder(marca, modello, prezzoAcquisto, id, tipo, dimSchermo).setPrezzoVendita(prezzoVendita).setQuantitaMagazzino(quantita).build();
-		System.out.println("Vuoi inserire una descrizione? S/N");
-		if ( sc.nextLine().equalsIgnoreCase("si") ) {
-			System.out.println("Inserisci la decrizione: ");
-			String descrizione = sc.nextLine();
-			toAdd.setDescrizione(descrizione);
-		}
-		try {
-			magazziniere.addProductToMagazzino(toAdd);
-		} catch (IOException e){
-			System.err.println(e.getMessage());
-		}
+        System.out.println("\n--- Menu Ricerca ---");
+        System.out.println();
+        System.out.println("1. Ricerca per marca");
+        System.out.println("2. Ricerca per modello");
+        System.out.println("3. Ricerca per prezzo");
+        System.out.println("4. Ricerca per range di prezzo");
+        System.out.println("5. Ricerca per tipo");
+        System.out.println("6. Ricerca tramite id");
+        System.out.println("0. Torna indietro");
+        System.out.println();
+        sceltaRicercaCliente(sc, cliente);
+    }
 
-	}
+    public static void sceltaRicercaCliente(Scanner sc, Cliente cliente) {
 
-	public static void menuRicercaCliente(Scanner sc, Cliente cliente){
+        System.out.println("Selezione il tipo di ricerca da effetuare");
+        int ricercaSel = sc.nextInt(); //Legge la ricerca da effettuare
 
-		System.out.println("\n--- Menu Ricerca ---");
-		System.out.println();
-		System.out.println("1. Ricerca per marca");
-		System.out.println("2. Ricerca per modello");
-		System.out.println("3. Ricerca per prezzo");
-		System.out.println("4. Ricerca per range di prezzo");
-		System.out.println("5. Ricerca per tipo");
-		System.out.println("6. Ricerca tramite id");
-		System.out.println("0. Torna indietro");
-		System.out.println();
-		sceltaRicercaCliente(sc, cliente);
-	}
+        switch (ricercaSel) {
+            case 1 -> {//Ricerca per marca
+                Set<ProdottoElettronicoUtente> found = ricercaMarcaCarrello(cliente, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
 
-	public static void sceltaRicercaCliente( Scanner sc, Cliente cliente ) {
+            case 2 -> {//Ricerca per modello
+                Set<ProdottoElettronicoUtente> found = ricercaModelloCarrello(cliente, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
+            case 3 -> {//Ricerca per prezzo di vendita
+                Set<ProdottoElettronicoUtente> found = ricercaPrezzoCarrello(cliente, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
 
-		System.out.println("Selezione il tipo di ricerca da effetuare");
-		int ricercaSel = sc.nextInt(); //Legge la ricerca da effettuare
+            case 4 -> {//Ricerca per range di prezzo
+                Set<ProdottoElettronicoUtente> found = ricercaRangePrezzoCarrello(cliente, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
 
-		switch ( ricercaSel ) {
-			case 1 -> {
-				try {//Ricerca per marca
-					Set < ProdottoElettronicoUtente > found = ricercaMarcaCarrello(cliente, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
+            case 5 -> {//Ricerca per tipo elettronico
+                Set<ProdottoElettronicoUtente> found = ricercaTipoCarrello(cliente, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
 
-			case 2 -> {
-				try {//Ricerca per modello
-					Set < ProdottoElettronicoUtente > found = ricercaModelloCarrello(cliente, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-			case 3 -> {
-				try {//Ricerca per prezzo di vendita
-					Set < ProdottoElettronicoUtente > found = ricercaPrezzoCarrello(cliente, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
+            case 6 -> {//Ricerca tramite ID
+                ProdottoElettronicoUtente found = ricercaIdCarrello(cliente, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
 
-			case 4 -> {
-				try {//Ricerca per range di prezzo
-					Set < ProdottoElettronicoUtente > found = ricercaRangePrezzoCarrello(cliente, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-
-			case 5 -> {
-				try {//Ricerca per tipo elettronico
-					Set < ProdottoElettronicoUtente > found = ricercaTipoCarrello(cliente, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-
-			case 6 -> {
-				try {//Ricerca tramite ID
-					ProdottoElettronicoUtente found = ricercaIdCarrello(cliente, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-
-			case 0 -> {
-			}//Torna al menu precedente
+            case 0 -> {
+            }//Torna al menu precedente
 
 			default -> System.err.println("Comando non riconosciuto");
 		}
-		sc.nextLine();
+		//sc.nextLine();
 	}
 
-	public static void sceltaRicercaMagazziniere( Scanner sc, Magazziniere magazziniere ) {
-		System.out.println("Selezione il tipo di ricerca da effetuare");
-		int ricercaSel = sc.nextInt(); //Legge la ricerca da effettuare
+    public static void sceltaRicercaMagazziniere(Scanner sc, Magazziniere magazziniere) {
+        System.out.println("Selezione il tipo di ricerca da effetuare");
+        int ricercaSel = sc.nextInt(); //Legge la ricerca da effettuare
 
-		switch ( ricercaSel ) {
-			case 1 -> {
-				try {//Ricerca per marca
-					Set < ProdottoElettronico > found = ricercaMarcaMagazzino(magazziniere, sc);
-					System.out.println("Prodotti trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-			case 2 -> {
-				try {//Ricerca per modello
-					Set < ProdottoElettronico > found = ricercaModelloMagazzino(magazziniere, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-			case 3 -> {
-				try {//Ricerca per prezzo di vendita
-					Set < ProdottoElettronico > found = ricercaPrezzoVenditaMagazzino(magazziniere, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-			case 4 -> {
-				try {//Ricerca per prezzo di acquisto
-					Set < ProdottoElettronico > found = ricercaPrezzoAcquistoMagazzino(magazziniere, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-			case 5 -> {
-				try {//Ricerca per range di prezzo
-					Set < ProdottoElettronico > found = ricercaRangePrezzoMagazzino(magazziniere, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-			case 6 -> {
-				try {//Ricerca per tipo elettronico
-					Set < ProdottoElettronico > found = ricercaTipoMagazzino(magazziniere, sc);
-					System.out.println("Dispositivi trovati: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-			case 7 -> {
-				try {//Ricerca tramite ID
-					ProdottoElettronico found = ricercaIdMagazzino(magazziniere, sc);
-					System.out.println("Dispositivo trovato: " + found);
-				} catch ( ProdottoNonTrovatoException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-		}
-	}
+        switch (ricercaSel) {
+            case 1 -> {
+                Set<ProdottoElettronico> found = ricercaMarcaMagazzino(magazziniere, sc);
+                System.out.println("Prodotti trovati: " + found);
+            }
+            case 2 -> {//Ricerca per modello
+                Set<ProdottoElettronico> found = ricercaModelloMagazzino(magazziniere, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
+            case 3 -> {//Ricerca per prezzo di vendita
+                Set<ProdottoElettronico> found = ricercaPrezzoVenditaMagazzino(magazziniere, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
+            case 4 -> {//Ricerca per prezzo di acquisto
+                Set<ProdottoElettronico> found = ricercaPrezzoAcquistoMagazzino(magazziniere, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
+            case 5 -> {//Ricerca per range di prezzo
+                Set<ProdottoElettronico> found = ricercaRangePrezzoMagazzino(magazziniere, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
+            case 6 -> {//Ricerca per tipo elettronico
+                Set<ProdottoElettronico> found = ricercaTipoMagazzino(magazziniere, sc);
+                System.out.println("Dispositivi trovati: " + found);
+            }
+            case 7 -> {//Ricerca tramite ID
+                ProdottoElettronico found = ricercaIdMagazzino(magazziniere, sc);
+                System.out.println("Dispositivo trovato: " + found);
+            }
+        }
+    }
 
-	//aggiunge prodotti al carrello e ne rimuove la quantità dal magazzino
-	public static void aggiuntaIDCarrello( Scanner sc, Cliente cliente, Magazzino magazzino ) throws ProdottoNonTrovatoException {
+    //aggiunge prodotti al carrello e ne rimuove la quantità dal magazzino
+    public static void aggiuntaIDCarrello(Scanner sc, Cliente cliente, Magazzino magazzino) {
+        System.out.println("Inserisci l'id del prodotto da aggiungere");
+        int id = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Inserisci la quantità di prodotti che desideri aggiungere al carrello");
+        int quantita = sc.nextInt();
+        ProdottoElettronico toAdd = magazzino.filteredById(id);//trova il prodotto elettronico da aggiungere in base all'id
+        if(toAdd == null) return;
+        int quantitaProdotto = toAdd.getQuantitaMagazzino();
+        ExceptionHandler.handlexception(() -> {
+            if (quantitaProdotto == 0 || quantita > quantitaProdotto)
+                throw new ProdottoNonTrovatoException("Non ci sono sufficienti quantità in magazzino");
+            return null;
+        }); //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
+        ProdottoElettronicoUtente prodottoTmp = ProductMapper.toProdottoUtente(toAdd); //tasforma l'oggetto da prodotto a prodotto utente
+        cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita);
+        prodottoTmp.setQuantitaCarrello(quantita);
+        System.out.println("Prodotto aggiunto con successo");
+        magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
+    }
 
-		System.out.println("Inserisci l'id del prodotto da aggiungere");
-		int id = sc.nextInt();
-		sc.nextLine();
-		System.out.println("Inserisci la quantità di prodotti che desideri aggiungere al carrello");
-		int quantita = sc.nextInt();
-
-		ProdottoElettronico toAdd = magazzino.filteredById(id);  //trova il prodotto elettronico da aggiungere in base all'id
-
-		int quantitaProdotto = toAdd.getQuantitaMagazzino();
-
-		if ( quantitaProdotto == 0 || quantita > quantitaProdotto )
-			throw new ProdottoNonTrovatoException("Non ci sono sufficienti quantità in magazzino"); //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
-
-		ProdottoElettronicoUtente prodottoTmp = ProductMapper.toProdottoUtente(toAdd); //trasforma l'oggetto da prodotto a prodotto utente
-		try{
-		cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita);
-		}catch (IOException e){
-			System.err.println(e.getMessage());
-		}
-
-		prodottoTmp.setQuantitaCarrello(quantita);
-		System.out.println("Prodotto aggiunto con successo");
-		try {
-			magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
-		} catch (IOException e){
-			System.err.println(e.getMessage());
-		}
-
-	}
-
-	//rimuove il prodotto dal carrello e lo riaggiunge al magazzino
 //rimuove il prodotto dal carrello e lo riaggiunge al magazzino
 	public static void rimozioneIDCarrello( Scanner sc, Cliente cliente, Magazzino magazzino ) throws ProdottoNonTrovatoException {
 

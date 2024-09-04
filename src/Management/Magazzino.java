@@ -2,7 +2,6 @@ package Management;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronico;
 import Utility.MagazzinoReader;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -123,6 +122,15 @@ public class Magazzino {
 
     }
 
+    @Override
+    public String toString() {
+        if(magazzino == null | magazzino.isEmpty()){
+            return "Magazzino vuoto";
+        }
+        return "Magazzino{" +
+                "magazzino=" + magazzino +
+                '}';
+    }
     @Override
     public String toString() {
         if(magazzino == null | magazzino.isEmpty()){
