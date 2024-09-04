@@ -3,7 +3,6 @@ import Exceptions.ExceptionHandler;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronico;
 import Utility.MagazzinoReader;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,7 +13,12 @@ public class Magazzino {
     private Set<ProdottoElettronico> magazzino;
 
     public Magazzino() {
-        magazzino = new HashSet<>();
+        try{
+            this.magazzino = MagazzinoReader.leggiMagazzinoDaFile();
+        } catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+
     }
 
     //Ritorna il totale degli articoli presenti in magazzino.
@@ -62,7 +66,7 @@ public class Magazzino {
             MagazzinoReader.aggiornaMagazzino(magazzino);
         } else{
             MagazzinoReader.aggiungiProdottoAlMagazzino(dispositivo);
-            MagazzinoReader.leggiMagazzinoDaFile();
+            magazzino = MagazzinoReader.leggiMagazzinoDaFile();
         }
     }
 
@@ -120,5 +124,14 @@ public class Magazzino {
             }
             return null;
         });
+    }
+    @Override
+    public String toString() {
+        if(magazzino == null | magazzino.isEmpty()){
+            return "Magazzino vuoto";
+        }
+        return "Magazzino{" +
+                "magazzino=" + magazzino +
+                '}';
     }
 }

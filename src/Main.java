@@ -23,14 +23,8 @@ public class Main {
     private static Magazziniere magazziniereLoggato = null;
     private static final Magazzino magazzino = new Magazzino();//Inizializza il magazzino
 
-    public static void main(String[] args) {
-
-        ProdottoElettronico prd1 = new ProdottoElettronico.ProdottoElettronicoBuilder("Samsung", "Galaxys24", 700.0, 0, "Smartphone", 6).setQuantitaMagazzino(3).setPrezzoVendita(1300.00).build();
-
-
-        magazzino.addProductToMagazzino(prd1);//aggiunge il prodotto al magazzino
-
-        while (true) {
+	public static void main( String[] args ) {
+		while ( true ) {
 
             while (Main.utenteLoggato == null) {
                 menuAccesso();
@@ -48,20 +42,20 @@ public class Main {
         }
     }
 
-    private static void mostraMenuCliente() {
-        System.out.println("\n--- Menu Users.Cliente ---");
-        System.out.println();
-        System.out.println("1. Aggiungi prodotto al carrello");
-        System.out.println("2. Rimuovi prodotto dal carrello");
-        System.out.println("3. Visualizza prodotti nel carrello");
-        System.out.println("4. Visualizza totale del carrello");
-        System.out.println("5. Ricerca");
-        System.out.println("6. Svuota il carrello");
-        System.out.println("7. Concludi l'acquisto");
-        System.out.println("0. LogOut");
-        System.out.println();
-        sceltaCliente();
-    }
+		private static void mostraMenuCliente() {
+			System.out.println("\n--- Menu Cliente ---");
+			System.out.println();
+			System.out.println("1. Aggiungi prodotto al carrello");
+			System.out.println("2. Rimuovi prodotto dal carrello");
+			System.out.println("3. Visualizza prodotti nel carrello");
+			System.out.println("4. Visualizza totale del carrello");
+			System.out.println("5. Ricerca");
+			System.out.println("6. Svuota il carrello");
+			System.out.println("7. Concludi l'acquisto");
+			System.out.println("0. LogOut");
+			System.out.println();
+			sceltaCliente();
+		}
 
     private static void sceltaCliente() {
         Scanner sc = new Scanner(System.in);
@@ -97,17 +91,17 @@ public class Main {
         }
     }
 
-    private static void mostraMenuMagazziniere() {
-        System.out.println("\n--- Menu Users.Magazziniere ---");
-        System.out.println();
-        System.out.println("1. Aggiungi prodotto al magazzino");
-        System.out.println("2. Rimuovi prodotto dal magazzino");
-        System.out.println("3. Visualizza prodotti nel magazzino");
-        System.out.println("4. Ricerca");
-        System.out.println("0. LogOut");
-        System.out.println();
-        sceltaMagazziniere();
-    }
+	private static void mostraMenuMagazziniere() {
+		System.out.println("\n--- Menu Magazziniere ---");
+		System.out.println();
+		System.out.println("1. Aggiungi prodotto al magazzino");
+		System.out.println("2. Rimuovi prodotto dal magazzino");
+		System.out.println("3. Visualizza prodotti nel magazzino");
+		System.out.println("4. Ricerca");
+		System.out.println("0. LogOut");
+		System.out.println();
+		sceltaMagazziniere();
+	}
 
     private static void sceltaMagazziniere() {
         Scanner sc = new Scanner(System.in);
@@ -116,12 +110,12 @@ public class Main {
 
         switch (selezione) {
 
-            case 0 -> {
-                clienteLoggato = null;
-                magazziniereLoggato = null;
-            }
+			case 0 -> {
+				utenteLoggato = null;
+				magazziniereLoggato = null;
+			}
 
-            case 1 -> aggiuntaMagazzino(magazziniereLoggato);
+			case 1 -> aggiuntaMagazzino(magazziniereLoggato);
 
             case 2 -> {//Rimozione tramite id
                 System.out.println("Inserisci l'id del prodotto da rimuovere: ");
@@ -136,20 +130,20 @@ public class Main {
         }
     }
 
-    public static void menuRicercaMagazziniere(Scanner sc, Magazziniere magazziniere) {
-        System.out.println("\n--- Menu Ricerca Users.Magazziniere---");
-        System.out.println();
-        System.out.println("1. Ricerca per marca");
-        System.out.println("2. Ricerca per modello");
-        System.out.println("3. Ricerca per prezzo di vendita");
-        System.out.println("4. Ricerca per prezzo di acquisto");
-        System.out.println("5. Ricerca per range di prezzo");
-        System.out.println("6. Ricerca per tipo");
-        System.out.println("7. Ricerca tramite id");
-        System.out.println("0. Torna indietro");
-        System.out.println();
-        sceltaRicercaMagazziniere(sc, magazziniere);
-    }
+	public static void menuRicercaMagazziniere( Scanner sc, Magazziniere magazziniere ) {
+		System.out.println("\n--- Menu Ricerca Magazziniere---");
+		System.out.println();
+		System.out.println("1. Ricerca per marca");
+		System.out.println("2. Ricerca per modello");
+		System.out.println("3. Ricerca per prezzo di vendita");
+		System.out.println("4. Ricerca per prezzo di acquisto");
+		System.out.println("5. Ricerca per range di prezzo");
+		System.out.println("6. Ricerca per tipo");
+		System.out.println("7. Ricerca tramite id");
+		System.out.println("0. Torna indietro");
+		System.out.println();
+		sceltaRicercaMagazziniere(sc, magazziniere);
+	}
 
     private static void aggiuntaMagazzino(Magazziniere magazziniere) {
         Scanner sc = new Scanner(System.in);
@@ -239,9 +233,10 @@ public class Main {
             case 0 -> {
             }//Torna al menu precedente
 
-            default -> System.err.println("Comando non riconosciuto");
-        }
-    }
+			default -> System.err.println("Comando non riconosciuto");
+		}
+		//sc.nextLine();
+	}
 
     public static void sceltaRicercaMagazziniere(Scanner sc, Magazziniere magazziniere) {
         System.out.println("Selezione il tipo di ricerca da effetuare");
