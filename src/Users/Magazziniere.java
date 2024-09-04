@@ -18,11 +18,11 @@ public class Magazziniere extends Utente {
     public Magazziniere(String nome, String cognome, int age, String email, String password) {
         super(nome, cognome, age, email, password);
     }
-    public void addProductToMagazzino(ProdottoElettronico prodotto) throws IOException {
+    public void addProductToMagazzino(ProdottoElettronico prodotto){
         magazzino.addProductToMagazzino(prodotto);
     }
 
-    public void removeProductFromMagazzino(int id) throws ProdottoNonTrovatoException, IOException {
+    public void removeProductFromMagazzino(int id){
         magazzino.removeProductFromMagazzino(id);
     }
 
@@ -49,7 +49,7 @@ public class Magazziniere extends Utente {
         return magazzino.filtredByRangePrice(prezzo1,prezzo2);
     }
 
-    public ProdottoElettronico filteredById(int iD) throws ProdottoNonTrovatoException {
+    public ProdottoElettronico filteredById(int iD) {
         return magazzino.filteredById(iD);
     }
 

@@ -26,27 +26,11 @@ public class ProdottoElettronico extends Prodotto {
         return result;
     }
 
-    @Override
-    public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProdottoElettronico that)) return false;
-
-        return Float.compare(getDimSchermo(), that.getDimSchermo()) == 0 && getTipoElettronico() == that.getTipoElettronico();
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hashCode(getTipoElettronico());
-        result = 31 * result + Float.hashCode(getDimSchermo());
-        return result;
-    }
-
     private ProdottoElettronico(ProdottoElettronicoBuilder peBuilder) {
         super(peBuilder);
         this.tipoElettronico = peBuilder.tipoElettronico;
         this.dimSchermo = peBuilder.dimSchermo;
     }
-
 
     public TipoElettronico getTipoElettronico() {
         return tipoElettronico;
