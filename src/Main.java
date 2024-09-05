@@ -12,20 +12,21 @@ import Users.Utente;
 import Utility.ProductMapper;
 import Utility.UserMapper;
 import Utility.UserReader;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Main {
 
-	private static Utente utenteLoggato = null;
-	private static Cliente clienteLoggato = null;
-	private static Magazziniere magazziniereLoggato = null;
-	private static final Magazzino magazzino = new Magazzino();//Inizializza il magazzino
+    private static Utente utenteLoggato = null;
+    private static Cliente clienteLoggato = null;
+    private static Magazziniere magazziniereLoggato = null;
+    private static final Magazzino magazzino = new Magazzino();//Inizializza il magazzino
 
 
-	public static void main( String[] args ) {
-		while ( true ) {
+    public static void main(String[] args) {
+        while (true) {
 
             while (Main.utenteLoggato == null) {
                 menuAccesso();
@@ -44,21 +45,20 @@ public class Main {
     }
 
 
-
-		private static void mostraMenuCliente() {
-			System.out.println("\n--- Menu Cliente ---");
-			System.out.println();
-			System.out.println("1. Aggiungi prodotto al carrello");
-			System.out.println("2. Rimuovi prodotto dal carrello");
-			System.out.println("3. Visualizza prodotti nel carrello");
-			System.out.println("4. Visualizza totale del carrello");
-			System.out.println("5. Ricerca");
-			System.out.println("6. Svuota il carrello");
-			System.out.println("7. Concludi l'acquisto");
-			System.out.println("0. LogOut");
-			System.out.println();
-			sceltaCliente();
-		}
+    private static void mostraMenuCliente() {
+        System.out.println("\n--- Menu Cliente ---");
+        System.out.println();
+        System.out.println("1. Aggiungi prodotto al carrello");
+        System.out.println("2. Rimuovi prodotto dal carrello");
+        System.out.println("3. Visualizza prodotti nel carrello");
+        System.out.println("4. Visualizza totale del carrello");
+        System.out.println("5. Ricerca");
+        System.out.println("6. Svuota il carrello");
+        System.out.println("7. Concludi l'acquisto");
+        System.out.println("0. LogOut");
+        System.out.println();
+        sceltaCliente();
+    }
 
     private static void sceltaCliente() {
         Scanner sc = new Scanner(System.in);
@@ -94,18 +94,18 @@ public class Main {
         }
     }
 
-	private static void mostraMenuMagazziniere() {
-		System.out.println("\n--- Menu Magazziniere ---");
-		System.out.println();
-		System.out.println("1. Aggiungi prodotto al magazzino");
-		System.out.println("2. Rimuovi prodotto dal magazzino");
-		System.out.println("3. Visualizza prodotti nel magazzino");
-		System.out.println("4. Ricerca");
-		System.out.println("5. Spesa Media dei prodotti venduti");
-		System.out.println("0. LogOut");
-		System.out.println();
-		sceltaMagazziniere();
-	}
+    private static void mostraMenuMagazziniere() {
+        System.out.println("\n--- Menu Magazziniere ---");
+        System.out.println();
+        System.out.println("1. Aggiungi prodotto al magazzino");
+        System.out.println("2. Rimuovi prodotto dal magazzino");
+        System.out.println("3. Visualizza prodotti nel magazzino");
+        System.out.println("4. Ricerca");
+        System.out.println("5. Spesa Media dei prodotti venduti");
+        System.out.println("0. LogOut");
+        System.out.println();
+        sceltaMagazziniere();
+    }
 
 
     private static void sceltaMagazziniere() {
@@ -115,43 +115,43 @@ public class Main {
 
         switch (selezione) {
 
-			case 0 -> {
-				utenteLoggato = null;
-				magazziniereLoggato = null;
-			}
+            case 0 -> {
+                utenteLoggato = null;
+                magazziniereLoggato = null;
+            }
 
-			case 1 -> aggiuntaMagazzino(magazziniereLoggato);
+            case 1 -> aggiuntaMagazzino(magazziniereLoggato);
 
 
-			case 2 -> {//Rimozione tramite id
+            case 2 -> {//Rimozione tramite id
                 System.out.println("Inserisci l'id del prodotto da rimuovere: ");
                 magazziniereLoggato.removeProductFromMagazzino(sc.nextInt());
             }
 
-      		case 3 -> System.out.println(magazziniereLoggato.getMagazzino()); //VisualizzaCarrello
+            case 3 -> System.out.println(magazziniereLoggato.getMagazzino()); //VisualizzaCarrello
 
-      		case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
+            case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
 
-	  		case 5 -> System.out.println(ProdottoVenduto.getSpesaMedia());
+            case 5 -> System.out.println(ProdottoVenduto.getSpesaMedia());
 
-      		default -> System.err.println("Comando non riconosciuto");
+            default -> System.err.println("Comando non riconosciuto");
         }
     }
 
-	public static void menuRicercaMagazziniere( Scanner sc, Magazziniere magazziniere ) {
-		System.out.println("\n--- Menu Ricerca Magazziniere---");
-		System.out.println();
-		System.out.println("1. Ricerca per marca");
-		System.out.println("2. Ricerca per modello");
-		System.out.println("3. Ricerca per prezzo di vendita");
-		System.out.println("4. Ricerca per prezzo di acquisto");
-		System.out.println("5. Ricerca per range di prezzo");
-		System.out.println("6. Ricerca per tipo");
-		System.out.println("7. Ricerca tramite id");
-		System.out.println("0. Torna indietro");
-		System.out.println();
-		sceltaRicercaMagazziniere(sc, magazziniere);
-	}
+    public static void menuRicercaMagazziniere(Scanner sc, Magazziniere magazziniere) {
+        System.out.println("\n--- Menu Ricerca Magazziniere---");
+        System.out.println();
+        System.out.println("1. Ricerca per marca");
+        System.out.println("2. Ricerca per modello");
+        System.out.println("3. Ricerca per prezzo di vendita");
+        System.out.println("4. Ricerca per prezzo di acquisto");
+        System.out.println("5. Ricerca per range di prezzo");
+        System.out.println("6. Ricerca per tipo");
+        System.out.println("7. Ricerca tramite id");
+        System.out.println("0. Torna indietro");
+        System.out.println();
+        sceltaRicercaMagazziniere(sc, magazziniere);
+    }
 
     private static void aggiuntaMagazzino(Magazziniere magazziniere) {
         Scanner sc = new Scanner(System.in);
@@ -241,10 +241,10 @@ public class Main {
             case 0 -> {
             }//Torna al menu precedente
 
-			default -> System.err.println("Comando non riconosciuto");
-		}
-		//sc.nextLine();
-	}
+            default -> System.err.println("Comando non riconosciuto");
+        }
+        //sc.nextLine();
+    }
 
     public static void sceltaRicercaMagazziniere(Scanner sc, Magazziniere magazziniere) {
         System.out.println("Selezione il tipo di ricerca da effetuare");
@@ -290,7 +290,7 @@ public class Main {
         System.out.println("Inserisci la quantità di prodotti che desideri aggiungere al carrello");
         int quantita = sc.nextInt();
         ProdottoElettronico toAdd = magazzino.filteredById(id);//trova il prodotto elettronico da aggiungere in base all'id
-        if(toAdd == null) return;
+        if (toAdd == null) return;
         int quantitaProdotto = toAdd.getQuantitaMagazzino();
         ExceptionHandler.handlexception(() -> {
             if (quantitaProdotto == 0 || quantita > quantitaProdotto)
@@ -304,168 +304,168 @@ public class Main {
         magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
     }
 
-//rimuove il prodotto dal carrello e lo riaggiunge al magazzino
-	public static void rimozioneIDCarrello( Scanner sc, Cliente cliente, Magazzino magazzino ){
+    //rimuove il prodotto dal carrello e lo riaggiunge al magazzino
+    public static void rimozioneIDCarrello(Scanner sc, Cliente cliente, Magazzino magazzino) {
 
-		System.out.println("Inserisci l'id del prodotto da rimuovere");
+        System.out.println("Inserisci l'id del prodotto da rimuovere");
 
-		int id = sc.nextInt();
-		sc.nextLine();
+        int id = sc.nextInt();
+        sc.nextLine();
 
-		System.out.println("Inserire la quantità di prodotti da rimuovere");
+        System.out.println("Inserire la quantità di prodotti da rimuovere");
 
-		int quantita = sc.nextInt();
-		sc.nextLine();
+        int quantita = sc.nextInt();
+        sc.nextLine();
 
-		cliente.rimuoviProdottoTramiteId(id, quantita);
-		magazzino.incrementaQuantita(id, quantita);
+        cliente.rimuoviProdottoTramiteId(id, quantita);
+        magazzino.incrementaQuantita(id, quantita);
 
-		System.out.println("Prodotto rimosso con successo");
+        System.out.println("Prodotto rimosso con successo");
 
-	}
+    }
 
-	public static Set < ProdottoElettronicoUtente > ricercaMarcaCarrello( Cliente cliente, Scanner sc ) {
-		System.out.println("Inserisci la marca");
-		String marca = sc.nextLine();
-		return cliente.ricercaProdottoPerMarca(marca);
-	}
+    public static Set<ProdottoElettronicoUtente> ricercaMarcaCarrello(Cliente cliente, Scanner sc) {
+        System.out.println("Inserisci la marca");
+        String marca = sc.nextLine();
+        return cliente.ricercaProdottoPerMarca(marca);
+    }
 
-	public static Set < ProdottoElettronicoUtente > ricercaModelloCarrello( Cliente cliente, Scanner sc ) {
-		System.out.println("Inserisci il modello");
-		String modello = sc.nextLine();
-		return cliente.ricercaProdottoPerModello(modello);
-	}
+    public static Set<ProdottoElettronicoUtente> ricercaModelloCarrello(Cliente cliente, Scanner sc) {
+        System.out.println("Inserisci il modello");
+        String modello = sc.nextLine();
+        return cliente.ricercaProdottoPerModello(modello);
+    }
 
-	public static Set < ProdottoElettronicoUtente > ricercaPrezzoCarrello( Cliente cliente, Scanner sc ) {
-		System.out.println("Inserisci il prezzo:");
-		double prezzo = sc.nextDouble();
-		return cliente.ricercaProdottoPerPrezzoDiVendita(prezzo);
-	}
+    public static Set<ProdottoElettronicoUtente> ricercaPrezzoCarrello(Cliente cliente, Scanner sc) {
+        System.out.println("Inserisci il prezzo:");
+        double prezzo = sc.nextDouble();
+        return cliente.ricercaProdottoPerPrezzoDiVendita(prezzo);
+    }
 
-	public static Set < ProdottoElettronicoUtente > ricercaRangePrezzoCarrello( Cliente cliente, Scanner sc ) {
-		System.out.println("Inserisci il prezzo minore e poi il prezzo maggiore");
-		double prezzoMin = sc.nextDouble();
-		double prezzoMag = sc.nextDouble();
-		return cliente.ricercaProdottoPerRange(prezzoMin, prezzoMag);
-	}
+    public static Set<ProdottoElettronicoUtente> ricercaRangePrezzoCarrello(Cliente cliente, Scanner sc) {
+        System.out.println("Inserisci il prezzo minore e poi il prezzo maggiore");
+        double prezzoMin = sc.nextDouble();
+        double prezzoMag = sc.nextDouble();
+        return cliente.ricercaProdottoPerRange(prezzoMin, prezzoMag);
+    }
 
-	public static Set < ProdottoElettronicoUtente > ricercaTipoCarrello( Cliente cliente, Scanner sc ) {
-		System.out.println("Inserisci il tipo di dispositivo da cercare");
-		String tipo = sc.nextLine();
-		return cliente.ricercaProdottoPerTIpo(tipo);
-	}
+    public static Set<ProdottoElettronicoUtente> ricercaTipoCarrello(Cliente cliente, Scanner sc) {
+        System.out.println("Inserisci il tipo di dispositivo da cercare");
+        String tipo = sc.nextLine();
+        return cliente.ricercaProdottoPerTIpo(tipo);
+    }
 
-	public static ProdottoElettronicoUtente ricercaIdCarrello( Cliente cliente, Scanner sc ) {
-		System.out.println("Inserisci l'id da ricercare: ");
-		int id = sc.nextInt();
-		return cliente.ricercaTramiteId(id);
-	}
+    public static ProdottoElettronicoUtente ricercaIdCarrello(Cliente cliente, Scanner sc) {
+        System.out.println("Inserisci l'id da ricercare: ");
+        int id = sc.nextInt();
+        return cliente.ricercaTramiteId(id);
+    }
 
-	public static Set < ProdottoElettronico > ricercaMarcaMagazzino( Magazziniere magazziniere, Scanner sc ) {
-		System.out.println("Inserisci la marca");
-		String marca = sc.nextLine();
-		return magazziniere.filtredByProducer(marca);
-	}
+    public static Set<ProdottoElettronico> ricercaMarcaMagazzino(Magazziniere magazziniere, Scanner sc) {
+        System.out.println("Inserisci la marca");
+        String marca = sc.nextLine();
+        return magazziniere.filtredByProducer(marca);
+    }
 
-	public static Set < ProdottoElettronico > ricercaModelloMagazzino( Magazziniere magazziniere, Scanner sc ) {
-		System.out.println("Inserisci il modello");
-		String modello = sc.nextLine();
-		return magazziniere.filtredByModel(modello);
-	}
+    public static Set<ProdottoElettronico> ricercaModelloMagazzino(Magazziniere magazziniere, Scanner sc) {
+        System.out.println("Inserisci il modello");
+        String modello = sc.nextLine();
+        return magazziniere.filtredByModel(modello);
+    }
 
-	public static Set < ProdottoElettronico > ricercaPrezzoVenditaMagazzino( Magazziniere magazziniere, Scanner sc ) {
-		System.out.println("Inserisci il prezzo:");
-		double prezzo = sc.nextDouble();
-		return magazziniere.filtredBySellPrice(prezzo);
-	}
+    public static Set<ProdottoElettronico> ricercaPrezzoVenditaMagazzino(Magazziniere magazziniere, Scanner sc) {
+        System.out.println("Inserisci il prezzo:");
+        double prezzo = sc.nextDouble();
+        return magazziniere.filtredBySellPrice(prezzo);
+    }
 
-	public static Set < ProdottoElettronico > ricercaPrezzoAcquistoMagazzino( Magazziniere magazziniere, Scanner sc ) {
-		System.out.println("Inserisci il prezzo:");
-		double prezzo = sc.nextDouble();
-		return magazziniere.filtredByWhareHousePurchasePrice(prezzo);
-	}
+    public static Set<ProdottoElettronico> ricercaPrezzoAcquistoMagazzino(Magazziniere magazziniere, Scanner sc) {
+        System.out.println("Inserisci il prezzo:");
+        double prezzo = sc.nextDouble();
+        return magazziniere.filtredByWhareHousePurchasePrice(prezzo);
+    }
 
-	public static Set < ProdottoElettronico > ricercaRangePrezzoMagazzino( Magazziniere magazziniere, Scanner sc ) {
-		System.out.println("Inserisci il prezzo minore e poi il prezzo maggiore");
-		double prezzoMin = sc.nextDouble();
-		double prezzoMag = sc.nextDouble();
-		return magazziniere.filtredByRangePrice(prezzoMin, prezzoMag);
-	}
+    public static Set<ProdottoElettronico> ricercaRangePrezzoMagazzino(Magazziniere magazziniere, Scanner sc) {
+        System.out.println("Inserisci il prezzo minore e poi il prezzo maggiore");
+        double prezzoMin = sc.nextDouble();
+        double prezzoMag = sc.nextDouble();
+        return magazziniere.filtredByRangePrice(prezzoMin, prezzoMag);
+    }
 
-	public static Set < ProdottoElettronico > ricercaTipoMagazzino( Magazziniere magazziniere, Scanner sc ) {
-		System.out.println("Inserisci il tipo di dispositivo da cercare");
-		sc.nextLine();
-		String tipo = sc.nextLine();
-		return magazziniere.filtredBytype(tipo);
-	}
+    public static Set<ProdottoElettronico> ricercaTipoMagazzino(Magazziniere magazziniere, Scanner sc) {
+        System.out.println("Inserisci il tipo di dispositivo da cercare");
+        sc.nextLine();
+        String tipo = sc.nextLine();
+        return magazziniere.filtredBytype(tipo);
+    }
 
-	public static ProdottoElettronico ricercaIdMagazzino( Magazziniere magazziniere, Scanner sc ) {
-		System.out.println("Inserisci l'id da ricercare: ");
-		int id = sc.nextInt();
-		return magazziniere.filteredById(id);
-	}
+    public static ProdottoElettronico ricercaIdMagazzino(Magazziniere magazziniere, Scanner sc) {
+        System.out.println("Inserisci l'id da ricercare: ");
+        int id = sc.nextInt();
+        return magazziniere.filteredById(id);
+    }
 
-	public static void registrazione() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Inserisci il nome");
-		String nome = sc.nextLine();
-		System.out.println("Inserisci il cognome");
-		String cognome = sc.nextLine();
-		System.out.println("Inserisci l'età");
-		int age = sc.nextInt();
-		sc.nextLine();
-		System.out.println("Inserisci la mail");
-		String email = sc.nextLine();
-		System.out.println("Inserisci la password");
-		String password = sc.nextLine();
+    public static void registrazione() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Inserisci il nome");
+        String nome = sc.nextLine();
+        System.out.println("Inserisci il cognome");
+        String cognome = sc.nextLine();
+        System.out.println("Inserisci l'età");
+        int age = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Inserisci la mail");
+        String email = sc.nextLine();
+        System.out.println("Inserisci la password");
+        String password = sc.nextLine();
 
-		Cliente tmp = new Cliente(nome, cognome, age, email, password);
+        Cliente tmp = new Cliente(nome, cognome, age, email, password);
 
-		UserReader.aggiungiClienteAlFile(tmp);
-	}
+        UserReader.aggiungiClienteAlFile(tmp);
+    }
 
-	public static void menuAccesso() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("\n--- Login ---");
-		System.out.println("Scegli come vuoi accedere");
-		System.out.println();
-		System.out.println("1. Registrazione cliente");
-		System.out.println("2. Login ");
-		sceltaAccesso(sc);
-	}
+    public static void menuAccesso() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n--- Login ---");
+        System.out.println("Scegli come vuoi accedere");
+        System.out.println();
+        System.out.println("1. Registrazione cliente");
+        System.out.println("2. Login ");
+        sceltaAccesso(sc);
+    }
 
-	public static void sceltaAccesso( Scanner sc ) {
-		List <Utente> utenti;
-		utenti = UserReader.leggiUtentiDaFile();
-		int scelta = sc.nextInt();
+    public static void sceltaAccesso(Scanner sc) {
+        List<Utente> utenti;
+        utenti = UserReader.leggiUtentiDaFile();
+        int scelta = sc.nextInt();
 
-		switch ( scelta ) {
-			case 1 -> registrazione();
-			case 2 -> {
-				try {
-					utenteLoggato = logIn(utenti);
-				} catch ( LoginFailedException e ) {
-					System.err.println(e.getMessage());
-				}
-			}
-			default -> System.err.println("Comando non riconosciuto");
-		}
-	}
+        switch (scelta) {
+            case 1 -> registrazione();
+            case 2 -> {
+                try {
+                    utenteLoggato = logIn(utenti);
+                } catch (LoginFailedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+            default -> System.err.println("Comando non riconosciuto");
+        }
+    }
 
-	public static Utente logIn( List < Utente > utenti ) throws LoginFailedException {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Inserisci e-mail:");
-		String userRead = sc.nextLine();
-		if ( utenti.stream().noneMatch(c -> c.getEmail().equalsIgnoreCase(userRead)) )
-			throw new LoginFailedException("Utente non registrato");//Se il cliente non è registrato, lancia un'eccezione
+    public static Utente logIn(List<Utente> utenti) throws LoginFailedException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Inserisci e-mail:");
+        String userRead = sc.nextLine();
+        if (utenti.stream().noneMatch(c -> c.getEmail().equalsIgnoreCase(userRead)))
+            throw new LoginFailedException("Utente non registrato");//Se il cliente non è registrato, lancia un'eccezione
 
-		System.out.println("Inserisci la password");
-		String passRead = sc.nextLine();
+        System.out.println("Inserisci la password");
+        String passRead = sc.nextLine();
 
-		return utenti.stream()
-				.filter(c -> c.login(userRead, passRead))
-				.findFirst()
-				.orElseThrow(() -> new LoginFailedException("UserName o Password errati"));
-		//Richiama il metodo login e controlla se i dati inseriti sono corretti, in caso non lo siano lancia eccezione
-	}
+        return utenti.stream()
+                .filter(c -> c.login(userRead, passRead))
+                .findFirst()
+                .orElseThrow(() -> new LoginFailedException("UserName o Password errati"));
+        //Richiama il metodo login e controlla se i dati inseriti sono corretti, in caso non lo siano lancia eccezione
+    }
 }
