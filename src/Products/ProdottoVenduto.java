@@ -1,5 +1,6 @@
 package Products;
 import Enums.TipoElettronico;
+import Exceptions.ExceptionHandler;
 import Utility.ProdottoVendutoReader;
 import java.util.List;
 
@@ -47,16 +48,17 @@ public class ProdottoVenduto {
         double [] spesaMedia = {0.00};
         int [] quantita = {0};
         List<ProdottoVenduto> prodottiVenduti = ProdottoVendutoReader.leggiProdottiVenduti();
-        prodottiVenduti.stream().filter(p -> p.getTipoProdotto().equals(tipoElettronico)).forEach(p-> {
-            spesaMedia[0] += p.getSpesaTotale();
-            quantita[0] += p.getQuantitaVenduta();
-        });
-        return quantita[0] > 0 ? spesaMedia[0] / quantita[0] : 0.00;
+       prodottiVenduti.stream().filter(p -> p.getTipoProdotto().equals(tipoElettronico)).forEach(p-> {
+                spesaMedia[0] += p.getSpesaTotale();
+                quantita[0] += p.getQuantitaVenduta();
+    });
+       return quantita[0] > 0 ? spesaMedia[0] / quantita[0] : 0.00;
     }
 
-    public static String getSpesaMedia() throws FileNotFoundException {
-        return smartphoneLine + " " + calcoloSpesaMedia(TipoElettronico.SMARTPHONE) + " " + tabletLine + " "
-                + calcoloSpesaMedia(TipoElettronico.TABLET) + " " + notebookLine + " " + calcoloSpesaMedia(TipoElettronico.NOTEBOOK);
+    public static String getSpesaMedia() {
+         return ExceptionHandler.handlexception(()-> smartphoneLine + " " + calcoloSpesaMedia(TipoElettronico.SMARTPHONE) + " " + tabletLine + " "
+                + calcoloSpesaMedia(TipoElettronico.TABLET) + " " + notebookLine + " " + calcoloSpesaMedia(TipoElettronico.NOTEBOOK)
+                );
     }
 
 

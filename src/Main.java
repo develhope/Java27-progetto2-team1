@@ -132,6 +132,8 @@ public class Main {
 
       case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
 
+	  case 5 -> System.out.println(ProdottoVenduto.getSpesaMedia());
+
       default -> System.err.println("Comando non riconosciuto");
         }
     }
