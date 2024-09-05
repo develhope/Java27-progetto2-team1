@@ -1,1 +1,23 @@
-[{"nome":"mario","cognome":"rossi","age":20,"email":"mario@live.it","idUtente":0,"password":"mario","role":"CLIENTE"},{"carrelloCliente":{"carrello":[]},"nome":"lucia","cognome":"bianchi","age":23,"email":"lucia@live.it","idUtente":0,"password":"lucia","role":"MAGAZZINIERE"}]
+[
+  {
+    "nome": "mario",
+    "cognome": "rossi",
+    "age": 20,
+    "email": "mario@live.it",
+    "idUtente": 0,
+    "password": "mario",
+    "role": "CLIENTE"
+  },
+  {
+    "carrelloCliente": {
+      "carrello": []
+    },
+    "nome": "lucia",
+    "cognome": "bianchi",
+    "age": 23,
+    "email": "lucia@live.it",
+    "idUtente": 0,
+    "password": "lucia",
+    "role": "MAGAZZINIERE"
+  }
+]

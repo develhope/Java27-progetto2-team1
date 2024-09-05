@@ -5,6 +5,7 @@ import Exceptions.ProdottoNonTrovatoException;
 import Management.Magazzino;
 import Products.ProdottoElettronico;
 import Products.ProdottoElettronicoUtente;
+import Products.ProdottoVenduto;
 import Users.Cliente;
 import Users.Magazziniere;
 import Users.Utente;
@@ -21,6 +22,7 @@ public class Main {
 	private static Cliente clienteLoggato = null;
 	private static Magazziniere magazziniereLoggato = null;
 	private static final Magazzino magazzino = new Magazzino();//Inizializza il magazzino
+
 
 	public static void main( String[] args ) {
 		while ( true ) {
@@ -42,6 +44,7 @@ public class Main {
     }
 
 
+
 		private static void mostraMenuCliente() {
 			System.out.println("\n--- Menu Cliente ---");
 			System.out.println();
@@ -56,7 +59,6 @@ public class Main {
 			System.out.println();
 			sceltaCliente();
 		}
-
 
     private static void sceltaCliente() {
         Scanner sc = new Scanner(System.in);
@@ -99,6 +101,7 @@ public class Main {
 		System.out.println("2. Rimuovi prodotto dal magazzino");
 		System.out.println("3. Visualizza prodotti nel magazzino");
 		System.out.println("4. Ricerca");
+		System.out.println("5. Spesa Media dei prodotti venduti");
 		System.out.println("0. LogOut");
 		System.out.println();
 		sceltaMagazziniere();
@@ -112,7 +115,6 @@ public class Main {
 
         switch (selezione) {
 
-
 			case 0 -> {
 				utenteLoggato = null;
 				magazziniereLoggato = null;
@@ -121,16 +123,16 @@ public class Main {
 			case 1 -> aggiuntaMagazzino(magazziniereLoggato);
 
 
-            case 2 -> {//Rimozione tramite id
+      case 2 -> {//Rimozione tramite id
                 System.out.println("Inserisci l'id del prodotto da rimuovere: ");
                 magazziniereLoggato.removeProductFromMagazzino(sc.nextInt());
             }
 
-            case 3 -> System.out.println(magazziniereLoggato.getMagazzino()); //VisualizzaCarrello
+      case 3 -> System.out.println(magazziniereLoggato.getMagazzino()); //VisualizzaCarrello
 
-            case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
+      case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
 
-            default -> System.err.println("Comando non riconosciuto");
+      default -> System.err.println("Comando non riconosciuto");
         }
     }
 

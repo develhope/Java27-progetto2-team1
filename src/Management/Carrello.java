@@ -3,9 +3,13 @@ import Exceptions.CarrelloVuotoException;
 import Exceptions.ExceptionHandler;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronicoUtente;
+import Products.ProdottoVenduto;
 import Utility.CarrelloReader;
+import Utility.ProdottoVendutoReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 public class Carrello {
 
@@ -141,7 +145,6 @@ public class Carrello {
 		carrello.clear();
 		CarrelloReader.aggiornaCarrello(carrello);
 	}
-
 
 	public void concludiAcquisto(){
 		ExceptionHandler.handlexception(()-> {

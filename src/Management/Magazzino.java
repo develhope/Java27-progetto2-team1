@@ -121,4 +121,14 @@ public class Magazzino {
             return null;
         });
     }
+
+    @Override
+    public String toString() {
+        if(magazzino == null | magazzino.isEmpty()){
+            return "Magazzino vuoto";
+        }
+        return "Magazzino: " + magazzino;
+    }
+
+
 }
