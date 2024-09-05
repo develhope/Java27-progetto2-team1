@@ -123,18 +123,18 @@ public class Main {
 			case 1 -> aggiuntaMagazzino(magazziniereLoggato);
 
 
-      case 2 -> {//Rimozione tramite id
+			case 2 -> {//Rimozione tramite id
                 System.out.println("Inserisci l'id del prodotto da rimuovere: ");
                 magazziniereLoggato.removeProductFromMagazzino(sc.nextInt());
             }
 
-      case 3 -> System.out.println(magazziniereLoggato.getMagazzino()); //VisualizzaCarrello
+      		case 3 -> System.out.println(magazziniereLoggato.getMagazzino()); //VisualizzaCarrello
 
-      case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
+      		case 4 -> menuRicercaMagazziniere(sc, magazziniereLoggato);
 
-	  case 5 -> System.out.println(ProdottoVenduto.getSpesaMedia());
+	  		case 5 -> System.out.println(ProdottoVenduto.getSpesaMedia());
 
-      default -> System.err.println("Comando non riconosciuto");
+      		default -> System.err.println("Comando non riconosciuto");
         }
     }
 
