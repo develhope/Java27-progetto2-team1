@@ -13,7 +13,7 @@ public class UserMapper {
 		cliente.setCognome(utente.getCognome());
 		cliente.setEmail(utente.getEmail());
 		cliente.setPassword(utente.getPassword());
-
+		cliente.setCarrelloCliente(utente.getCarrelloCliente());
 		return cliente;
 	}
 
