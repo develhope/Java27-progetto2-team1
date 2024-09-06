@@ -85,10 +85,10 @@ public class Main {
 
             case 5 -> menuRicercaCliente(sc, clienteLoggato);//Ricerche
 
-            case 6 -> clienteLoggato.svuotaCarrelloProdotti();
+            case 6 -> clienteLoggato.svuotaCarrelloProdotti(utenti);
 
             case 7 -> //ConcludiAcquisto
-                    clienteLoggato.concludiAcquistoProdotti();
+                    clienteLoggato.concludiAcquistoProdotti(utenti);
 
             default -> System.err.println("Comando non riconosciuto");
         }
@@ -317,7 +317,7 @@ public class Main {
         int quantita = sc.nextInt();
         sc.nextLine();
 
-        cliente.rimuoviProdottoTramiteId(id, quantita);
+        cliente.rimuoviProdottoTramiteId(id, quantita, utenti);
         magazzino.incrementaQuantita(id, quantita);
 
         System.out.println("Prodotto rimosso con successo");

@@ -48,20 +48,20 @@ public class Cliente extends Utente {
         carrelloCliente.stampaCarrello();
     }
 
-    public void rimuoviProdottoTramiteId(int id, int quantita){
-        carrelloCliente.rimozioneTramiteId(id, quantita);
+    public void rimuoviProdottoTramiteId(int id, int quantita, List< Utente > utenti){
+        carrelloCliente.rimozioneTramiteId(id, quantita, utenti);
     }
 
     public double calcoloTotaleCarrello(){
         return  carrelloCliente.calcoloTot();
     }
 
-    public void svuotaCarrelloProdotti(){
-        carrelloCliente.svuotaCarrello();
+    public void svuotaCarrelloProdotti(List< Utente > utenti){
+        carrelloCliente.svuotaCarrello(utenti);
     }
 
-    public void concludiAcquistoProdotti(){
-        carrelloCliente.concludiAcquisto();
+    public void concludiAcquistoProdotti(List< Utente > utenti){
+        carrelloCliente.concludiAcquisto(utenti);
     }
 
 }
