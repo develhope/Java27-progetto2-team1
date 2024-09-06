@@ -3,10 +3,11 @@ import Exceptions.CarrelloVuotoException;
 import Exceptions.ExceptionHandler;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronicoUtente;
-import Products.ProdottoVenduto;
+import Users.Utente;
 import Utility.CarrelloReader;
-import Utility.ProdottoVendutoReader;
-import java.io.IOException;
+import Utility.UserReader;
+
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,18 +21,18 @@ public class Carrello {
 	}
 
 
-	public void aggiungiProdotto ( ProdottoElettronicoUtente prodotto, int quantita) {
+	public void aggiungiProdotto ( ProdottoElettronicoUtente prodotto, int quantita, List< Utente > utenti ) {
 		Optional < ProdottoElettronicoUtente > toAdd = carrello.stream()
 				.filter(p -> p.getId() == prodotto.getId())
 				.findFirst();
-		if (toAdd.isPresent()){
+		if ( toAdd.isEmpty() ) {
+			carrello.add(prodotto);
+			prodotto.setQuantitaCarrello(quantita);
+		}else{
 			incrementaQuantita(prodotto.getId(), quantita);
-			CarrelloReader.aggiornaCarrello(carrello);
 		}
-		else {
-			CarrelloReader.aggiungiProdottoAlCarrello(prodotto);
-			carrello = CarrelloReader.leggiCarrelloDaFile();
-		}
+
+		UserReader.aggiornaCarrello(utenti);
 
 	}
 

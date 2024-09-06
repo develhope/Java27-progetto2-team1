@@ -3,11 +3,11 @@ package Users;
 import Enums.Roles;
 import Management.Carrello;
 import Products.ProdottoElettronicoUtente;
+
+import java.util.List;
 import java.util.Set;
 
 public class Cliente extends Utente {
-
-    private final Carrello carrelloCliente = new Carrello();
 
     public Cliente(){}
 
@@ -16,8 +16,8 @@ public class Cliente extends Utente {
         role = Roles.CLIENTE;
     }
 
-    public void aggiungiProdottoAlCarrello( ProdottoElettronicoUtente prodotto, int quantita){
-        carrelloCliente.aggiungiProdotto(prodotto, quantita);
+    public void aggiungiProdottoAlCarrello( ProdottoElettronicoUtente prodotto, int quantita, List<Utente> utenti ){
+        carrelloCliente.aggiungiProdotto(prodotto, quantita, utenti);
     }
 
     public ProdottoElettronicoUtente ricercaTramiteId(int id){
@@ -63,11 +63,6 @@ public class Cliente extends Utente {
     public void concludiAcquistoProdotti(){
         carrelloCliente.concludiAcquisto();
     }
-
-    public Carrello getCarrelloCliente() {
-        return carrelloCliente;
-    }
-
 
 }
 
