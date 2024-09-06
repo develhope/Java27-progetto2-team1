@@ -19,7 +19,9 @@ public class MagazzinoReader {
             FileReader lettore = new FileReader("src/Magazzino.json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             Type tipoListaMagazzino = new TypeToken <Set<ProdottoElettronico>>() {}.getType();
-            return gson.fromJson(lettore, tipoListaMagazzino);
+            Set<ProdottoElettronico> magazzino = gson.fromJson(lettore, tipoListaMagazzino);
+            if(magazzino == null) magazzino = new HashSet<>();
+            return magazzino;
         });
     }
 
