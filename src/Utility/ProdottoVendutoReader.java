@@ -2,6 +2,7 @@ package Utility;
 import Products.ProdottoElettronicoUtente;
 import Products.ProdottoVenduto;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class ProdottoVendutoReader {
 
     public static List<ProdottoVenduto> leggiProdottiVenduti() throws FileNotFoundException {
         FileReader lettore = new FileReader("src/Products/ProdottiVenduti.json");
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Type tipoListaProdotto = new TypeToken<List<ProdottoVenduto>>() {
         }.getType();
         return gson.fromJson(lettore, tipoListaProdotto);
@@ -38,7 +39,7 @@ public class ProdottoVendutoReader {
     public static void aggiungiProdottoVendutoAlFile(List<ProdottoVenduto> prodottiVenduti) throws IOException {
         // Scrivi la lista aggiornata nel file
         FileWriter writer = new FileWriter("src/Products/ProdottiVenduti.json"); {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(prodottiVenduti, writer);
             writer.flush();
             writer.close();

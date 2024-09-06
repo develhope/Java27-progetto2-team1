@@ -2,6 +2,7 @@ package Utility;
 import Exceptions.ExceptionHandler;
 import Products.ProdottoElettronicoUtente;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
@@ -13,7 +14,7 @@ public class CarrelloReader {
     public static HashSet<ProdottoElettronicoUtente> leggiCarrelloDaFile(){
         return ExceptionHandler.handlexception(() -> {
             FileReader lettore = new FileReader("src/Management/Carrello.json");
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             Type tipoListaCarrello = new TypeToken<HashSet<ProdottoElettronicoUtente>>() {}.getType();
             return gson.fromJson(lettore, tipoListaCarrello);
         });
@@ -29,12 +30,13 @@ public class CarrelloReader {
     }
     public static void aggiornaCarrello(HashSet<ProdottoElettronicoUtente> listaProdotti){
         ExceptionHandler.handlexception(()-> {
-            FileWriter fileWriter = new FileWriter("src/Management/Carrello.json");
-            Gson gson = new Gson();
-            gson.toJson(listaProdotti, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
-            return null;
+            try (FileWriter fileWriter = new FileWriter("src/Management/Carrello.json")) {
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                gson.toJson(listaProdotti, fileWriter);
+                fileWriter.flush();
+                fileWriter.close();
+                return null;
+            }
         });
     }
 
