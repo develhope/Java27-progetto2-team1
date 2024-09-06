@@ -3,11 +3,11 @@ package Users;
 import Enums.Roles;
 import Management.Carrello;
 import Products.ProdottoElettronicoUtente;
+
+import java.util.List;
 import java.util.Set;
 
 public class Cliente extends Utente {
-
-    private final Carrello carrelloCliente = new Carrello();
 
     public Cliente(){}
 
@@ -16,8 +16,8 @@ public class Cliente extends Utente {
         role = Roles.CLIENTE;
     }
 
-    public void aggiungiProdottoAlCarrello( ProdottoElettronicoUtente prodotto, int quantita){
-        carrelloCliente.aggiungiProdotto(prodotto, quantita);
+    public void aggiungiProdottoAlCarrello( ProdottoElettronicoUtente prodotto, int quantita, List<Utente> utenti ){
+        carrelloCliente.aggiungiProdotto(prodotto, quantita, utenti);
     }
 
     public ProdottoElettronicoUtente ricercaTramiteId(int id){
@@ -48,26 +48,21 @@ public class Cliente extends Utente {
         carrelloCliente.stampaCarrello();
     }
 
-    public void rimuoviProdottoTramiteId(int id, int quantita){
-        carrelloCliente.rimozioneTramiteId(id, quantita);
+    public void rimuoviProdottoTramiteId(int id, int quantita, List< Utente > utenti){
+        carrelloCliente.rimozioneTramiteId(id, quantita, utenti);
     }
 
     public double calcoloTotaleCarrello(){
         return  carrelloCliente.calcoloTot();
     }
 
-    public void svuotaCarrelloProdotti(){
-        carrelloCliente.svuotaCarrello();
+    public void svuotaCarrelloProdotti(List< Utente > utenti){
+        carrelloCliente.svuotaCarrello(utenti);
     }
 
-    public void concludiAcquistoProdotti(){
-        carrelloCliente.concludiAcquisto();
+    public void concludiAcquistoProdotti(List< Utente > utenti){
+        carrelloCliente.concludiAcquisto(utenti);
     }
-
-    public Carrello getCarrelloCliente() {
-        return carrelloCliente;
-    }
-
 
 }
 

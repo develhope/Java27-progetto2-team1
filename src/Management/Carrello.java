@@ -3,10 +3,10 @@ import Exceptions.CarrelloVuotoException;
 import Exceptions.ExceptionHandler;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronicoUtente;
-import Products.ProdottoVenduto;
-import Utility.CarrelloReader;
-import Utility.ProdottoVendutoReader;
-import java.io.IOException;
+import Users.Utente;
+import Utility.UserReader;
+
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,18 +20,18 @@ public class Carrello {
 	}
 
 
-	public void aggiungiProdotto ( ProdottoElettronicoUtente prodotto, int quantita) {
+	public void aggiungiProdotto ( ProdottoElettronicoUtente prodotto, int quantita, List< Utente > utenti ) {
 		Optional < ProdottoElettronicoUtente > toAdd = carrello.stream()
 				.filter(p -> p.getId() == prodotto.getId())
 				.findFirst();
-		if (toAdd.isPresent()){
-			incrementaQuantita(prodotto.getId(), quantita);
-			CarrelloReader.aggiornaCarrello(carrello);
+		if ( toAdd.isEmpty() ) {
+			carrello.add(prodotto);
+			prodotto.setQuantitaCarrello(quantita);
+		}else{
+			incrementaQuantita(prodotto.getId(), quantita, utenti);
 		}
-		else {
-			CarrelloReader.aggiungiProdottoAlCarrello(prodotto);
-			carrello = CarrelloReader.leggiCarrelloDaFile();
-		}
+
+		UserReader.aggiornaCarrello(utenti);
 
 	}
 
@@ -112,16 +112,16 @@ public class Carrello {
 		}
 	}
 
-	public void rimozioneTramiteId(int id, int quantita){
+	public void rimozioneTramiteId(int id, int quantita, List< Utente > utenti){
 		ProdottoElettronicoUtente prdToRemove = ricercaPerId(id);
 		if(prdToRemove == null){
 			return;
 		}
-		decrementaQuantita(id,quantita);
-		CarrelloReader.aggiornaCarrello(carrello);
+		decrementaQuantita(id,quantita, utenti);
+		UserReader.aggiornaCarrello(utenti);
 		if(prdToRemove.getQuantitaCarrello() <= 0){
-			CarrelloReader.rimuoviProdottoCarrello(prdToRemove);
-			carrello = CarrelloReader.leggiCarrelloDaFile();
+			carrello.remove(prdToRemove);
+			UserReader.aggiornaCarrello(utenti);
 		}
 	}
 
@@ -141,12 +141,12 @@ public class Carrello {
 	}
 
 
-	public void svuotaCarrello() {
+	public void svuotaCarrello(List< Utente > utenti) {
 		carrello.clear();
-		CarrelloReader.aggiornaCarrello(carrello);
+		UserReader.aggiornaCarrello(utenti);
 	}
 
-	public void concludiAcquisto(){
+	public void concludiAcquisto(List< Utente > utenti){
 		ExceptionHandler.handlexception(()-> {
 			if(carrello.isEmpty()){
 				throw new CarrelloVuotoException("Non ci sono articoli nel carrello");
@@ -160,7 +160,7 @@ public class Carrello {
 			sc.close();
 			if(conferma.equalsIgnoreCase("si")){
 				System.out.println("Acquisto effettuato, torna a trovarci!");
-				svuotaCarrello();
+				svuotaCarrello(utenti);
 			}else if(conferma.equalsIgnoreCase("no")){
 				System.out.println("Acquisto annullato");
 			}else System.err.println("Comando non riconosciuto");
@@ -172,17 +172,17 @@ public class Carrello {
 		return carrello;
 	}
 
-	public void incrementaQuantita(int id, int amount){
+	public void incrementaQuantita(int id, int amount, List< Utente > utenti){
 		ProdottoElettronicoUtente prodotto = ricercaPerId(id);
 		int nuovaQuantita = prodotto.getQuantitaCarrello() + amount;
 		prodotto.setQuantitaCarrello(nuovaQuantita);
-		CarrelloReader.aggiornaCarrello(carrello);
+		UserReader.aggiornaCarrello(utenti);
 	}
 
-	public void decrementaQuantita (int id, int amount){
+	public void decrementaQuantita (int id, int amount, List< Utente > utenti){
 		ProdottoElettronicoUtente prodotto = ricercaPerId(id);
 		int quantita = prodotto.getQuantitaCarrello() - amount;
 		prodotto.setQuantitaCarrello(quantita);
-		CarrelloReader.aggiornaCarrello(carrello);
+		UserReader.aggiornaCarrello(utenti);
 	}
 }

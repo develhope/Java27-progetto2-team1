@@ -23,7 +23,7 @@ public class Main {
     private static Cliente clienteLoggato = null;
     private static Magazziniere magazziniereLoggato = null;
     private static final Magazzino magazzino = new Magazzino();//Inizializza il magazzino
-
+    private static List<Utente> utenti;
 
     public static void main(String[] args) {
         while (true) {
@@ -85,10 +85,10 @@ public class Main {
 
             case 5 -> menuRicercaCliente(sc, clienteLoggato);//Ricerche
 
-            case 6 -> clienteLoggato.svuotaCarrelloProdotti();
+            case 6 -> clienteLoggato.svuotaCarrelloProdotti(utenti);
 
             case 7 -> //ConcludiAcquisto
-                    clienteLoggato.concludiAcquistoProdotti();
+                    clienteLoggato.concludiAcquistoProdotti(utenti);
 
             default -> System.err.println("Comando non riconosciuto");
         }
@@ -298,7 +298,7 @@ public class Main {
             return null;
         }); //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
         ProdottoElettronicoUtente prodottoTmp = ProductMapper.toProdottoUtente(toAdd); //tasforma l'oggetto da prodotto a prodotto utente
-        cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita);
+        cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita, utenti );
         prodottoTmp.setQuantitaCarrello(quantita);
         System.out.println("Prodotto aggiunto con successo");
         magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
@@ -317,7 +317,7 @@ public class Main {
         int quantita = sc.nextInt();
         sc.nextLine();
 
-        cliente.rimuoviProdottoTramiteId(id, quantita);
+        cliente.rimuoviProdottoTramiteId(id, quantita, utenti);
         magazzino.incrementaQuantita(id, quantita);
 
         System.out.println("Prodotto rimosso con successo");
@@ -435,7 +435,6 @@ public class Main {
     }
 
     public static void sceltaAccesso(Scanner sc) {
-        List<Utente> utenti;
         utenti = UserReader.leggiUtentiDaFile();
         int scelta = sc.nextInt();
 

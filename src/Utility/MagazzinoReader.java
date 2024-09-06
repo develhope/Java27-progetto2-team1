@@ -3,6 +3,7 @@ package Utility;
 import Exceptions.ExceptionHandler;
 import Products.ProdottoElettronico;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileReader;
@@ -16,9 +17,11 @@ public class MagazzinoReader {
     public static Set<ProdottoElettronico> leggiMagazzinoDaFile(){
         return ExceptionHandler.handlexception(()-> {
             FileReader lettore = new FileReader("src/Magazzino.json");
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             Type tipoListaMagazzino = new TypeToken <Set<ProdottoElettronico>>() {}.getType();
-            return gson.fromJson(lettore, tipoListaMagazzino);
+            Set<ProdottoElettronico> magazzino = gson.fromJson(lettore, tipoListaMagazzino);
+            if(magazzino == null) magazzino = new HashSet<>();
+            return magazzino;
         });
     }
 
@@ -34,7 +37,7 @@ public class MagazzinoReader {
     public static void aggiornaMagazzino(Set<ProdottoElettronico> listaProdotti){
         ExceptionHandler.handlexception(()-> {
             FileWriter fileWriter = new FileWriter("src/Magazzino.json");
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(listaProdotti, fileWriter);
             fileWriter.flush();
             fileWriter.close();

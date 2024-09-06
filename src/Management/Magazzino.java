@@ -14,7 +14,7 @@ public class Magazzino {
     private Set<ProdottoElettronico> magazzino;
 
     public Magazzino() {
-        magazzino = new HashSet<>();
+        magazzino = MagazzinoReader.leggiMagazzinoDaFile();
     }
 
     //Ritorna il totale degli articoli presenti in magazzino.

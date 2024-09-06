@@ -1,6 +1,7 @@
 package Users;
 
 import Enums.Roles;
+import Management.Carrello;
 
 public class Utente {
     private String nome;
@@ -10,6 +11,7 @@ public class Utente {
     private int idUtente;
     private String password;
     protected Roles role;
+    protected Carrello carrelloCliente;
 
     public Utente(String nome, String cognome, int age, String email, String password) {
         this.nome = nome;
@@ -17,6 +19,7 @@ public class Utente {
         this.age = age;
         this.email = email;
         this.password = password;
+        carrelloCliente = new Carrello();
     }
 
     public Utente(){}
@@ -78,5 +81,11 @@ public class Utente {
         return role;
     }
 
+    public Carrello getCarrelloCliente() {
+        return carrelloCliente;
+    }
 
+    public void setCarrelloCliente(Carrello carrelloCliente) {
+        this.carrelloCliente = carrelloCliente;
+    }
 }
