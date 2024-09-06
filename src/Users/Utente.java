@@ -82,8 +82,6 @@ public class Utente {
     }
 
     public Carrello getCarrelloCliente() {
-
-        if(carrelloCliente == null) carrelloCliente = new Carrello();
         return carrelloCliente;
     }
 
