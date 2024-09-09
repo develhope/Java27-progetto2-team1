@@ -17,7 +17,7 @@ class CarrelloTest {
 	private Carrello carrello;
 	ProdottoElettronicoUtente prd1;
 	ProdottoElettronicoUtente prd2;
-	Utente usr1 = new Cliente();
+	Utente usr1;
 	List<Utente> utenti;
 
 	@BeforeEach
