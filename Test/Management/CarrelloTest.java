@@ -38,4 +38,11 @@ class CarrelloTest {
 		assertEquals(0, carrello.getCarrello().size(), "Il carrello dovrebbe essere vuoto");
 	}
 
+	@Test
+	public void testAggiungiProdotto() {
+		carrello.aggiungiProdotto(prd1, 1, utenti);
+		carrello.aggiungiProdotto(prd2, 1, utenti);
+		assertEquals(2, carrello.getCarrello().size(), "Il numero di elementi nel carrello dovrebbe essere 2");
+	}
+
 }
