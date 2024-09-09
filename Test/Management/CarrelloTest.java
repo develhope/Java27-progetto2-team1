@@ -64,4 +64,11 @@ class CarrelloTest {
 		assertArrayEquals(expectedItems, carrello.getCarrello().toArray(), "Gli items dovrebbero corrispondere");
 	}
 
+	@Test
+	public void testRimozioneItem() {
+		carrello.aggiungiProdotto(prd1, 1, utenti);
+		carrello.rimozioneTramiteId(0,1, utenti);
+		assertFalse(carrello.getCarrello().contains(prd1), "Il carrello non dovrebbe contenere il prodotto 1");
+	}
+
 }
