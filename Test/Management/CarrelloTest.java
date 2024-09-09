@@ -56,4 +56,12 @@ class CarrelloTest {
 		assertNotNull(carrello.getCarrello(), "La lista degli items non dovrebbe essere null");
 	}
 
+	@Test
+	public void testArrayEquals() {
+		carrello.aggiungiProdotto(prd1, 1, utenti);
+		carrello.aggiungiProdotto(prd2, 1, utenti);
+		ProdottoElettronicoUtente[] expectedItems = {prd1, prd2};
+		assertArrayEquals(expectedItems, carrello.getCarrello().toArray(), "Gli items dovrebbero corrispondere");
+	}
+
 }
