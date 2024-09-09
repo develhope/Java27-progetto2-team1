@@ -31,4 +31,11 @@ class CarrelloTest {
 		utenti.add(usr1);
 	}
 
+	@Test
+	public void testSvuotaCarrello() {
+		carrello.aggiungiProdotto(prd1, 1, utenti);
+		carrello.svuotaCarrello(utenti);
+		assertEquals(0, carrello.getCarrello().size(), "Il carrello dovrebbe essere vuoto");
+	}
+
 }
