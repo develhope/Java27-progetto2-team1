@@ -1,7 +1,6 @@
 package Management;
 
 import Enums.TipoElettronico;
-import Products.Prodotto;
 import Products.ProdottoElettronicoUtente;
 import Users.Cliente;
 import Users.Utente;
