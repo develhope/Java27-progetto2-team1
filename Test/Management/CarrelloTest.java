@@ -51,4 +51,9 @@ class CarrelloTest {
 		assertTrue(carrello.getCarrello().contains(prd1), "Il carrello dovrebbe contenere il prodotto 1");
 	}
 
+	@Test
+	public void testCarrelloNonNull() {
+		assertNotNull(carrello.getCarrello(), "La lista degli items non dovrebbe essere null");
+	}
+
 }
