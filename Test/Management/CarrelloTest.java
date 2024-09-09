@@ -45,4 +45,10 @@ class CarrelloTest {
 		assertEquals(2, carrello.getCarrello().size(), "Il numero di elementi nel carrello dovrebbe essere 2");
 	}
 
+	@Test
+	public void testContieneProdotti() {
+		carrello.aggiungiProdotto(prd1, 1, utenti);
+		assertTrue(carrello.getCarrello().contains(prd1), "Il carrello dovrebbe contenere il prodotto 1");
+	}
+
 }
