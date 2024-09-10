@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarrelloTest {
 
 	private Carrello carrello;
-	ProdottoElettronicoUtente prd1;
-	ProdottoElettronicoUtente prd2;
-	Utente usr1;
-	List<Utente> utenti;
+	private ProdottoElettronicoUtente prd1;
+	private ProdottoElettronicoUtente prd2;
+	private Utente usr1;
+	private List<Utente> utenti;
 
 	@BeforeEach
 	void setUp() {
@@ -56,7 +56,7 @@ class CarrelloTest {
 	}
 
 	@Test
-	public void testArrayEquals() {
+	public void testCorrispondenzaContenutiCarrello() {
 		carrello.aggiungiProdotto(prd1, 1, utenti);
 		carrello.aggiungiProdotto(prd2, 1, utenti);
 		ProdottoElettronicoUtente[] expectedItems = {prd1, prd2};
