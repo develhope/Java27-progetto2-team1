@@ -8,9 +8,6 @@ public class ProdottoElettronico extends Prodotto {
     private TipoElettronico tipoElettronico;
     private float dimSchermo;
 
-    //Calcolo spesa media
-
-
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
@@ -56,15 +53,27 @@ public class ProdottoElettronico extends Prodotto {
 
     @Override
     public String toString() {
-        return " Prodotto: " + ", " +
-                "Tipo Elettronico: " + tipoElettronico +  ", " +
-                "Dimensione Schermo: " + dimSchermo +
-                "Marca: " + marca + ", " +
-                "Modello: " + modello + ' ' +
-                "Descrizione: " + descrizione + ", " +
-                "Prezzo: " + prezzoVendita +
-                "ID: " + id + "\n";
+        StringBuilder string = new StringBuilder();
 
+        string.append('\n');
+        string.append(id)
+                .append(") ")
+                .append(marca)
+                .append(" ")
+                .append(modello)
+                .append('\n');
+        if(descrizione != null) string.append(" Descrizione: ")
+                .append(descrizione)
+                .append('\n');
+        string.append(" Prezzo: ")
+                .append(prezzoVendita)
+                .append("€")
+                .append('\n');
+        string.append(" Quantità: ").
+                append(quantitaMagazzino)
+                .append('\n');
+
+        return string.toString();
     }
 
     public static class ProdottoElettronicoBuilder extends AbstractBuilder<ProdottoElettronicoBuilder> {
@@ -88,7 +97,6 @@ public class ProdottoElettronico extends Prodotto {
             this.dimSchermo = dimSchermo;
             return this;
         }
-
 
         @Override
         protected ProdottoElettronicoBuilder self() {

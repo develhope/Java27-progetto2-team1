@@ -287,6 +287,7 @@ public class Main {
 
     //aggiunge prodotti al carrello e ne rimuove la quantità dal magazzino
     public static void aggiuntaIDCarrello(Scanner sc, Cliente cliente, Magazzino magazzino) {
+        System.out.println(magazzino.getMagazzino());
         System.out.println("Inserisci l'id del prodotto da aggiungere");
         int id = sc.nextInt();
         sc.nextLine();
