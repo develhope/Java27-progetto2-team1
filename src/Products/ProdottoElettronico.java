@@ -5,8 +5,8 @@ import Enums.TipoElettronico;
 import java.util.Objects;
 
 public class ProdottoElettronico extends Prodotto {
-    private TipoElettronico tipoElettronico;
-    private float dimSchermo;
+    private final TipoElettronico tipoElettronico;
+    private final float dimSchermo;
 
     @Override
     public final boolean equals(Object o) {
@@ -69,8 +69,8 @@ public class ProdottoElettronico extends Prodotto {
 
     public static class ProdottoElettronicoBuilder extends AbstractBuilder<ProdottoElettronicoBuilder> {
 
-        private TipoElettronico tipoElettronico;
-        private float dimSchermo;
+        private final TipoElettronico tipoElettronico;
+        private final float dimSchermo;
 
         public ProdottoElettronicoBuilder(String marca, String modello, double prezzoAcquisto, int id, String tipoElettronico, float dimSchermo) {
             super(marca, modello, prezzoAcquisto, id);

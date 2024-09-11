@@ -9,7 +9,6 @@ public class ProdottoElettronicoUtente{
     private String descrizione;
     private double prezzoVendita;
     private int id;
-    private int numVendite;
     private TipoElettronico tipoElettronico;
     private float dimSchermo;
     private int quantitaCarrello;
