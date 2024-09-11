@@ -54,20 +54,6 @@ public class ProdottoElettronicoUtente{
         this.dimSchermo = dimSchermo;
     }
 
-
-    @Override
-    public String toString() {
-        return " Products.Products.Prodotto: " + '\'' +
-                " Tipo Elettronico: " + tipoElettronico +  '\'' +
-                " Dimensione Schermo: " + dimSchermo +
-                " Marca: " + marca + '\'' +
-                " Modello: " + modello + '\'' +
-                " Descrizione: " + descrizione + '\'' +
-                " Prezzo: " + prezzoVendita +
-                " ID: " + id +
-                " Quantità: " + quantitaCarrello;
-    }
-
     public String getMarca() {
         return marca;
     }
@@ -122,6 +108,23 @@ public class ProdottoElettronicoUtente{
 
     public void setQuantitaCarrello( int quantitaCarrello ) {
         this.quantitaCarrello = quantitaCarrello;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+
+        string.append('\n');
+        string.append(" Marca: ").append(marca).append('\n');
+        string.append(" Modello: ").append(modello).append('\n');
+        string.append(" Tipo dispositivo: ").append(tipoElettronico).append('\n');
+        string.append(" Dimensione Schermo: ").append(dimSchermo).append('\n');
+        if(descrizione != null) string.append(" Descrizione: ").append(descrizione).append('\n');
+        string.append(" Prezzo: ").append(prezzoVendita).append('\n');
+        string.append(" Quantità: ").append(quantitaCarrello).append('\n');
+        string.append('\n');
+
+        return string.toString();
     }
 
 }
