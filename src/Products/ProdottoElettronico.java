@@ -33,18 +33,9 @@ public class ProdottoElettronico extends Prodotto {
         return tipoElettronico;
     }
 
-    public void setTipoElettronico(TipoElettronico tipoElettronico) {
-        this.tipoElettronico = tipoElettronico;
-    }
-
     public float getDimSchermo() {
         return dimSchermo;
     }
-
-    public void setDimSchermo(float dimSchermo) {
-        this.dimSchermo = dimSchermo;
-    }
-
 
     @Override
     public double calcolaSpesaMedia() {
@@ -85,17 +76,6 @@ public class ProdottoElettronico extends Prodotto {
             super(marca, modello, prezzoAcquisto, id);
             this.tipoElettronico = TipoElettronico.valueOf(tipoElettronico.toUpperCase());
             this.dimSchermo = dimSchermo;
-        }
-
-
-        public ProdottoElettronicoBuilder setTipoElettronico(TipoElettronico tipoElettronico) {
-            this.tipoElettronico = tipoElettronico;
-            return this;
-        }
-
-        public ProdottoElettronicoBuilder setDimSchermo(float dimSchermo) {
-            this.dimSchermo = dimSchermo;
-            return this;
         }
 
         @Override

@@ -25,15 +25,6 @@ public class ProdottoElettronicoUtente{
         quantitaCarrello = 1;
     }
 
-    public ProdottoElettronicoUtente( String marca, String modello, double prezzoVendita, int id, TipoElettronico tipoElettronico, float dimSchermo ) {
-        this.marca = marca;
-        this.modello = modello;
-        this.prezzoVendita = prezzoVendita;
-        this.id = id;
-        this.tipoElettronico = tipoElettronico;
-        this.dimSchermo = dimSchermo;
-    }
-
     public ProdottoElettronicoUtente() {
 
     }
@@ -44,10 +35,6 @@ public class ProdottoElettronicoUtente{
 
     public void setTipoElettronico( TipoElettronico tipoElettronico) {
         this.tipoElettronico = tipoElettronico;
-    }
-
-    public float getDimSchermo() {
-        return dimSchermo;
     }
 
     public void setDimSchermo(float dimSchermo) {
@@ -70,10 +57,6 @@ public class ProdottoElettronicoUtente{
         this.modello = modello;
     }
 
-    public String getDescrizione() {
-        return descrizione;
-    }
-
     public void setDescrizione( String descrizione ) {
         this.descrizione = descrizione;
     }
@@ -92,14 +75,6 @@ public class ProdottoElettronicoUtente{
 
     public void setId( int id ) {
         this.id = id;
-    }
-
-    public int getNumVendite() {
-        return numVendite;
-    }
-
-    public void setNumVendite( int numVendite ) {
-        this.numVendite = numVendite;
     }
 
     public int getQuantitaCarrello() {
