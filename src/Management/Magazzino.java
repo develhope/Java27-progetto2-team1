@@ -62,7 +62,7 @@ public class Magazzino {
             MagazzinoReader.aggiornaMagazzino(magazzino);
         } else{
             MagazzinoReader.aggiungiProdottoAlMagazzino(dispositivo);
-            MagazzinoReader.leggiMagazzinoDaFile();
+            magazzino = MagazzinoReader.leggiMagazzinoDaFile();
         }
     }
 
