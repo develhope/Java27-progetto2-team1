@@ -40,6 +40,13 @@ public class MagazzinoTest {
     }
 
     @Test
+    public void testFiltraPerModello() {
+        Set<ProdottoElettronico> filtrato = magazzino.filtredByModel("MacBook");
+        assertFalse(filtrato.contains(prodotto1));
+    }
+
+
+    @Test
     public void testMagazzinoNotNull(){
        assertNotNull(magazzino.getMagazzino());
     }
