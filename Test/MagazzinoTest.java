@@ -3,6 +3,7 @@ import Products.ProdottoElettronico;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,6 +31,17 @@ public class MagazzinoTest {
         magazzino.addProductToMagazzino(prodotto2);
         magazzino.removeProductFromMagazzino(1);
         assertEquals(1, magazzino.totaleProdotti());
+    }
+
+    @Test
+    public void testFiltraPerTipo() {
+        Set<ProdottoElettronico> filtred = magazzino.filtredBytype("Smartphone");
+        assertTrue(filtred.contains(prodotto1));
+    }
+
+    @Test
+    public void testMagazzinoNotNull(){
+       assertNotNull(magazzino.getMagazzino());
     }
 
 
