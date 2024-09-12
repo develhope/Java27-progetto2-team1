@@ -5,8 +5,9 @@ import Enums.TipoElettronico;
 import java.util.Objects;
 
 public class ProdottoElettronico extends Prodotto {
-    private final TipoElettronico tipoElettronico;
-    private final float dimSchermo;
+    private TipoElettronico tipoElettronico;
+    private float dimSchermo;
+
 
     @Override
     public final boolean equals(Object o) {
@@ -23,6 +24,8 @@ public class ProdottoElettronico extends Prodotto {
         return result;
     }
 
+    public ProdottoElettronico() {}
+
     private ProdottoElettronico(ProdottoElettronicoBuilder peBuilder) {
         super(peBuilder);
         this.tipoElettronico = peBuilder.tipoElettronico;
@@ -35,6 +38,18 @@ public class ProdottoElettronico extends Prodotto {
 
     public float getDimSchermo() {
         return dimSchermo;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public void setTipoElettronico(TipoElettronico tipoElettronico){
+        this.tipoElettronico = tipoElettronico;
+    }
+
+    public void setDimSchermo(float dimSchermo){
+        this.dimSchermo = dimSchermo;
     }
 
     @Override
@@ -69,7 +84,7 @@ public class ProdottoElettronico extends Prodotto {
 
     public static class ProdottoElettronicoBuilder extends AbstractBuilder<ProdottoElettronicoBuilder> {
 
-        private final TipoElettronico tipoElettronico;
+        private TipoElettronico tipoElettronico;
         private final float dimSchermo;
 
         public ProdottoElettronicoBuilder(String marca, String modello, double prezzoAcquisto, int id, String tipoElettronico, float dimSchermo) {
@@ -78,6 +93,15 @@ public class ProdottoElettronico extends Prodotto {
             this.dimSchermo = dimSchermo;
         }
 
+        public ProdottoElettronicoBuilder setId(int id){
+            this.id = id;
+            return this;
+        }
+
+        public ProdottoElettronicoBuilder setTipoElettronico(String tipo){
+            this.tipoElettronico = TipoElettronico.valueOf(tipo.toUpperCase());
+            return this;
+        }
         @Override
         protected ProdottoElettronicoBuilder self() {
             return this;
