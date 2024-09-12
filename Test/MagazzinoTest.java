@@ -19,7 +19,11 @@ public class MagazzinoTest {
         prodotto2 = new ProdottoElettronico.ProdottoElettronicoBuilder("Apple", "MacBook Air", 900.00, 2, "Notebook", 13f).build();
         magazzino.addProductToMagazzino(prodotto1);
     }
-    
+    @Test
+    public void testAggiungiProdottoAlMagazzino() {
+        magazzino.addProductToMagazzino(prodotto2);
+        assertEquals(2, magazzino.totaleProdotti());
+    }
 
 
 }
