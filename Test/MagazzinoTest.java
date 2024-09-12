@@ -25,6 +25,14 @@ public class MagazzinoTest {
         assertEquals(2, magazzino.totaleProdotti());
     }
 
+    @Test
+    public void testRimuoviProdottoDaMagazzino() {
+        magazzino.addProductToMagazzino(prodotto2);
+        magazzino.removeProductFromMagazzino(1);
+        assertEquals(1, magazzino.totaleProdotti());
+    }
+
+
 
 }
 
