@@ -4,7 +4,6 @@ import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronico;
 import Utility.MagazzinoReader;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,12 +15,6 @@ public class Magazzino {
     public Magazzino() {
         magazzino = MagazzinoReader.leggiMagazzinoDaFile();
     }
-
-    //Ritorna il totale degli articoli presenti in magazzino.
-    public int totaleProdotti(){
-        return magazzino.size();
-    }
-
 
     //Lista filtrata per tipo
     public Set<ProdottoElettronico> filtredBytype(String type){
@@ -87,11 +80,6 @@ public class Magazzino {
 
     public Set<ProdottoElettronico> getMagazzino() {
         return magazzino;
-    }
-
-    public void setMagazzino(Set<ProdottoElettronico> magazzino) {
-
-        this.magazzino = magazzino;
     }
 
     public void decrementaQuantita(int id, int amount){

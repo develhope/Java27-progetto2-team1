@@ -44,7 +44,6 @@ public class Main {
         }
     }
 
-
     private static void mostraMenuCliente() {
         System.out.println("\n--- Menu Cliente ---");
         System.out.println();
@@ -106,7 +105,6 @@ public class Main {
         System.out.println();
         sceltaMagazziniere();
     }
-
 
     private static void sceltaMagazziniere() {
         Scanner sc = new Scanner(System.in);
@@ -177,8 +175,11 @@ public class Main {
         System.out.println("Inserisci la quantità: ");
         int quantita = sc.nextInt();
         sc.nextLine();
-        ProdottoElettronico toAdd = new ProdottoElettronico.ProdottoElettronicoBuilder(marca, modello, prezzoAcquisto, id, tipo, dimSchermo)
-                .setQuantitaMagazzino(quantita).setPrezzoVendita(prezzoVendita).build();
+        ProdottoElettronico toAdd = new ProdottoElettronico
+                .ProdottoElettronicoBuilder(marca, modello, prezzoAcquisto, id, tipo, dimSchermo)
+                .setQuantitaMagazzino(quantita)
+                .setPrezzoVendita(prezzoVendita)
+                .build();
         System.out.println("Vuoi inserire una descrizione? S/N");
         if (sc.nextLine().equalsIgnoreCase("si")) {
             System.out.println("Inserisci la decrizione: ");
@@ -206,7 +207,8 @@ public class Main {
     public static void sceltaRicercaCliente(Scanner sc, Cliente cliente) {
 
         System.out.println("Selezione il tipo di ricerca da effetuare");
-        int ricercaSel = sc.nextInt(); //Legge la ricerca da effettuare
+        int ricercaSel = sc.nextInt();//Legge la ricerca da effettuare
+        sc.nextLine();
 
         switch (ricercaSel) {
             case 1 -> {//Ricerca per marca
@@ -249,6 +251,7 @@ public class Main {
     public static void sceltaRicercaMagazziniere(Scanner sc, Magazziniere magazziniere) {
         System.out.println("Selezione il tipo di ricerca da effetuare");
         int ricercaSel = sc.nextInt(); //Legge la ricerca da effettuare
+        sc.nextLine();
 
         switch (ricercaSel) {
             case 1 -> {
@@ -284,6 +287,7 @@ public class Main {
 
     //aggiunge prodotti al carrello e ne rimuove la quantità dal magazzino
     public static void aggiuntaIDCarrello(Scanner sc, Cliente cliente, Magazzino magazzino) {
+        System.out.println(magazzino.getMagazzino());
         System.out.println("Inserisci l'id del prodotto da aggiungere");
         int id = sc.nextInt();
         sc.nextLine();
