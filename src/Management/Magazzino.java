@@ -4,6 +4,7 @@ import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronico;
 import Utility.MagazzinoReader;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,11 +49,11 @@ public class Magazzino {
                 .filter(d->d.getPrezzoVendita() > price && d.getPrezzoVendita() < secondPrice)
                 .collect(Collectors.toSet());
     }
-    public void addProductToMagazzino(ProdottoElettronico dispositivo){
-        boolean found = magazzino.stream().anyMatch(d->d.getId() == dispositivo.getId());
-        if(found){
-            dispositivo.setQuantitaMagazzino(dispositivo.getQuantitaMagazzino() + 1);
-            MagazzinoReader.aggiornaMagazzino(magazzino);
+    public void addProductToMagazzino(ProdottoElettronico dispositivo, int quantita){
+        Optional<ProdottoElettronico> found = magazzino.stream().filter(d->d.getId() == dispositivo.getId()).findFirst();
+        if(found.isPresent()){
+         incrementaQuantita(found.get().getId(), dispositivo.getQuantitaMagazzino());
+         MagazzinoReader.aggiornaMagazzino(magazzino);
         } else{
             MagazzinoReader.aggiungiProdottoAlMagazzino(dispositivo);
             magazzino = MagazzinoReader.leggiMagazzinoDaFile();
