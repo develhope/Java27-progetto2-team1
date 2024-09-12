@@ -16,6 +16,7 @@ import Utility.UserReader;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -84,7 +85,19 @@ public class Main {
 
             case 5 -> menuRicercaCliente(sc, clienteLoggato);//Ricerche
 
-            case 6 -> clienteLoggato.svuotaCarrelloProdotti(utenti);
+            case 6 -> {
+                Set<ProdottoElettronicoUtente> carrello = clienteLoggato.getCarrelloCliente().getCarrello();
+                ExceptionHandler.handlexception(()-> {
+                    Set<ProdottoElettronico> tmp = carrello.stream()
+                            .map(p-> ProductMapper.convertTo(
+                                    p, (new ProdottoElettronico()))).collect(Collectors.toSet());
+                    for(ProdottoElettronico prodotto : tmp){
+                        magazzino.addProductToMagazzino(prodotto, prodotto.getQuantitaMagazzino());
+                    }
+                    return null;
+                });
+                clienteLoggato.svuotaCarrelloProdotti(utenti);
+            }
 
             case 7 -> //ConcludiAcquisto
                     clienteLoggato.concludiAcquistoProdotti(utenti);
@@ -186,7 +199,7 @@ public class Main {
             String descrizione = sc.nextLine();
             toAdd.setDescrizione(descrizione);
         }
-        magazziniere.addProductToMagazzino(toAdd);
+        magazziniere.addProductToMagazzino(toAdd, quantita);
     }
 
     public static void menuRicercaCliente(Scanner sc, Cliente cliente) {
@@ -301,7 +314,8 @@ public class Main {
                 throw new ProdottoNonTrovatoException("Non ci sono sufficienti quantità in magazzino");
             return null;
         }); //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
-        ProdottoElettronicoUtente prodottoTmp = ProductMapper.toProdottoUtente(toAdd); //tasforma l'oggetto da prodotto a prodotto utente
+        ProdottoElettronicoUtente prodottoTmp = new ProdottoElettronicoUtente();
+        ProductMapper.convertTo(toAdd, prodottoTmp);
         cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita, utenti );
         prodottoTmp.setQuantitaCarrello(quantita);
         System.out.println("Prodotto aggiunto con successo");
@@ -440,11 +454,11 @@ public class Main {
 
     public static void sceltaAccesso(Scanner sc) {
         utenti = UserReader.leggiUtentiDaFile();
-        int scelta = sc.nextInt();
+        String scelta = sc.nextLine();
 
         switch (scelta) {
-            case 1 -> registrazione();
-            case 2 -> {
+            case "1" -> registrazione();
+            case "2" -> {
                 try {
                     utenteLoggato = logIn(utenti);
                 } catch (LoginFailedException e) {
