@@ -44,7 +44,12 @@ public class MagazzinoTest {
        assertNotNull(magazzino.getMagazzino());
     }
 
-
+    @Test
+    public void testCorrispondenzaContenuti(){
+       magazzino.addProductToMagazzino(prodotto2);
+       ProdottoElettronico [] expectedItems = {prodotto1, prodotto2};
+       assertArrayEquals(expectedItems, magazzino.getMagazzino().toArray());
+    }
 
 }
 
