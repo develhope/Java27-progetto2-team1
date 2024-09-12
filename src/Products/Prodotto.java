@@ -11,6 +11,7 @@ public abstract class Prodotto {
 	protected int quantitaMagazzino;
 	protected int numVendite;
 
+	public Prodotto() {}
 
 	protected Prodotto(AbstractBuilder<?> abstractBuilder) {
 		this.marca = abstractBuilder.getMarca();
