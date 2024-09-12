@@ -94,7 +94,7 @@ public class Carrello {
 
 	public Set< ProdottoElettronicoUtente > ricercaPerTipo ( String tipo){
 		Set <ProdottoElettronicoUtente> res = carrello.stream()
-				.filter(p -> p.getTipoElettronico().name().equals(tipo))
+				.filter(p -> p.getTipoElettronico().name().equals(tipo.toUpperCase()))
 				.collect(Collectors.toSet());
 
 		ExceptionHandler.handlexception(()-> {

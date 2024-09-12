@@ -5,11 +5,8 @@ import Enums.TipoElettronico;
 import java.util.Objects;
 
 public class ProdottoElettronico extends Prodotto {
-    private TipoElettronico tipoElettronico;
-    private float dimSchermo;
-
-    //Calcolo spesa media
-
+    private final TipoElettronico tipoElettronico;
+    private final float dimSchermo;
 
     @Override
     public final boolean equals(Object o) {
@@ -36,18 +33,9 @@ public class ProdottoElettronico extends Prodotto {
         return tipoElettronico;
     }
 
-    public void setTipoElettronico(TipoElettronico tipoElettronico) {
-        this.tipoElettronico = tipoElettronico;
-    }
-
     public float getDimSchermo() {
         return dimSchermo;
     }
-
-    public void setDimSchermo(float dimSchermo) {
-        this.dimSchermo = dimSchermo;
-    }
-
 
     @Override
     public double calcolaSpesaMedia() {
@@ -56,39 +44,39 @@ public class ProdottoElettronico extends Prodotto {
 
     @Override
     public String toString() {
-        return " Prodotto: " + ", " +
-                "Tipo Elettronico: " + tipoElettronico +  ", " +
-                "Dimensione Schermo: " + dimSchermo +
-                "Marca: " + marca + ", " +
-                "Modello: " + modello + ' ' +
-                "Descrizione: " + descrizione + ", " +
-                "Prezzo: " + prezzoVendita +
-                "ID: " + id + "\n";
+        StringBuilder string = new StringBuilder();
 
+        string.append('\n');
+        string.append(id)
+                .append(") ")
+                .append(marca)
+                .append(" ")
+                .append(modello)
+                .append('\n');
+        if(descrizione != null) string.append(" Descrizione: ")
+                .append(descrizione)
+                .append('\n');
+        string.append(" Prezzo: ")
+                .append(prezzoVendita)
+                .append("€")
+                .append('\n');
+        string.append(" Quantità: ").
+                append(quantitaMagazzino)
+                .append('\n');
+
+        return string.toString();
     }
 
     public static class ProdottoElettronicoBuilder extends AbstractBuilder<ProdottoElettronicoBuilder> {
 
-        private TipoElettronico tipoElettronico;
-        private float dimSchermo;
+        private final TipoElettronico tipoElettronico;
+        private final float dimSchermo;
 
         public ProdottoElettronicoBuilder(String marca, String modello, double prezzoAcquisto, int id, String tipoElettronico, float dimSchermo) {
             super(marca, modello, prezzoAcquisto, id);
             this.tipoElettronico = TipoElettronico.valueOf(tipoElettronico.toUpperCase());
             this.dimSchermo = dimSchermo;
         }
-
-
-        public ProdottoElettronicoBuilder setTipoElettronico(TipoElettronico tipoElettronico) {
-            this.tipoElettronico = tipoElettronico;
-            return this;
-        }
-
-        public ProdottoElettronicoBuilder setDimSchermo(float dimSchermo) {
-            this.dimSchermo = dimSchermo;
-            return this;
-        }
-
 
         @Override
         protected ProdottoElettronicoBuilder self() {
