@@ -4,8 +4,7 @@ import Users.Magazziniere;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class MagazziniereTest {
@@ -34,6 +33,12 @@ public class MagazziniereTest {
     public void testFilteredById() {
         ProdottoElettronico prodottoFiltrato = magazziniere.filteredById(prodotto1.getId());
         assertEquals(prodotto1, prodottoFiltrato, "Il prodotto filtrato per ID corrisponde al prodotto 1 inserito");
+    }
+
+    @Test
+    public void testMagazzinoNotNull() {
+        // Verifica che il magazzino non sia nullo dopo la creazione del Magazziniere
+        assertNotNull(magazziniere.getMagazzino(), "Il magazzino non dovrebbe essere nullo");
     }
 
 
