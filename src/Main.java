@@ -300,6 +300,7 @@ public class Main {
 
     //aggiunge prodotti al carrello e ne rimuove la quantità dal magazzino
     public static void aggiuntaIDCarrello(Scanner sc, Cliente cliente, Magazzino magazzino) {
+        System.out.println("Prodotti nel magazzino:");
         System.out.println(magazzino.getMagazzino());
         System.out.println("Inserisci l'id del prodotto da aggiungere");
         int id = sc.nextInt();
@@ -310,16 +311,21 @@ public class Main {
         if (toAdd == null) return;
         int quantitaProdotto = toAdd.getQuantitaMagazzino();
         ExceptionHandler.handlexception(() -> {
-            if (quantitaProdotto == 0 || quantita > quantitaProdotto)
+            if (quantitaProdotto == 0 || quantita > quantitaProdotto){
+                //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
                 throw new ProdottoNonTrovatoException("Non ci sono sufficienti quantità in magazzino");
+            } else{
+                ProdottoElettronicoUtente prodottoTmp = new ProdottoElettronicoUtente();
+                ProductMapper.convertTo(toAdd, prodottoTmp);
+                cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita, utenti );
+                prodottoTmp.setQuantitaCarrello(quantita);
+                System.out.println("Prodotto aggiunto con successo");
+                magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
+            }
+
             return null;
-        }); //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
-        ProdottoElettronicoUtente prodottoTmp = new ProdottoElettronicoUtente();
-        ProductMapper.convertTo(toAdd, prodottoTmp);
-        cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita, utenti );
-        prodottoTmp.setQuantitaCarrello(quantita);
-        System.out.println("Prodotto aggiunto con successo");
-        magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
+        });
+
     }
 
     //rimuove il prodotto dal carrello e lo riaggiunge al magazzino
