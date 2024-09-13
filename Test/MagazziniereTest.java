@@ -6,12 +6,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -55,6 +49,12 @@ public class MagazziniereTest {
         assertNotNull(magazziniere.getMagazzino(), "Il magazzino non dovrebbe essere nullo");
     }
 
+    @Test
+    public void testFiltredByProducerArrayEquals() {
+        magazziniere.addProductToMagazzino(prodotto2, 5);
+        ProdottoElettronico[] prodottiAttesi = {prodotto2};
+        assertArrayEquals(prodottiAttesi, magazziniere.getMagazzino().filtredByProducer("Apple").toArray(), "I prodotti filtrati per produttore corrispondono a quelli attesi");
+    }
 
 
 
