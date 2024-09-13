@@ -37,7 +37,6 @@ public class MagazziniereTest {
 
     @Test
     public void testMagazzinoNotNull() {
-        // Verifica che il magazzino non sia nullo dopo la creazione del Magazziniere
         assertNotNull(magazziniere.getMagazzino(), "Il magazzino non dovrebbe essere nullo");
     }
 
