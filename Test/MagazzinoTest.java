@@ -15,7 +15,6 @@ public class MagazzinoTest {
    @BeforeEach
     public void setup() {
         magazzino = new Magazzino();
-        magazzino.getMagazzino().clear();
         prodotto1 = new ProdottoElettronico.ProdottoElettronicoBuilder("Samsung", "Galaxy", 500.00, 1, "Smartphone", 5.6f).build();
         prodotto2 = new ProdottoElettronico.ProdottoElettronicoBuilder("Apple", "MacBook Air", 900.00, 2, "Notebook", 13f).build();
         magazzino.addProductToMagazzino(prodotto1);
