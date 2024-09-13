@@ -56,7 +56,9 @@ public class ProdottoElettronicoUtente{
         this.modello = modello;
     }
 
-    public void setDescrizione( String descrizione ) {
+    public float getDimSchermo() { return dimSchermo; }
+
+    public void setDescrizione(String descrizione ) {
         this.descrizione = descrizione;
     }
 
@@ -101,4 +103,7 @@ public class ProdottoElettronicoUtente{
         return string.toString();
     }
 
+    public String getDescrizione() {
+        return descrizione;
+    }
 }
