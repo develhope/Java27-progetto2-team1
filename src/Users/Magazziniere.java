@@ -56,6 +56,10 @@ public class Magazziniere extends Utente {
     public Magazzino getMagazzino() {
         return magazzino;
     }
+
+    public void svuotaMagazzino(){
+        magazzino.svuotaMagazzino();
+    }
 }
 
 
