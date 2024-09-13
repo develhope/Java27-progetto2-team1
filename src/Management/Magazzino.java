@@ -55,19 +55,19 @@ public class Magazzino {
          incrementaQuantita(found.get().getId(), dispositivo.getQuantitaMagazzino());
          MagazzinoReader.aggiornaMagazzino(magazzino);
         } else{
-            MagazzinoReader.aggiungiProdottoAlMagazzino(dispositivo);
-            magazzino = MagazzinoReader.leggiMagazzinoDaFile();
+            magazzino.add(dispositivo);
+            MagazzinoReader.aggiornaMagazzino(magazzino);
         }
     }
 
     public void removeProductFromMagazzino(int id){
-        ExceptionHandler.handlexception(()-> { boolean isPresent = magazzino.removeIf(d->d.getId() == id);
+        ExceptionHandler.handlexception(()-> {
+
+            boolean isPresent = magazzino.removeIf(d->d.getId() == id);
             if (!isPresent){
                 throw new ProdottoNonTrovatoException("Impossibile procedere: prodotto non trovato");
             } else {
-                ProdottoElettronico tmp = filteredById(id);
-                MagazzinoReader.rimuoviProdottoMagazzino(tmp);
-                magazzino = MagazzinoReader.leggiMagazzinoDaFile();
+                MagazzinoReader.aggiornaMagazzino(magazzino);
             }
             return null;
         });
