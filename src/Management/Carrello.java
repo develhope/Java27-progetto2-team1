@@ -82,7 +82,7 @@ public class Carrello {
 
 	public Set< ProdottoElettronicoUtente > ricercaPerRange ( double prezzoMin, double prezzoMax){
 		Set< ProdottoElettronicoUtente > tmp = carrello.stream()
-				.filter(p -> p.getPrezzoVendita() > prezzoMin && p.getPrezzoVendita() < prezzoMax )
+				.filter(p -> p.getPrezzoVendita() >= prezzoMin && p.getPrezzoVendita() <= prezzoMax )
 				.collect(Collectors.toSet());
 		ExceptionHandler.handlexception(()-> {if(tmp.isEmpty()){
 			throw new ProdottoNonTrovatoException("Nessuna corrispondenza trovata per range di prezzo");
@@ -108,7 +108,8 @@ public class Carrello {
 		if(carrello.isEmpty()){
 			System.out.println("Non ci sono articoli nel carrello");
 		}else {
-			System.out.println("Articoli nel carrello: " + carrello);
+			System.out.println("Articoli nel carrello: ");
+			System.out.println(carrello);
 		}
 	}
 
