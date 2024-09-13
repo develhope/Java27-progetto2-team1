@@ -64,6 +64,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Inserisci la selezione");
         int selezione = sc.nextInt();
+        sc.nextLine();
 
         switch (selezione) {
 
@@ -81,7 +82,7 @@ public class Main {
             case 3 -> clienteLoggato.stampaCarrelloProdotti(); //VisualizzaCarrello
 
             case 4 -> //CalcoloTotale
-                    System.out.println(clienteLoggato.calcoloTotaleCarrello());
+                    System.out.println("Il totale del carrello è: " + clienteLoggato.calcoloTotaleCarrello() + "€");
 
             case 5 -> menuRicercaCliente(sc, clienteLoggato);//Ricerche
 
@@ -330,7 +331,7 @@ public class Main {
 
     //rimuove il prodotto dal carrello e lo riaggiunge al magazzino
     public static void rimozioneIDCarrello(Scanner sc, Cliente cliente, Magazzino magazzino) {
-
+        cliente.stampaCarrelloProdotti();
         System.out.println("Inserisci l'id del prodotto da rimuovere");
 
         int id = sc.nextInt();
@@ -418,7 +419,6 @@ public class Main {
 
     public static Set<ProdottoElettronico> ricercaTipoMagazzino(Magazziniere magazziniere, Scanner sc) {
         System.out.println("Inserisci il tipo di dispositivo da cercare");
-        sc.nextLine();
         String tipo = sc.nextLine();
         return magazziniere.filtredBytype(tipo);
     }
