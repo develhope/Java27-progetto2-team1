@@ -45,6 +45,12 @@ public class MagazziniereTest {
     }
 
     @Test
+    public void testSvuotaMagazzino(){
+        magazziniere.svuotaMagazzino();
+        assertEquals(0, magazziniere.getMagazzino().getMagazzino().size(), "Il magazzino dovrebbe essere vuoto");
+    }
+
+    @Test
     public void testMagazzinoNotNull() {
         assertNotNull(magazziniere.getMagazzino(), "Il magazzino non dovrebbe essere nullo");
     }
