@@ -22,14 +22,14 @@ public class MagazzinoTest {
     @Test
     public void testAggiungiProdottoAlMagazzino() {
         magazzino.addProductToMagazzino(prodotto2);
-        assertEquals(2, magazzino.totaleProdotti(), "Il numero dei prodotti nel magazzino dovrebbe essere due");
+        assertEquals(2, magazzino.getMagazzino().size(), "Il numero dei prodotti nel magazzino dovrebbe essere due");
     }
 
     @Test
     public void testRimuoviProdottoDaMagazzino() {
         magazzino.addProductToMagazzino(prodotto2);
         magazzino.removeProductFromMagazzino(1);
-        assertEquals(1, magazzino.totaleProdotti(), "Il numero dei prodotti nel magazzino dovrebbe essere uno");
+        assertEquals(1, magazzino.getMagazzino().size(), "Il numero dei prodotti nel magazzino dovrebbe essere uno");
     }
 
     @Test
