@@ -64,6 +64,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Inserisci la selezione");
         int selezione = sc.nextInt();
+        sc.nextLine();
 
         switch (selezione) {
 
@@ -81,7 +82,7 @@ public class Main {
             case 3 -> clienteLoggato.stampaCarrelloProdotti(); //VisualizzaCarrello
 
             case 4 -> //CalcoloTotale
-                    System.out.println(clienteLoggato.calcoloTotaleCarrello());
+                    System.out.println("Il totale del carrello è: " + clienteLoggato.calcoloTotaleCarrello() + "€");
 
             case 5 -> menuRicercaCliente(sc, clienteLoggato);//Ricerche
 
@@ -300,6 +301,7 @@ public class Main {
 
     //aggiunge prodotti al carrello e ne rimuove la quantità dal magazzino
     public static void aggiuntaIDCarrello(Scanner sc, Cliente cliente, Magazzino magazzino) {
+        System.out.println("Prodotti nel magazzino:");
         System.out.println(magazzino.getMagazzino());
         System.out.println("Inserisci l'id del prodotto da aggiungere");
         int id = sc.nextInt();
@@ -310,21 +312,26 @@ public class Main {
         if (toAdd == null) return;
         int quantitaProdotto = toAdd.getQuantitaMagazzino();
         ExceptionHandler.handlexception(() -> {
-            if (quantitaProdotto == 0 || quantita > quantitaProdotto)
+            if (quantita > quantitaProdotto){
+                //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
                 throw new ProdottoNonTrovatoException("Non ci sono sufficienti quantità in magazzino");
+            } else{
+                ProdottoElettronicoUtente prodottoTmp = new ProdottoElettronicoUtente();
+                ProductMapper.convertTo(toAdd, prodottoTmp);
+                cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita, utenti );
+                prodottoTmp.setQuantitaCarrello(quantita);
+                System.out.println("Prodotto aggiunto con successo");
+                magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
+            }
+
             return null;
-        }); //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
-        ProdottoElettronicoUtente prodottoTmp = new ProdottoElettronicoUtente();
-        ProductMapper.convertTo(toAdd, prodottoTmp);
-        cliente.aggiungiProdottoAlCarrello(prodottoTmp, quantita, utenti );
-        prodottoTmp.setQuantitaCarrello(quantita);
-        System.out.println("Prodotto aggiunto con successo");
-        magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
+        });
+
     }
 
     //rimuove il prodotto dal carrello e lo riaggiunge al magazzino
     public static void rimozioneIDCarrello(Scanner sc, Cliente cliente, Magazzino magazzino) {
-
+        cliente.stampaCarrelloProdotti();
         System.out.println("Inserisci l'id del prodotto da rimuovere");
 
         int id = sc.nextInt();
@@ -412,7 +419,6 @@ public class Main {
 
     public static Set<ProdottoElettronico> ricercaTipoMagazzino(Magazziniere magazziniere, Scanner sc) {
         System.out.println("Inserisci il tipo di dispositivo da cercare");
-        sc.nextLine();
         String tipo = sc.nextLine();
         return magazziniere.filtredBytype(tipo);
     }

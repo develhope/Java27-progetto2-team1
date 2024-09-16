@@ -15,19 +15,19 @@ public class MagazzinoTest {
    @BeforeEach
     public void setup() {
         magazzino = new Magazzino();
-        prodotto1 = new ProdottoElettronico.ProdottoElettronicoBuilder("Samsung", "Galaxy", 500.00, 1, "Smartphone", 5.6f).build();
-        prodotto2 = new ProdottoElettronico.ProdottoElettronicoBuilder("Apple", "MacBook Air", 900.00, 2, "Notebook", 13f).build();
-        magazzino.addProductToMagazzino(prodotto1);
+        prodotto1 = new ProdottoElettronico.ProdottoElettronicoBuilder("Samsung", "Galaxy", 500.00, 1, "Smartphone", 5.6f).setQuantitaMagazzino(1).build();
+        prodotto2 = new ProdottoElettronico.ProdottoElettronicoBuilder("Apple", "MacBook Air", 900.00, 2, "Notebook", 13f).setQuantitaMagazzino(1).build();
+        magazzino.addProductToMagazzino(prodotto1, prodotto1.getQuantitaMagazzino());
     }
     @Test
     public void testAggiungiProdottoAlMagazzino() {
-        magazzino.addProductToMagazzino(prodotto2);
+        magazzino.addProductToMagazzino(prodotto2, prodotto2.getQuantitaMagazzino());
         assertEquals(2, magazzino.getMagazzino().size(), "Il numero dei prodotti nel magazzino dovrebbe essere due");
     }
 
     @Test
     public void testRimuoviProdottoDaMagazzino() {
-        magazzino.addProductToMagazzino(prodotto2);
+        magazzino.addProductToMagazzino(prodotto2, prodotto2.getQuantitaMagazzino());
         magazzino.removeProductFromMagazzino(1);
         assertEquals(1, magazzino.getMagazzino().size(), "Il numero dei prodotti nel magazzino dovrebbe essere uno");
     }
@@ -52,8 +52,8 @@ public class MagazzinoTest {
 
     @Test
     public void testCorrispondenzaContenuti(){
-       magazzino.addProductToMagazzino(prodotto2);
-       ProdottoElettronico [] expectedItems = {prodotto1, prodotto2};
+       magazzino.addProductToMagazzino(prodotto2, prodotto2.getQuantitaMagazzino());
+       ProdottoElettronico [] expectedItems = {prodotto2, prodotto1};
        assertArrayEquals(expectedItems, magazzino.getMagazzino().toArray(), "Il magazzino dovrebbe contenere il prodotto uno e il due");
     }
 
