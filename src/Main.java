@@ -312,7 +312,7 @@ public class Main {
         if (toAdd == null) return;
         int quantitaProdotto = toAdd.getQuantitaMagazzino();
         ExceptionHandler.handlexception(() -> {
-            if (quantitaProdotto == 0 || quantita > quantitaProdotto){
+            if (quantita > quantitaProdotto){
                 //Nel caso non ci siano abbastanza prodotti in magazzino, lancia eccezione
                 throw new ProdottoNonTrovatoException("Non ci sono sufficienti quantità in magazzino");
             } else{
