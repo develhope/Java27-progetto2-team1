@@ -24,6 +24,17 @@ public class MagazzinoReader {
             return magazzino;
         });
     }
+    public static Set<ProdottoElettronico> leggiMagazzinoBackUp(){
+        return ExceptionHandler.handlexception(()-> {
+            FileReader lettore = new FileReader("src/Utility/MagazzinoBackUp.json");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Type tipoListaMagazzino = new TypeToken <Set<ProdottoElettronico>>() {}.getType();
+            Set<ProdottoElettronico> magazzino = gson.fromJson(lettore, tipoListaMagazzino);
+            if(magazzino == null) magazzino = new HashSet<>();
+            return magazzino;
+        });
+    }
+
 
     public static void aggiungiProdottoAlMagazzino(ProdottoElettronico prodottoElettronico){
         Set<ProdottoElettronico> magazzino = leggiMagazzinoDaFile();
@@ -37,6 +48,18 @@ public class MagazzinoReader {
     public static void aggiornaMagazzino(Set<ProdottoElettronico> listaProdotti){
         ExceptionHandler.handlexception(()-> {
             FileWriter fileWriter = new FileWriter("src/Magazzino.json");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(listaProdotti, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+            return null;
+        });
+
+    }
+
+    public static void aggiornaMagazzinoBackUp(Set<ProdottoElettronico> listaProdotti){
+        ExceptionHandler.handlexception(()-> {
+            FileWriter fileWriter = new FileWriter("src/Utility/MagazzinoBackUp.json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(listaProdotti, fileWriter);
             fileWriter.flush();

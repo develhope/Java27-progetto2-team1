@@ -2,8 +2,12 @@ package Management;
 import Exceptions.ExceptionHandler;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronico;
+import Users.Utente;
 import Utility.MagazzinoReader;
+import Utility.UserReader;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -52,7 +56,7 @@ public class Magazzino {
     public void addProductToMagazzino(ProdottoElettronico dispositivo, int quantita){
         Optional<ProdottoElettronico> found = magazzino.stream().filter(d->d.getId() == dispositivo.getId()).findFirst();
         if(found.isPresent()){
-         incrementaQuantita(found.get().getId(), dispositivo.getQuantitaMagazzino());
+         incrementaQuantita(found.get().getId(), dispositivo.getQuantitaMagazzino() + quantita);
          MagazzinoReader.aggiornaMagazzino(magazzino);
         } else{
             magazzino.add(dispositivo);
@@ -83,6 +87,11 @@ public class Magazzino {
         return magazzino;
     }
 
+    public void svuotaMagazzino() {
+        magazzino.clear();
+        MagazzinoReader.aggiornaMagazzino(magazzino);
+    }
+
     public void decrementaQuantita(int id, int amount){
         ProdottoElettronico prodotto = filteredById(id);
         int nuovaQuantita = prodotto.getQuantitaMagazzino() - amount;
@@ -110,6 +119,7 @@ public class Magazzino {
             return null;
         });
     }
+
 
     @Override
     public String toString() {
