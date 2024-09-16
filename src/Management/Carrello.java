@@ -4,6 +4,7 @@ import Exceptions.ExceptionHandler;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronicoUtente;
 import Users.Utente;
+import Utility.ProdottoVendutoReader;
 import Utility.UserReader;
 
 
@@ -160,6 +161,7 @@ public class Carrello {
 			String conferma = sc.nextLine();
 			if(conferma.equalsIgnoreCase("si")){
 				System.out.println("Acquisto effettuato, torna a trovarci!");
+				ProdottoVendutoReader.aggiornaListaProdottoVenduto(carrello);
 				svuotaCarrello(utenti);
 			}else if(conferma.equalsIgnoreCase("no")){
 				System.out.println("Acquisto annullato");

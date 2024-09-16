@@ -1,17 +1,17 @@
 [
   {
     "tipoProdotto": "NOTEBOOK",
-    "quantitaVenduta": 3,
-    "spesaTotale": 1320.0
+    "quantitaVenduta": 0,
+    "spesaTotale": 0.0
   },
   {
     "tipoProdotto": "SMARTPHONE",
-    "quantitaVenduta": 2,
-    "spesaTotale": 300.0
+    "quantitaVenduta": 0,
+    "spesaTotale": 0.0
   },
   {
     "tipoProdotto": "TABLET",
-    "quantitaVenduta": 1,
-    "spesaTotale": 200.0
+    "quantitaVenduta": 0,
+    "spesaTotale": 0.0
   }
 ]

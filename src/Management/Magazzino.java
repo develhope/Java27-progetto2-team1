@@ -2,12 +2,8 @@ package Management;
 import Exceptions.ExceptionHandler;
 import Exceptions.ProdottoNonTrovatoException;
 import Products.ProdottoElettronico;
-import Users.Utente;
 import Utility.MagazzinoReader;
-import Utility.UserReader;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -120,6 +116,9 @@ public class Magazzino {
         });
     }
 
+    public void setMagazzino(Set<ProdottoElettronico> prodotti){
+        this.magazzino = prodotti;
+    }
 
     @Override
     public String toString() {

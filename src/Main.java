@@ -9,6 +9,7 @@ import Products.ProdottoVenduto;
 import Users.Cliente;
 import Users.Magazziniere;
 import Users.Utente;
+import Utility.MagazzinoReader;
 import Utility.ProductMapper;
 import Utility.UserMapper;
 import Utility.UserReader;
@@ -201,6 +202,7 @@ public class Main {
             toAdd.setDescrizione(descrizione);
         }
         magazziniere.addProductToMagazzino(toAdd, quantita);
+        magazzino.setMagazzino(MagazzinoReader.leggiMagazzinoDaFile());
     }
 
     public static void menuRicercaCliente(Scanner sc, Cliente cliente) {
@@ -323,7 +325,6 @@ public class Main {
                 System.out.println("Prodotto aggiunto con successo");
                 magazzino.decrementaQuantita(id, quantita); //Rimuovi dal magazzino i prodotti aggiunti al carrello
             }
-
             return null;
         });
 

@@ -22,7 +22,7 @@ public class ProdottoVendutoReader {
         return gson.fromJson(lettore, tipoListaProdotto);
     }
 
-    public static List<ProdottoVenduto> aggiornaListaProdottoVenduto(HashSet<ProdottoElettronicoUtente> carrello) throws IOException {
+    public static void aggiornaListaProdottoVenduto(HashSet<ProdottoElettronicoUtente> carrello) throws IOException {
         List<ProdottoVenduto> prodottiVenduti = leggiProdottiVenduti();
         carrello.forEach(peu ->
                 prodottiVenduti.stream()
@@ -33,7 +33,7 @@ public class ProdottoVendutoReader {
                             pv.setSpesaTotale(pv.getSpesaTotale() + (peu.getPrezzoVendita() * peu.getQuantitaCarrello()));
                         })
         );
-        return prodottiVenduti;
+        aggiungiProdottoVendutoAlFile(prodottiVenduti);
     }
 
     public static void aggiungiProdottoVendutoAlFile(List<ProdottoVenduto> prodottiVenduti) throws IOException {
